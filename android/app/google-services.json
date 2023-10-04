@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "589652830174",
+    "project_id": "momkitchen-41f2b",
+    "storage_bucket": "momkitchen-41f2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589652830174:android:8e006943b513b521b55f4f",
+        "android_client_info": {
+          "package_name": "com.chickies.homekitchen_customer_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589652830174-9qhor979afjutqadrpniiu7onojki4mo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcoXBQQTExmu2OdO-OoAO1e-S6d-JEbrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589652830174-9qhor979afjutqadrpniiu7onojki4mo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589652830174-eoile501rlkp4pvpppe992soarq6t221.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chickies.homekitchenCustomerMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
