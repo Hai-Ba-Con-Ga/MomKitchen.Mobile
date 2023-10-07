@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../view/page/home_page.dart';
 import '../view/page/sign_up_page.dart';
-import '../view/page/login_page.dart';
+import '../view/page/SC001_login_page.dart';
 import '../view/page/user_page.dart';
 import '../view/widgets/base_scaffold.dart';
 import 'router_key_management.dart';
