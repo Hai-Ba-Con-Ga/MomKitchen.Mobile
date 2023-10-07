@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 
-import 'bloc/login_bloc.dart';
+import 'bloc/auth/auth_bloc.dart';
 
 class AppDependencies {
   AppDependencies._();
