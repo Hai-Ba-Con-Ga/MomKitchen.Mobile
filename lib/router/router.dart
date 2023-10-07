@@ -1,12 +1,20 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
+import '../view/page/home_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/login_page.dart';
+import '../view/page/user_page.dart';
+import '../view/widgets/base_scaffold.dart';
 import 'router_key_management.dart';
 
 class AppPath {
   static const String login = '/login';
   static const String signUp = '/signUp';
+  static const String home = '/home';
+  static const String favorite = '/favorite';
+  static const String notification = '/notification';
+  static const String user = '/user';
 }
 
 class AppRouter {
@@ -29,6 +37,51 @@ class AppRouter {
           state,
         ) =>
             const SignUpPage(),
+      ),
+      ShellRoute(
+        navigatorKey: RouterKeyManager.instance.shellNavigatorKey,
+        builder: (
+          context,
+          state,
+          child,
+        ) =>
+            BaseScaffold(
+          child: child,
+        ),
+        routes: [
+          GoRoute(
+            path: AppPath.home,
+            builder: (
+              context,
+              state,
+            ) =>
+                const HomePage(),
+          ),
+          GoRoute(
+            path: AppPath.favorite,
+            builder: (
+              context,
+              state,
+            ) =>
+                const SizedBox(),
+          ),
+          GoRoute(
+            path: AppPath.notification,
+            builder: (
+              context,
+              state,
+            ) =>
+                const SizedBox(),
+          ),
+          GoRoute(
+            path: AppPath.user,
+            builder: (
+              context,
+              state,
+            ) =>
+                const UserPage(),
+          ),
+        ],
       ),
     ],
     debugLogDiagnostics: true,

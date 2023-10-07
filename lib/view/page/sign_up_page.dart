@@ -1,8 +1,14 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../domain/auth/authentication.dart';
-import '../../bloc/login_bloc.dart';
-import 'login_page.dart';
-import '../../presentation/navigator.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../bloc/auth/auth_bloc.dart';
+import '../../bloc/bloc.dart';
+import '../../router/router.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -14,258 +20,298 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   bool _showPassword = false;
   bool _showRePassword = false;
-  final AuthBloc _loginBloc = AuthBloc();
-  final TextEditingController _usernameController = TextEditingController();
+  final AuthBloc _signUpBloc = AuthBloc();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _rePasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GestureDetector(
+    return BlocConsumer(
+      bloc: _signUpBloc,
+      listener: (context, state) {
+        if (state is CommonState) {
+          if (state.model == null) {
+            if (context.canPop()) {
+              context.pop();
+            }
+            if (state.isLoading) {
+              showCupertinoDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => const SizedBox(
+                  // width: 400,
+                  height: 50,
+                  child: Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  ),
+                ),
+              );
+              return;
+            }
+
+            if (state.errorMessage?.isNotEmpty ?? false) {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => Platform.isIOS
+                    ? CupertinoAlertDialog(
+                        actions: [
+                          TextButton(
+                            onPressed: () => context.pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                        title: const Text('Error'),
+                        content: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                          ),
+                          child: Text(state.errorMessage ?? ''),
+                        ),
+                      )
+                    : AlertDialog(
+                        actions: [
+                          TextButton(
+                            onPressed: () => context.pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                        title: const Text('Error'),
+                        content: Text(state.errorMessage ?? ''),
+                      ),
+              );
+              return;
+            }
+          }
+          context.go(
+            AppPath.home,
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () => FocusScope.of(context).requestFocus(
               FocusNode(),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                /*logo*/
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 1.0,
-                        color: Colors.lightBlueAccent,
-                      ),
-                    ),
-                    child: const FlutterLogo(),
-                  ),
-                ),
-                /*app name*/
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'MomKitchen',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlueAccent,
-                      fontSize: 30,
-                    ),
-                  ),
-                ),
-                /*username input*/
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    50,
-                    10,
-                    50,
-                    10,
-                  ),
-                  child: StreamBuilder(
-                    stream: _loginBloc.userStream,
-                    builder: (context, snapshot) => TextField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                        labelText: 'Tên đăng nhập',
-                        labelStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                /*password input*/
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    50,
-                    10,
-                    50,
-                    10,
-                  ),
-                  child: Stack(
-                    alignment: AlignmentDirectional.centerEnd,
-                    children: <Widget>[
-                      StreamBuilder(
-                        stream: _loginBloc.passStream,
-                        builder: (conterxt, snapshot) => TextField(
-                          obscureText: !_showPassword,
-                          controller: _passwordController,
-                          decoration: InputDecoration(
-                            errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: onToggleShowPassword,
-                        child: Text(
-                          !_showPassword ? 'Show' : 'Hide',
-                          style: const TextStyle(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    /*logo*/
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 1.0,
                             color: Colors.lightBlueAccent,
                           ),
                         ),
+                        child: const FlutterLogo(),
                       ),
-                    ],
-                  ),
-                ),
-                /*password input*/
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    50,
-                    10,
-                    50,
-                    10,
-                  ),
-                  child: Stack(
-                    alignment: AlignmentDirectional.centerEnd,
-                    children: <Widget>[
-                      TextField(
-                        obscureText: !_showRePassword,
-                        controller: _rePasswordController,
+                    ),
+                    /*app name*/
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'MomKitchen',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.lightBlueAccent,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    /*username input*/
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        50,
+                        10,
+                        50,
+                        10,
+                      ),
+                      child: TextField(
+                        controller: _emailController,
                         decoration: const InputDecoration(
-                          labelText: 'Confirm Password',
+                          labelText: 'Email',
                           labelStyle: TextStyle(
                             color: Colors.grey,
                             fontSize: 15,
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: onToggleShowRePassword,
-                        child: Text(
-                          !_showRePassword ? 'Show' : 'Hide',
-                          style: const TextStyle(
-                            color: Colors.lightBlueAccent,
+                    ),
+                    /*password input*/
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        50,
+                        10,
+                        50,
+                        10,
+                      ),
+                      child: Stack(
+                        alignment: AlignmentDirectional.centerEnd,
+                        children: [
+                          TextField(
+                            obscureText: !_showPassword,
+                            controller: _passwordController,
+                            decoration: const InputDecoration(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: onToggleShowPassword,
+                            child: Text(
+                              !_showPassword ? 'Show' : 'Hide',
+                              style: const TextStyle(
+                                color: Colors.lightBlueAccent,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /*password input*/
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        50,
+                        10,
+                        50,
+                        10,
+                      ),
+                      child: Stack(
+                        alignment: AlignmentDirectional.centerEnd,
+                        children: [
+                          TextField(
+                            obscureText: !_showRePassword,
+                            controller: _confirmPasswordController,
+                            decoration: const InputDecoration(
+                              labelText: 'Confirm Password',
+                              labelStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: onToggleShowRePassword,
+                            child: Text(
+                              !_showRePassword ? 'Show' : 'Hide',
+                              style: const TextStyle(
+                                color: Colors.lightBlueAccent,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /*sign in button*/
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        50,
+                        10,
+                        50,
+                        10,
+                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: onSignUpClick,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightBlue,
+                          ),
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                /*sign in button*/
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    50,
-                    10,
-                    50,
-                    10,
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: onSignUpClick,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlue,
+                    ),
+                    /*other method login*/
+                    GestureDetector(
+                      onTap: () => context.go(AppPath.login),
+                      child: const Center(
+                        child: Text('Already have an account? Login'),
                       ),
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Colors.white,
+                    ),
+                    const SizedBox(height: 20),
+                    const Text('Or'),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        50,
+                        2,
+                        50,
+                        2,
+                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightBlue,
+                          ),
+                          child: const Text(
+                            'Google',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                /*other method login*/
-                GestureDetector(
-                  onTap: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('Already have an account? Login'),
-                      Text('Forgot password?'),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text('Or'),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    50,
-                    2,
-                    50,
-                    2,
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: null,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlue,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        50,
+                        2,
+                        50,
+                        2,
                       ),
-                      child: const Text(
-                        'Google',
-                        style: TextStyle(
-                          color: Colors.white,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightBlue,
+                          ),
+                          child: const Text(
+                            'Facebook',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    50,
-                    2,
-                    50,
-                    2,
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: null,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlue,
-                      ),
-                      child: const Text(
-                        'Facebook',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   void onSignUpClick() {
-    /*check input valid*/
-    if (_passwordController.text == _rePasswordController.text) {
-      registerUser('email123@gmail.com', '123456');
-      if (_loginBloc.isValidInfo(_usernameController.text, _passwordController.text)) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FooterBar(),
-          ),
-        );
-      }
-    }
+    _signUpBloc.signUp(
+      email: _emailController.text,
+      password: _passwordController.text,
+      confirmPassword: _confirmPasswordController.text,
+    );
   }
 
   void onToggleShowPassword() {

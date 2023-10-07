@@ -1,72 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'notification_page.dart';
-import 'setting_page.dart';
 
-class FooterBar extends StatefulWidget {
-  const FooterBar({super.key});
+class FooterBar extends StatelessWidget {
+  final Widget child;
+  // int _selectedIndex = 3;
+  // TextStyle? optionStyle;
+  // List<Widget>? _widgetOptions;
 
-  @override
-  State<FooterBar> createState() => _FooterBarState();
-}
+  const FooterBar({
+    super.key,
+    required this.child,
+  });
 
-class _FooterBarState extends State<FooterBar> {
-  int _selectedIndex = 3;
-  TextStyle? optionStyle;
-  List<Widget>? _widgetOptions;
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _onItemTapped(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        context.go('/map');
+        break;
+      case 1:
+        context.go('/favorite');
+        break;
+      case 2:
+        context.go('/list');
+        break;
+      case 3:
+        context.go('/setting');
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    optionStyle = Theme.of(context).textTheme.bodyMedium;
-    _widgetOptions = <Widget>[
-      Text(
-        'Home',
-        style: optionStyle,
-      ),
-      Text(
-        'Map',
-        style: optionStyle,
-      ),
-      Text(
-        'user',
-        style: optionStyle,
-      ),
-      const SettingPage(),
-    ];
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Mom kitchen', style: Theme.of(context).textTheme.titleLarge)
-            ]),
-        // automaticallyImplyLeading: false,
-        leading: const Text(''),
-        actions: <Widget>[
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Mom Kitchen',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ],
+        ),
+        leading: const SizedBox.shrink(),
+        actions: [
           IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NotificationPage()));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationPage(),
+                ),
+              );
             },
           ),
         ],
       ),
       body: Center(
-        child: _widgetOptions?.elementAt(_selectedIndex),
+        child: child,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        iconSize:
-            Theme.of(context).textTheme.bodyMedium?.fontSize?.toDouble() ??
-                24.0,
+        iconSize: Theme.of(context).textTheme.bodyMedium?.fontSize?.toDouble() ?? 24.0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -89,10 +92,17 @@ class _FooterBarState extends State<FooterBar> {
             // backgroundColor: Colors.lightBlueAccent,
           ),
         ],
-        currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
-        unselectedItemColor: const Color.fromARGB(255, 255, 215, 166),
-        onTap: _onItemTapped,
+        unselectedItemColor: const Color.fromARGB(
+          255,
+          255,
+          215,
+          166,
+        ),
+        onTap: (index) => _onItemTapped(
+          index,
+          context,
+        ),
       ),
     );
   }

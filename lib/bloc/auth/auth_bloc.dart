@@ -7,21 +7,19 @@ class AuthBloc extends BaseCubit {
 
   void init() {}
 
-  String getValidateSignUpInfoMessage({
+  String getValidateConfirmPassword({
     required String email,
     required String password,
     required String confirmPassword,
   }) {
     var errorMessage = '';
 
-    if (password != confirmPassword) {
-      errorMessage = 'Password and Confirm Password are not matched';
+    if (password.isEmpty) {
+      errorMessage = 'Must input password';
     }
 
-    if (!RegExp(
-            'r /^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|.(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))')
-        .hasMatch(email)) {
-      errorMessage = 'Invalid Email';
+    if (password != confirmPassword) {
+      errorMessage = 'Password and Confirm Password are not matched';
     }
 
     return errorMessage;
@@ -39,21 +37,27 @@ class AuthBloc extends BaseCubit {
           isLoading: true,
         ),
       );
-      final isCredentialValid = getValidateSignUpInfoMessage(
+      final validateMessage = getValidateConfirmPassword(
         email: email,
         password: password,
         confirmPassword: confirmPassword,
-      ).isEmpty;
-      if (isCredentialValid) {
+      );
+      if (validateMessage.isEmpty) {
         final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
+        );
+        emit(
+          CommonState(
+            userCredential,
+            isLoading: false,
+          ),
         );
       }
       emit(
         CommonState(
           null,
-          isLoading: false,
+          errorMessage: validateMessage,
         ),
       );
     } catch (e) {
@@ -86,6 +90,12 @@ class AuthBloc extends BaseCubit {
       final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
+      );
+      emit(
+        CommonState(
+          userCredential,
+          isLoading: false,
+        ),
       );
     } catch (e) {
       var exceptionMessage = 'Unknown Error';
