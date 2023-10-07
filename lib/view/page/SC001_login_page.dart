@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../router/router.dart';
+import '../widgets/button_orange.dart';
 import 'sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -157,7 +158,15 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _usernameController,
                             decoration: const InputDecoration(
                               labelText: 'EMAIL',
-                              border: InputBorder.none,
+                              hintText: 'Enter your Email',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              // border: InputBorder.none,
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.orange, width: 0.5),
+                              ),
+                              enabledBorder: InputBorder.none,
                               fillColor: Colors.orange,
                               labelStyle: TextStyle(
                                 fontSize: 20,
@@ -182,7 +191,9 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   labelText: 'PASSWORD',
-                                  hintText: '123',
+                                  hintText: 'Enter your password',
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                   labelStyle: TextStyle(
                                     fontSize: 20,
                                   ),
@@ -208,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                               onTap: () => context.go(
                                 AppPath.signUp,
                               ),
-                              child: Text('Remeber me'),
+                              child: const Text('Remeber me'),
                             ),
                             GestureDetector(
                               onTap: () => context.go(
@@ -221,25 +232,12 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            50,
-                            10,
-                            50,
-                            10,
-                          ),
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: onSignInClick,
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                        SizedBox(
+                          width: 350,
+                          child: ButtonOrange(
+                            title: 'Sign in',
+                            onPressed: onSignInClick,
+                            icon: null,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -247,7 +245,7 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () => context.go(
                             AppPath.signUp,
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
@@ -270,37 +268,15 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ClipOval(
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                // style: ElevatedButton.styleFrom(
-                                //   backgroundColor: Colors.lightBlue,
-                                // ),
-                                child: const Text(
-                                  'G',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            GestureDetector(
+                                onTap: () {},
+                                child: Image.asset("assets/google.png")),
                             SizedBox(
                               width: 10,
                             ),
-                            ClipOval(
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.lightBlue,
-                                ),
-                                child: const Text(
-                                  'F',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            GestureDetector(
+                                onTap: () {},
+                                child: Image.asset("assets/fb.png")),
                           ],
                         )
                       ],

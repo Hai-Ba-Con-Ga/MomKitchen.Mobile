@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../presentation/notification_page.dart';
 import '../../router/router.dart';
 
 class BaseScaffold extends StatefulWidget {
@@ -98,7 +97,9 @@ class _BaseScaffoldState extends State<BaseScaffold> {
         child: widget.child,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: Theme.of(context).textTheme.bodyMedium?.fontSize?.toDouble() ?? 24.0,
+        iconSize:
+            Theme.of(context).textTheme.bodyMedium?.fontSize?.toDouble() ??
+                24.0,
         items: _bottomNavigationItemList,
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: const Color.fromARGB(

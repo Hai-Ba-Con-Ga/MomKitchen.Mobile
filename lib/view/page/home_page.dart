@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../router/router.dart';
+import '../widgets/button_orange.dart';
 import '../widgets/home/home.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,11 +35,11 @@ class _HomePageState extends State<HomePage> {
             ]),
         body: ListView(
           children: [
-            ButtonHomePage(
+            ButtonOrange(
               title: 'My Orders',
               icon: Icons.assignment,
             ),
-            ButtonHomePage(title: 'Select Location', icon: Icons.location_on),
+            ButtonOrange(title: 'Select Location', icon: Icons.location_on),
             ListDish(title: 'Recent kitchen'),
             ListDish(title: 'Favorite kitchen'),
             ListDish(title: 'Top Trending kitchen'),
