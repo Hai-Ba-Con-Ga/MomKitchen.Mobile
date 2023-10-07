@@ -1,0 +1,332 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../bloc/auth/auth_bloc.dart';
+import '../../bloc/base_state.dart';
+import '../../router/router.dart';
+import 'sign_up_page.dart';
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _showPassword = false;
+  final AuthBloc _authBloc = AuthBloc();
+  // final TextEditingController _usernameController = TextEditingController(text: 'email123@gmail.com');
+  // final TextEditingController _passwordController = TextEditingController(text: '123456');
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    _usernameController.text = "test123@gmail.com";
+    _passwordController.text = "test123";
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: BlocConsumer(
+        bloc: _authBloc,
+        listener: (context, state) {
+          if (state is CommonState) {
+            if (state.model == null) {
+              if (context.canPop()) {
+                context.pop();
+              }
+              if (state.isLoading) {
+                showCupertinoDialog(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (context) => const SizedBox(
+                    // width: 400,
+                    height: 50,
+                    child: Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
+                  ),
+                );
+                return;
+              }
+
+              if (state.errorMessage?.isNotEmpty ?? false) {
+                showCupertinoDialog(
+                  context: context,
+                  builder: (context) => Platform.isIOS
+                      ? CupertinoAlertDialog(
+                          actions: [
+                            TextButton(
+                              onPressed: () => context.pop(),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                          title: const Text('Error'),
+                          content: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8.0,
+                            ),
+                            child: Text(state.errorMessage ?? ''),
+                          ),
+                        )
+                      : AlertDialog(
+                          actions: [
+                            TextButton(
+                              onPressed: () => context.pop(),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                          title: const Text('Error'),
+                          content: Text(state.errorMessage ?? ''),
+                        ),
+                );
+                return;
+              }
+            }
+            context.go(
+              AppPath.home,
+            );
+          }
+        },
+        builder: (
+          context,
+          state,
+        ) {
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => FocusScope.of(context).requestFocus(
+              FocusNode(),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(30, 30, 46, 1),
+              ),
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(50.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Login',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            // color: Theme.of(context).colorScheme.primary,
+                            color: Colors.white,
+                            fontSize: 30,
+                          ),
+                        ),
+                        Text(
+                          'Please sign in to your existing account',
+                          style: TextStyle(
+                            // color: Theme.of(context).colorScheme.primary,
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*username input*/
+                  Container(
+                    width: 1000,
+                    height: 500,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        )),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            50,
+                            10,
+                            50,
+                            10,
+                          ),
+                          child: TextField(
+                            controller: _usernameController,
+                            decoration: const InputDecoration(
+                              labelText: 'EMAIL',
+                              border: InputBorder.none,
+                              fillColor: Colors.orange,
+                              labelStyle: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                        /*password input*/
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            50,
+                            10,
+                            50,
+                            10,
+                          ),
+                          child: Stack(
+                            alignment: AlignmentDirectional.centerEnd,
+                            children: <Widget>[
+                              TextField(
+                                obscureText: !_showPassword,
+                                controller: _passwordController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  labelText: 'PASSWORD',
+                                  hintText: '123',
+                                  labelStyle: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: onToggleShowPassword,
+                                child: Icon(
+                                  !_showPassword
+                                      ? Icons.remove_red_eye
+                                      : Icons.remove_red_eye_outlined,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        /*sign in button*/
+                        /*other method login*/
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            GestureDetector(
+                              onTap: () => context.go(
+                                AppPath.signUp,
+                              ),
+                              child: Text('Remeber me'),
+                            ),
+                            GestureDetector(
+                              onTap: () => context.go(
+                                AppPath.signUp,
+                              ),
+                              child: Text(
+                                'Forgot password?',
+                                style: TextStyle(color: Colors.orange),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            50,
+                            10,
+                            50,
+                            10,
+                          ),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: TextButton(
+                              onPressed: onSignInClick,
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () => context.go(
+                            AppPath.signUp,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Don\'t have Account?',
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 16),
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Sign up',
+                                style: TextStyle(
+                                    color: Colors.orange, fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text('Or'),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipOval(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                // style: ElevatedButton.styleFrom(
+                                //   backgroundColor: Colors.lightBlue,
+                                // ),
+                                child: const Text(
+                                  'G',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ClipOval(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.lightBlue,
+                                ),
+                                child: const Text(
+                                  'F',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> onSignInClick() async {
+    await _authBloc.login(
+      email: _usernameController.text,
+      password: _passwordController.text,
+    );
+  }
+
+  void onToggleShowPassword() {
+    setState(
+      () {
+        _showPassword = !_showPassword;
+      },
+    );
+  }
+}

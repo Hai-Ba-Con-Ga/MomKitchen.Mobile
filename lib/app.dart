@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'router/router.dart';
-import 'view/page/login_page.dart';
 import 'utils/theme.dart';
 
 class MomKitchen extends StatelessWidget {
