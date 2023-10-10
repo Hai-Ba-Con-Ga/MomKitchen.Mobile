@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
+import '../view/page/SC005_kitchen_map_page.dart';
+import '../view/page/SC013_order_detail_page.dart';
 import '../view/page/home_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
@@ -15,6 +17,8 @@ class AppPath {
   static const String favorite = '/favorite';
   static const String notification = '/notification';
   static const String user = '/user';
+  static const String kitchenmap = '/kitchenmap';
+  static const String orderdetail = '/orderdetail';
 }
 
 class AppRouter {
@@ -81,6 +85,16 @@ class AppRouter {
             ) =>
                 const UserPage(),
           ),
+          GoRoute(
+              path: AppPath.kitchenmap,
+              builder: (
+                context,
+                state,
+              ) =>
+                  const KitchenMapPage()),
+          GoRoute(
+              path: AppPath.orderdetail,
+              builder: (context, state) => const OrderDetailPage()),
         ],
       ),
     ],
