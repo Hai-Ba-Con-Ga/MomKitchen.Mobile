@@ -269,13 +269,13 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             GestureDetector(
                                 onTap: () {},
-                                child: Image.asset("assets/google.png")),
+                                child: Image.asset("assets/images/google.png")),
                             SizedBox(
                               width: 10,
                             ),
                             GestureDetector(
                                 onTap: () {},
-                                child: Image.asset("assets/fb.png")),
+                                child: Image.asset("assets/images/fb.png")),
                           ],
                         )
                       ],
