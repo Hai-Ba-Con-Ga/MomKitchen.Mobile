@@ -15,14 +15,13 @@ class _ListTagState extends State<ListTag> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 50,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Card(
-              elevation: 0,
               child: TagCard(),
             );
           },
