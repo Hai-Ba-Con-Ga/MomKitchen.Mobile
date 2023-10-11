@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../view/page/home_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
+import '../view/page/sign_in_phone.dart';
 import '../view/page/user_page.dart';
 import '../view/widgets/base_scaffold.dart';
 import 'router_key_management.dart';
@@ -11,6 +12,7 @@ import 'router_key_management.dart';
 class AppPath {
   static const String login = '/login';
   static const String signUp = '/signUp';
+  static const String signUpPhone = '/signUpPhone';
   static const String home = '/home';
   static const String favorite = '/favorite';
   static const String notification = '/notification';
@@ -37,6 +39,14 @@ class AppRouter {
           state,
         ) =>
             const SignUpPage(),
+      ),
+      GoRoute(
+        path: AppPath.signUpPhone,
+        builder: (
+          context,
+          state,
+        ) =>
+            const SignInPhonePage(),
       ),
       ShellRoute(
         navigatorKey: RouterKeyManager.instance.shellNavigatorKey,

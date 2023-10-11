@@ -26,6 +26,14 @@ dependencies:
   get_it: ^7.6.4
   curved_navigation_bar: ^1.0.3
   flutter_screenutil: ^5.9.0
+  firebase_messaging: ^14.6.9
+  google_sign_in: ^6.1.5
+  country_picker: ^2.0.21
+  cloud_firestore: ^4.9.3
+  firebase_storage: ^11.2.8
+  pinput: ^3.0.1
+  image_picker: ^1.0.4
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

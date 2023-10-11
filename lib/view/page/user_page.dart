@@ -15,14 +15,12 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:
-          TextButton(
-            onPressed: () => context.go(
-              AppPath.login,
-            ),
-            child: const Text('Log Out'),
+        child: TextButton(
+          onPressed: () => context.go(
+            AppPath.login,
           ),
-        
+          child: const Text('Log Out'),
+        ),
       ),
     );
   }
