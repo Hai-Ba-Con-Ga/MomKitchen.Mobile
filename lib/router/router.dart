@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../view/page/SC005_kitchen_map_page.dart';
+import '../view/page/SC006_search_page.dart';
 import '../view/page/SC013_order_detail_page.dart';
+import '../view/page/SC015_notification_page.dart';
 import '../view/page/home_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
@@ -19,6 +21,7 @@ class AppPath {
   static const String user = '/user';
   static const String kitchenmap = '/kitchenmap';
   static const String orderdetail = '/orderdetail';
+  static const String search = '/search';
 }
 
 class AppRouter {
@@ -75,7 +78,7 @@ class AppRouter {
               context,
               state,
             ) =>
-                const SizedBox(),
+                const NotificationPage(),
           ),
           GoRoute(
             path: AppPath.user,
@@ -92,11 +95,14 @@ class AppRouter {
                 state,
               ) =>
                   const KitchenMapPage()),
-          GoRoute(
-              path: AppPath.orderdetail,
-              builder: (context, state) => const OrderDetailPage()),
         ],
       ),
+      GoRoute(
+          path: AppPath.orderdetail,
+          builder: (context, state) => const OrderDetailPage()),
+      GoRoute(
+          path: AppPath.search,
+          builder: (context, state) => const SearchPage()),
     ],
     debugLogDiagnostics: true,
   );

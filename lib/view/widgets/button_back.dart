@@ -10,12 +10,13 @@ class ButtonBack extends StatelessWidget {
     return InkWell(
       onTap: onPressed as void Function()?,
       child: Container(
-        margin: EdgeInsets.all(10),
-        width: 40.0,
-        height: 40.0,
+        margin: EdgeInsets.all(15),
+        // width: 30.0,
+        // height: 30.0,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Color(0xECF0F4FF),
+          // color: Colors.black
         ),
         child: Center(
           child: Icon(Icons.chevron_left_sharp),

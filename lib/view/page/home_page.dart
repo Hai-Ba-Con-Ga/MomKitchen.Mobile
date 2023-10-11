@@ -20,11 +20,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
             leadingWidth: 300,
-            leading: const TextField(
+            leading: TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
                 border: InputBorder.none,
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: GestureDetector(
+                  onTap: () => context.go(AppPath.search),
+                  child: Icon(Icons.search),
+                ),
               ),
             ),
             actions: [
