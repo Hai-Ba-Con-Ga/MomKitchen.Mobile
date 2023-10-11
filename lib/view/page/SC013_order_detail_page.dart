@@ -19,6 +19,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     return Scaffold(
       appBar: AppBar(
         leading: ButtonBack(onPressed: () => context.go(AppPath.home)),
+        leadingWidth: 70,
+        toolbarHeight: 100,
         backgroundColor: Color.fromRGBO(30, 30, 46, 1),
         foregroundColor: Color.fromRGBO(30, 30, 46, 1),
         surfaceTintColor: Color.fromRGBO(30, 30, 46, 1),
