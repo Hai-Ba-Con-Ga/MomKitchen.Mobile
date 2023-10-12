@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../router/router.dart';
 import '../widgets/button_back.dart';
+import '../widgets/card_dish.dart';
 import '../widgets/search/search.dart';
 
 class SearchPage extends StatefulWidget {
@@ -74,36 +75,33 @@ class _SearchPageState extends State<SearchPage> {
           preferredSize: const Size.fromHeight(20),
           child: Container(
             height: 40,
+            padding: EdgeInsets.only(bottom: 10),
             // color: Colors.blue,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("Bán chạy   |   Gần đây   |   Giá <> "),
-                  Image.asset(
-                    "assets/images/Filter.png",
-                    height: 30,
-                    width: 30,
-                  )
-                ]),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Text("Bán chạy   |   Gần đây   |   Giá <> "),
+              Image.asset(
+                "assets/images/Filter.png",
+                height: 30,
+                width: 30,
+              )
+            ]),
           ),
         ),
       ),
       body: Container(
-        height: 1000,
         color: Colors.orange,
-        child: ListView(
-          children: [
-            Column(
-              children: [
-                ListTile(
-                  title: Text("Danh mục"),
-                ),
-                ListTag(),
-              ],
-            )
-          ],
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+          childAspectRatio: 95 / 100,
+          children: List.generate(10, (index) {
+            return Container(height: 10, width: 10, child: CardDish());
+          }),
         ),
       ),
     );
   }
 }
+//   ／))      /)／)
+//  (・   )o  (・   )o
