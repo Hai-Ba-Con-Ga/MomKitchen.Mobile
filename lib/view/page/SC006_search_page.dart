@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../router/router.dart';
 import '../widgets/button_back.dart';
+import '../widgets/card_dish.dart';
 import '../widgets/search/search.dart';
 
 class SearchPage extends StatefulWidget {
@@ -18,22 +19,19 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.orange,
         toolbarHeight: 100,
+        surfaceTintColor: Colors.white,
         centerTitle: true,
         leadingWidth: 50,
-        // backgroundColor: Colors.orange,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: InkWell(
               onTap: () => context.go(AppPath.home),
               child: Container(
-                  // margin: EdgeInsets.all(0),
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                    color: Color(0xF6F6F6FF),
-                    // color: Colors.black,
+                    color: Color(0xddddddFF),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -42,12 +40,11 @@ class _SearchPageState extends State<SearchPage> {
         ),
         title: Container(
           alignment: Alignment.centerLeft,
-          // padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Stack(children: [
             TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
-                fillColor: Color(0xF6F6F6FF),
+                fillColor: Color(0xddddddFF),
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -74,7 +71,7 @@ class _SearchPageState extends State<SearchPage> {
           preferredSize: const Size.fromHeight(20),
           child: Container(
             height: 40,
-            // color: Colors.blue,
+            padding: EdgeInsets.only(bottom: 10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -88,22 +85,60 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      body: Container(
-        height: 1000,
-        color: Colors.orange,
-        child: ListView(
+      body: NestedScrollView(
+        // Setting floatHeaderSlivers to true is required in order to float
+        // the outer slivers over the inner scrollable.
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              title: const Text('Floating Nested SliverAppBar'),
+              floating: true,
+              expandedHeight: 200.0,
+              forceElevated: innerBoxIsScrolled,
+            ),
+          ];
+        },
+        body: Column(
           children: [
-            Column(
-              children: [
-                ListTile(
-                  title: Text("Danh mục"),
-                ),
-                ListTag(),
-              ],
-            )
+            Text("123"),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                // crossAxisSpacing: 10.0,
+                // mainAxisSpacing: 10.0,
+                childAspectRatio: 95 / 100,
+                children: List.generate(10, (index) {
+                  return Container(
+                      height: 10,
+                      width: 10,
+                      child: CardDish(
+                        onPressed: () => context.go(AppPath.mealdetail),
+                      ));
+                }),
+              ),
+            ),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                // crossAxisSpacing: 10.0,
+                // mainAxisSpacing: 10.0,
+                childAspectRatio: 95 / 100,
+                children: List.generate(10, (index) {
+                  return Container(
+                      height: 10,
+                      width: 10,
+                      child: CardDish(
+                        onPressed: () => context.go(AppPath.mealdetail),
+                      ));
+                }),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+//   ／))      /)／)
+//  (・   )o  (・   )o

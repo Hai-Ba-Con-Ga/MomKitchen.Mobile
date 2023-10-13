@@ -20,6 +20,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
             leadingWidth: 300,
             leading: TextField(
+              //when done type
+              onSubmitted: (value) => context.go(AppPath.search),
               decoration: InputDecoration(
                 hintText: 'Search',
                 border: InputBorder.none,
@@ -42,10 +44,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icons.assignment,
               onPressed: () => context.go(AppPath.orderdetail),
             ),
-            ButtonOrange(
-                title: 'Select Location',
-                icon: Icons.location_on,
-                onPressed: () => context.go(AppPath.kitchenmap)),
+            ButtonOrange(title: 'Select Location', icon: Icons.location_on, onPressed: () => context.go(AppPath.kitchenmap)),
             ListDish(title: 'Recent kitchen'),
             ListDish(title: 'Favorite kitchen'),
             ListDish(title: 'Top Trending kitchen'),
