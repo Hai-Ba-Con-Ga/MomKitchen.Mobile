@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../../otp_screen.dart';
-import '../../services/phone_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../data/auth_api.dart';
+import '../../repository/auth_repository.dart';
 import '../../utils/utils.dart';
+import '../../view/page/SC002_01_otp_page.dart';
 import '../bloc.dart';
 
 class AuthBloc extends BaseCubit {
@@ -184,7 +184,6 @@ class AuthBloc extends BaseCubit {
             print('The provided phone number is not valid.');
           }
         },
-        //
         codeSent: (verificationId, forceResendingToken) async {
           await Navigator.push(
             context,
@@ -201,17 +200,10 @@ class AuthBloc extends BaseCubit {
       if (e is FirebaseAuthException) {
         exceptionMessage = e.code;
       }
-
-      emit(
-        CommonState(
-          null,
-          errorMessage: exceptionMessage,
-        ),
-      );
     }
   }
 
-  void verifyOtp({
+  Future<void> verifyOtp({
     required BuildContext context,
     required String verificationId,
     required String userOtp,
@@ -220,34 +212,50 @@ class AuthBloc extends BaseCubit {
     emit(
       CommonState(
         null,
-        isLoading: false,
+        isLoading: true,
       ),
     );
     try {
+      var responseLogin;
       PhoneAuthCredential creds = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: userOtp);
       var user = (await auth.signInWithCredential(creds)).user;
       if (user != null) {
-        print("KHONG NULL -------------------------------");
-        // final firebaseMessaging = FirebaseMessaging.instance;
-        // await firebaseMessaging.requestPermission();
-        // final fcmToken = await firebaseMessaging.getToken();
-        // final idToken = await auth.currentUser?.getIdToken();
-        String idToken = '';
-        String fcmtoken = '';
-        ApiResponse r = UserService().getUser(idToken, fcmtoken) as ApiResponse;
-        print(" -------------------THANH CONG ROI------------------------");
-        print(r.message);
+        String? idToken = await auth.currentUser?.getIdToken();
+        final prefs = await SharedPreferences.getInstance();
+        String? fcmtoken = prefs.getString('fcmToken');
+
+        final authRepository = AuthRepository(authApi: AuthApi());
+        responseLogin = await authRepository.loginUser(idToken!, fcmtoken!);
+
+        await prefs.setString('accessToken', responseLogin.token);
         onSuccess();
       }
       emit(
         CommonState(
-          creds,
+          responseLogin,
           isLoading: false,
         ),
       );
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message.toString());
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print('Lỗi đăng xuất: $e');
+    }
+  }
+
+  Future<void> signOutWithGoogle() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().signOut();
+    } catch (e) {
+      print('Lỗi đăng xuất Google: $e');
     }
   }
 }

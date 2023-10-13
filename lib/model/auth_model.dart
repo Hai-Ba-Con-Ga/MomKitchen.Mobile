@@ -1,13 +1,51 @@
-import 'package:firebase_auth/firebase_auth.dart';
+class ResponseUser {
+  bool isFirstTime;
+  String token;
+  User user;
 
-class AuthInfoModel {
-  AuthInfoModel._instance();
+  ResponseUser({
+    required this.isFirstTime,
+    required this.token,
+    required this.user,
+  });
 
-  UserCredential? userCredential;
+  factory ResponseUser.fromJson(Map<String, dynamic> json) {
+    return ResponseUser(
+      isFirstTime: json['isFirstTime'],
+      token: json['token'],
+      user: User.fromJson(json['user']),
+    );
+  }
+}
 
-  static AuthInfoModel instance = AuthInfoModel._instance();
+class User {
+  String id;
+  String email;
+  String fullName;
+  String avatarUrl;
+  String phone;
+  dynamic birthday;
+  String roleName;
 
-  factory AuthInfoModel() {
-    return instance;
+  User({
+    required this.id,
+    required this.email,
+    required this.fullName,
+    required this.avatarUrl,
+    required this.phone,
+    required this.birthday,
+    required this.roleName,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      email: json['email'],
+      fullName: json['fullName'],
+      avatarUrl: json['avatarUrl'],
+      phone: json['phone'],
+      birthday: json['birthday'],
+      roleName: json['roleName'],
+    );
   }
 }
