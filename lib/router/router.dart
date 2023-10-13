@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import '../view/page/SC005_kitchen_map_page.dart';
 import '../view/page/SC006_search_page.dart';
+import '../view/page/SC008_meal_detail_page.dart';
+import '../view/page/SC009_order_page.dart';
+import '../view/page/SC010_payment_page.dart';
 import '../view/page/SC013_order_detail_page.dart';
 import '../view/page/SC015_notification_page.dart';
 import '../view/page/home_page.dart';
@@ -22,6 +25,9 @@ class AppPath {
   static const String kitchenmap = '/kitchenmap';
   static const String orderdetail = '/orderdetail';
   static const String search = '/search';
+  static const String mealdetail = '/mealdetail';
+  static const String order = '/order';
+  static const String payment = '/payment';
 }
 
 class AppRouter {
@@ -103,6 +109,14 @@ class AppRouter {
       GoRoute(
           path: AppPath.search,
           builder: (context, state) => const SearchPage()),
+      GoRoute(
+          path: AppPath.mealdetail,
+          builder: (context, state) => const MealDetail()),
+      GoRoute(
+          path: AppPath.order, builder: (context, state) => const OrderPage()),
+      GoRoute(
+          path: AppPath.payment,
+          builder: (context, state) => const PaymentPage()),
     ],
     debugLogDiagnostics: true,
   );
