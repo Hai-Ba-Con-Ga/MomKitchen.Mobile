@@ -16,7 +16,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: BackButton(onPressed: () => context.go(AppPath.order)),
         title: Text("Payment"),
       ),
       body: SingleChildScrollView(

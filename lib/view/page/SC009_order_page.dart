@@ -15,7 +15,11 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("123"),
+      appBar: AppBar(
+        leading: BackButton(onPressed: () => context.go(AppPath.mealdetail)),
+        title: Text("Order"),
+      ),
+      // body: Text("123"),
       floatingActionButton: Container(
         padding: EdgeInsets.only(left: 20),
         child: ButtonOrange(

@@ -18,7 +18,9 @@ class _MealDetailState extends State<MealDetail> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.green[50],
       appBar: AppBar(
-        leading: BackButton(),
+        leading: BackButton(
+          onPressed: () => context.go(AppPath.search),
+        ),
         backgroundColor: Colors.transparent,
         // backgroundColor: Color(0x44000000),
         elevation: 0,
