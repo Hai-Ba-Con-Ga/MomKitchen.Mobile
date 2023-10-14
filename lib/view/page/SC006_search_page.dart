@@ -92,32 +92,15 @@ class _SearchPageState extends State<SearchPage> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              title: const Text('Floating Nested SliverAppBar'),
+              title: const Text('List Meal'),
               floating: true,
-              expandedHeight: 200.0,
+              // expandedHeight: 200.0,
               forceElevated: innerBoxIsScrolled,
             ),
           ];
         },
         body: Column(
           children: [
-            Text("123"),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                // crossAxisSpacing: 10.0,
-                // mainAxisSpacing: 10.0,
-                childAspectRatio: 95 / 100,
-                children: List.generate(10, (index) {
-                  return Container(
-                      height: 10,
-                      width: 10,
-                      child: CardDish(
-                        onPressed: () => context.go(AppPath.mealdetail),
-                      ));
-                }),
-              ),
-            ),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,

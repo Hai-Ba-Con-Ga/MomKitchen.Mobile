@@ -14,6 +14,8 @@ class _CardDishState extends State<CardDish> {
     return Container(
       // padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
       // color: Colors.blue,
+      width: 200,
+      height: 200,
       child: TextButton(
         onPressed: () => widget.onPressed!(),
         style: ButtonStyle(
