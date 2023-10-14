@@ -10,7 +10,6 @@ import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../router/router.dart';
 import '../widgets/button_orange.dart';
-import 'sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -33,260 +32,267 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.text = "test123";
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: BlocConsumer(
-        bloc: _authBloc,
-        listener: (context, state) {
-          if (state is CommonState) {
-            if (state.model == null) {
-              if (context.canPop()) {
-                context.pop();
-              }
-              if (state.isLoading) {
-                showCupertinoDialog(
-                  barrierDismissible: true,
-                  context: context,
-                  builder: (context) => const SizedBox(
-                    // width: 400,
-                    height: 50,
-                    child: Center(
-                      child: CircularProgressIndicator.adaptive(),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: BlocConsumer(
+          bloc: _authBloc,
+          listener: (context, state) {
+            if (state is CommonState) {
+              if (state.model == null) {
+                if (context.canPop()) {
+                  context.pop();
+                }
+                if (state.isLoading) {
+                  showCupertinoDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) => const SizedBox(
+                      // width: 400,
+                      height: 50,
+                      child: Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
                     ),
-                  ),
-                );
-                return;
-              }
+                  );
+                  return;
+                }
 
-              if (state.errorMessage?.isNotEmpty ?? false) {
-                showCupertinoDialog(
-                  context: context,
-                  builder: (context) => Platform.isIOS
-                      ? CupertinoAlertDialog(
-                          actions: [
-                            TextButton(
-                              onPressed: () => context.pop(),
-                              child: const Text('OK'),
+                if (state.errorMessage?.isNotEmpty ?? false) {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) => Platform.isIOS
+                        ? CupertinoAlertDialog(
+                            actions: [
+                              TextButton(
+                                onPressed: () => context.pop(),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                            title: const Text('Error'),
+                            content: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                              ),
+                              child: Text(state.errorMessage ?? ''),
                             ),
-                          ],
-                          title: const Text('Error'),
-                          content: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8.0,
-                            ),
-                            child: Text(state.errorMessage ?? ''),
+                          )
+                        : AlertDialog(
+                            actions: [
+                              TextButton(
+                                onPressed: () => context.pop(),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                            title: const Text('Error'),
+                            content: Text(state.errorMessage ?? ''),
                           ),
-                        )
-                      : AlertDialog(
-                          actions: [
-                            TextButton(
-                              onPressed: () => context.pop(),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                          title: const Text('Error'),
-                          content: Text(state.errorMessage ?? ''),
-                        ),
-                );
-                return;
+                  );
+                  return;
+                }
               }
+              context.go(
+                AppPath.home,
+              );
             }
-            context.go(
-              AppPath.home,
-            );
-          }
-        },
-        builder: (
-          context,
-          state,
-        ) {
-          return GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () => FocusScope.of(context).requestFocus(
-              FocusNode(),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(30, 30, 46, 1),
+          },
+          builder: (
+            context,
+            state,
+          ) {
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => FocusScope.of(context).requestFocus(
+                FocusNode(),
               ),
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(50.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Login',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            // color: Theme.of(context).colorScheme.primary,
-                            color: Colors.white,
-                            fontSize: 30,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(30, 30, 46, 1),
+                ),
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(50.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Login',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              // color: Theme.of(context).colorScheme.primary,
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Please sign in to your existing account',
-                          style: TextStyle(
-                            // color: Theme.of(context).colorScheme.primary,
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  /*username input*/
-                  Container(
-                    width: 1000,
-                    height: 500,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        )),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            50,
-                            10,
-                            50,
-                            10,
-                          ),
-                          child: TextField(
-                            controller: _usernameController,
-                            decoration: const InputDecoration(
-                              labelText: 'EMAIL',
-                              hintText: 'Enter your Email',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              // border: InputBorder.none,
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.orange, width: 0.5),
-                              ),
-                              enabledBorder: InputBorder.none,
-                              fillColor: Colors.orange,
-                              labelStyle: TextStyle(
-                                fontSize: 20,
+                          Center(
+                            child: Text(
+                              'Please sign in to \nyour existing account',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                // color: Theme.of(context).colorScheme.primary,
+                                color: Colors.white,
+                                fontSize: 16,
                               ),
                             ),
                           ),
-                        ),
-                        /*password input*/
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            50,
-                            10,
-                            50,
-                            10,
+                        ],
+                      ),
+                    ),
+                    /*username input*/
+                    Container(
+                      width: 1000,
+                      height: 500,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          )),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              50,
+                              10,
+                              50,
+                              10,
+                            ),
+                            child: TextField(
+                              controller: _usernameController,
+                              decoration: const InputDecoration(
+                                labelText: 'EMAIL',
+                                hintText: 'Enter your Email',
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                // border: InputBorder.none,
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.orange, width: 0.5),
+                                ),
+                                enabledBorder: InputBorder.none,
+                                fillColor: Colors.orange,
+                                labelStyle: TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
                           ),
-                          child: Stack(
-                            alignment: AlignmentDirectional.centerEnd,
-                            children: <Widget>[
-                              TextField(
-                                obscureText: !_showPassword,
-                                controller: _passwordController,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  labelText: 'PASSWORD',
-                                  hintText: 'Enter your password',
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  labelStyle: TextStyle(
-                                    fontSize: 20,
+                          /*password input*/
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              50,
+                              10,
+                              50,
+                              10,
+                            ),
+                            child: Stack(
+                              alignment: AlignmentDirectional.centerEnd,
+                              children: <Widget>[
+                                TextField(
+                                  obscureText: !_showPassword,
+                                  controller: _passwordController,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    labelText: 'PASSWORD',
+                                    hintText: 'Enter your password',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
+                                GestureDetector(
+                                  onTap: onToggleShowPassword,
+                                  child: Icon(
+                                    !_showPassword
+                                        ? Icons.remove_red_eye
+                                        : Icons.remove_red_eye_outlined,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          /*sign in button*/
+                          /*other method login*/
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap: () => context.go(
+                                  AppPath.signUp,
+                                ),
+                                child: const Text('Remeber me'),
                               ),
                               GestureDetector(
-                                onTap: onToggleShowPassword,
-                                child: Icon(
-                                  !_showPassword
-                                      ? Icons.remove_red_eye
-                                      : Icons.remove_red_eye_outlined,
+                                onTap: () => context.go(
+                                  AppPath.signUp,
+                                ),
+                                child: Text(
+                                  'Forgot password?',
+                                  style: TextStyle(color: Colors.orange),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        /*sign in button*/
-                        /*other method login*/
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            GestureDetector(
-                              onTap: () => context.go(
-                                AppPath.signUp,
-                              ),
-                              child: const Text('Remeber me'),
+                          SizedBox(
+                            width: 350,
+                            child: ButtonOrange(
+                              title: 'Sign in',
+                              onPressed: onSignInClick,
+                              icon: null,
                             ),
-                            GestureDetector(
-                              onTap: () => context.go(
-                                AppPath.signUp,
-                              ),
-                              child: Text(
-                                'Forgot password?',
-                                style: TextStyle(color: Colors.orange),
-                              ),
+                          ),
+                          const SizedBox(height: 20),
+                          GestureDetector(
+                            onTap: () => context.go(
+                              AppPath.signUpPhone,
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 350,
-                          child: ButtonOrange(
-                            title: 'Sign in',
-                            onPressed: onSignInClick,
-                            icon: null,
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Don\'t have Account?',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 16),
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  'Sign up',
+                                  style: TextStyle(
+                                      color: Colors.orange, fontSize: 16),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        GestureDetector(
-                          onTap: () => context.go(
-                            AppPath.signUp,
-                          ),
-                          child: const Row(
+                          const SizedBox(height: 10),
+                          const Text('Or'),
+                          const SizedBox(height: 10),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'Don\'t have Account?',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 16),
+                              GestureDetector(
+                                  onTap: () {},
+                                  child:
+                                      Image.asset("assets/images/google.png")),
+                              SizedBox(
+                                width: 10,
                               ),
-                              SizedBox(width: 10),
-                              Text(
-                                'Sign up',
-                                style: TextStyle(
-                                    color: Colors.orange, fontSize: 16),
-                              ),
+                              GestureDetector(
+                                  onTap: () {},
+                                  child: Image.asset("assets/images/fb.png")),
                             ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text('Or'),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                onTap: () {},
-                                child: Image.asset("assets/images/google.png")),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            GestureDetector(
-                                onTap: () {},
-                                child: Image.asset("assets/images/fb.png")),
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

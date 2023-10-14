@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 import 'dependencies.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_noti.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -17,4 +18,5 @@ Future<void> _initApp() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await AppDependencies.initialize();
+  await FirebaseNotification().initNotifications();
 }

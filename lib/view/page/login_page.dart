@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../router/router.dart';
-import 'sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -216,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                     /*other method login*/
                     GestureDetector(
                       onTap: () => context.go(
-                        AppPath.signUp,
+                        AppPath.signUpPhone,
                       ),
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
