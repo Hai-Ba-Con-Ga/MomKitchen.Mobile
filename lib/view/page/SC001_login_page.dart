@@ -28,12 +28,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _usernameController.text = "test123@gmail.com";
-    _passwordController.text = "test123";
+    _usernameController.text = 'test123@gmail.com';
+    _passwordController.text = 'test123';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: BlocConsumer(
           bloc: _authBloc,
           listener: (context, state) {
@@ -105,14 +105,14 @@ class _LoginPageState extends State<LoginPage> {
                 FocusNode(),
               ),
               child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(30, 30, 46, 1),
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(30, 30, 46, 1),
                 ),
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(50.0),
                       child: Column(
                         children: [
@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       width: 1000,
                       height: 500,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(24),
@@ -229,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                                 onTap: () => context.go(
                                   AppPath.signUp,
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'Forgot password?',
                                   style: TextStyle(color: Colors.orange),
                                 ),
@@ -275,13 +275,13 @@ class _LoginPageState extends State<LoginPage> {
                               GestureDetector(
                                   onTap: () {},
                                   child:
-                                      Image.asset("assets/images/google.png")),
-                              SizedBox(
+                                      Image.asset('assets/images/google.png')),
+                              const SizedBox(
                                 width: 10,
                               ),
                               GestureDetector(
                                   onTap: () {},
-                                  child: Image.asset("assets/images/fb.png")),
+                                  child: Image.asset('assets/images/fb.png')),
                             ],
                           )
                         ],

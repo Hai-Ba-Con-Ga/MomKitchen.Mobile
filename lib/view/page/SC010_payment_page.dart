@@ -17,7 +17,7 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(onPressed: () => context.go(AppPath.order)),
-        title: Text("Payment"),
+        title: const Text('Payment'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -27,7 +27,7 @@ class _PaymentPageState extends State<PaymentPage> {
               height: 100,
               color: Colors.red,
               width: double.infinity,
-              child: Row(
+              child: const Row(
                 children: [
                   // ListView.builder(
                   //   itemBuilder: (context, index) {
@@ -43,10 +43,10 @@ class _PaymentPageState extends State<PaymentPage> {
         )),
       ),
       floatingActionButton: Container(
-        padding: EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.only(left: 20),
         child: ButtonOrange(
           onPressed: () => context.go(AppPath.payment),
-          title: "XÁC NHẬN",
+          title: 'XÁC NHẬN',
         ),
       ),
     );

@@ -9,6 +9,8 @@ import '../view/page/SC009_order_page.dart';
 import '../view/page/SC010_payment_page.dart';
 import '../view/page/SC013_order_detail_page.dart';
 import '../view/page/SC015_notification_page.dart';
+import '../view/page/SC017_kitchen_home_page.dart';
+import '../view/page/SC018_kitchen_manager_page.dart';
 import '../view/page/home_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
@@ -32,6 +34,8 @@ class AppPath {
   static const String mealdetail = '/mealdetail';
   static const String order = '/order';
   static const String payment = '/payment';
+  static const String kitchenhome = '/kitchenhome';
+  static const String kitchenmanager = '/kitchenmanager';
 }
 
 class AppRouter {
@@ -129,6 +133,12 @@ class AppRouter {
       GoRoute(
           path: AppPath.payment,
           builder: (context, state) => const PaymentPage()),
+      GoRoute(
+          path: AppPath.kitchenhome,
+          builder: (context, state) => const KitchenHome()),
+      GoRoute(
+          path: AppPath.kitchenmanager,
+          builder: (context, state) => const KitchenManager()),
     ],
     debugLogDiagnostics: true,
   );

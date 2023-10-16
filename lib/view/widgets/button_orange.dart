@@ -21,7 +21,8 @@ class _ButtonOrangeState extends State<ButtonOrange> {
         child: TextButton(
           onPressed: widget.onPressed as void Function()?,
           style: ButtonStyle(
-            minimumSize: MaterialStateProperty.all(Size(double.infinity, 60)),
+            minimumSize:
+                MaterialStateProperty.all(const Size(double.infinity, 60)),
           ),
           child: Container(
             child: Row(
@@ -29,10 +30,10 @@ class _ButtonOrangeState extends State<ButtonOrange> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 (widget.icon == null)
-                    ? SizedBox.shrink()
+                    ? const SizedBox.shrink()
                     : Icon(widget.icon ?? null, color: Colors.white),
                 Text(widget.title ?? '',
-                    style: TextStyle(color: Colors.white, fontSize: 20)),
+                    style: const TextStyle(color: Colors.white, fontSize: 20)),
               ],
             ),
           ),
