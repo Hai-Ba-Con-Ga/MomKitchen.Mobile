@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../router/router.dart';
+import '../../utils/palette.dart';
 import '../widgets/button_orange.dart';
 import '../widgets/card_dish.dart';
 
@@ -104,13 +105,68 @@ class _HomePageState extends State<HomePage> {
               ),
             )
           ],
+          // bottom: PreferredSize(
+          //   preferredSize: const Size.fromHeight(50),
+          //   child: Container(
+          //     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text(
+          //           "KHU VỰC HIỆN TẠI",
+          //           style: TextStyle(
+          //               color: primaryColor, fontWeight: FontWeight.bold),
+          //         ),
+          //         Row(
+          //           children: [
+          //             Text("Nhà Bè Hà Lan",
+          //                 style: TextStyle(color: Color(0xFF676767))),
+          //             Icon(Icons.arrow_drop_down)
+          //           ],
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ),
         body: ListView(
           children: [
-            ButtonOrange(
-                title: 'Select Location',
-                icon: Icons.location_on,
-                onPressed: () => context.go(AppPath.kitchenmap)),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "KHU VỰC HIỆN TẠI",
+                        style: TextStyle(
+                            color: primaryColor, fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Text("Nhà Bè Hà Lan",
+                              style: TextStyle(color: Color(0xFF676767))),
+                          Icon(Icons.arrow_drop_down)
+                        ],
+                      )
+                    ],
+                  ),
+                  Container(
+                    width: 200,
+                    height: 50,
+                    child: ButtonOrange(
+                        title: "Xem bản đồ",
+                        icon: Icons.location_on,
+                        onPressed: () => context.go(AppPath.kitchenmap)),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Image.asset("assets/images/googlemap_illustrator.png")),
             const ListTile(
               title: Text("Recent Kitchen"),
             ),
