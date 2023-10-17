@@ -14,7 +14,7 @@ import '../view/page/SC018_01_meal_page_add.dart';
 import '../view/page/SC018_02_tray_page_add.dart';
 import '../view/page/SC018_03_dish_page_add.dart';
 import '../view/page/SC018_kitchen_manager_page.dart';
-import '../view/page/home_page.dart';
+import '../view/page/SC004_home_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
 import '../view/page/SC002_signup_page.dart';
@@ -129,8 +129,9 @@ class AppRouter {
           path: AppPath.orderdetail,
           builder: (context, state) => const OrderDetailPage()),
       GoRoute(
-          path: AppPath.search,
-          builder: (context, state) => const SearchPage()),
+          path: '${AppPath.search}/:searchText',
+          builder: (context, state) =>
+              SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
       GoRoute(
           path: AppPath.mealdetail,
           builder: (context, state) => const MealDetail()),

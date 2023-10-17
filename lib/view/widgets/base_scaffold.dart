@@ -28,17 +28,17 @@ class _BaseScaffoldState extends State<BaseScaffold> {
       // backgroundColor: Colors.lightBlueAccent,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.map),
-      label: 'Favorite',
+      icon: Icon(Icons.favorite),
+      label: 'Favor',
       // backgroundColor: Colors.red,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'Notification',
+      icon: Icon(Icons.map),
+      label: 'Map',
       // backgroundColor: Colors.tealAccent,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
+      icon: Icon(Icons.person),
       label: 'User',
       // backgroundColor: Colors.lightBlueAccent,
     ),
@@ -56,7 +56,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
         context.go(AppPath.favorite);
         break;
       case 2:
-        context.go(AppPath.notification);
+        context.go(AppPath.kitchenmap);
         break;
       case 3:
         context.go(AppPath.user);
@@ -67,51 +67,36 @@ class _BaseScaffoldState extends State<BaseScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: <Widget>[
-      //       Text(
-      //         'Mom Kitchen',
-      //         style: Theme.of(context).textTheme.titleLarge,
-      //       ),
-      //     ],
-      //   ),
-      //   // leading: const SizedBox.shrink(),
-      //   // actions: [
-      //   //   IconButton(
-      //   //     icon: const Icon(Icons.notifications),
-      //   //     onPressed: () {
-      //   //       Navigator.push(
-      //   //         context,
-      //   //         MaterialPageRoute(
-      //   //           builder: (context) => const NotificationPage(),
-      //   //         ),
-      //   //       );
-      //   //     },
-      //   //   ),
-      //   // ],
-      // ),
       body: Center(
         child: widget.child,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize:
-            Theme.of(context).textTheme.bodyMedium?.fontSize?.toDouble() ??
-                24.0,
-        items: _bottomNavigationItemList,
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: const Color.fromARGB(
-          255,
-          255,
-          215,
-          166,
+      bottomNavigationBar: Container(
+        height: 60,
+        // color: Colors.transparent,
+        decoration: BoxDecoration(
+          color: Colors.white, // Màu nền của BottomNavigationBar
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 7,
+            ),
+          ],
         ),
-        currentIndex: _selectedIndex,
-        onTap: (index) => _onItemTapped(
-          index,
-          context,
+        child: BottomNavigationBar(
+          iconSize: 25,
+          items: _bottomNavigationItemList,
+          selectedItemColor: Colors.amber[800],
+          unselectedItemColor: const Color(0xFFBDBDBD),
+          currentIndex: _selectedIndex,
+          onTap: (index) => _onItemTapped(
+            index,
+            context,
+          ),
         ),
       ),
     );
