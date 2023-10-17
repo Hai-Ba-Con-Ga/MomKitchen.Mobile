@@ -22,22 +22,6 @@ class _HomePageState extends State<HomePage> {
           toolbarHeight: 100,
           surfaceTintColor: Colors.white,
           centerTitle: true,
-          leadingWidth: 50,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: InkWell(
-                onTap: () => context.go(AppPath.home),
-                child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: const BoxDecoration(
-                      color: Color(0xddddddFF),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.chevron_left_sharp,
-                    ))),
-          ),
           title: Container(
             alignment: Alignment.centerLeft,
             child: Stack(children: [
@@ -69,6 +53,23 @@ class _HomePageState extends State<HomePage> {
             ]),
           ),
           actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: InkWell(
+                onTap: () => context.go(AppPath.orderdetail),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                    color: Color(0xddddddFF),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.airplane_ticket_outlined,
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: InkWell(

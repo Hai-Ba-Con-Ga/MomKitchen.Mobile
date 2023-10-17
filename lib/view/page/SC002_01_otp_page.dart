@@ -191,17 +191,21 @@ class _OtpScreenState extends State<OtpScreen> {
                                 const SizedBox(height: 25),
                                 SizedBox(
                                   width: 350,
-                                  child: ButtonOrange(
-                                    title: 'Verify',
-                                    onPressed: () {
-                                      if (otpCode != null) {
-                                        verifyOtp(context, otpCode!);
-                                      } else {
-                                        showSnackBar(
-                                            context, 'Enter 6-Digit code');
-                                      }
-                                    },
-                                    icon: null,
+                                  child: Container(
+                                    margin:
+                                        const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                    child: ButtonOrange(
+                                      title: 'Verify',
+                                      onPressed: () {
+                                        if (otpCode != null) {
+                                          verifyOtp(context, otpCode!);
+                                        } else {
+                                          showSnackBar(
+                                              context, 'Enter 6-Digit code');
+                                        }
+                                      },
+                                      icon: null,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 20),

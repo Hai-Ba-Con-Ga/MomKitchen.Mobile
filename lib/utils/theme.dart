@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'palette.dart';
+
 final ThemeData mainTheme = ThemeData(
+  primaryColor: primaryColor,
+  primaryTextTheme: TextTheme(
+    button: TextStyle(color: Colors.white),
+  ),
   colorScheme: ColorScheme.fromSeed(
-    seedColor: Color.fromRGBO(255, 118, 34, 1),
+    seedColor: primaryColor,
   ),
   textTheme: GoogleFonts.signikaTextTheme(),
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
-      backgroundColor:
-          MaterialStateProperty.all<Color>(Color.fromRGBO(255, 118, 34, 1)),
+      backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

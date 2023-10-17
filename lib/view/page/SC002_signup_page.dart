@@ -287,10 +287,14 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                               ),
                               SizedBox(
                                 width: 350,
-                                child: ButtonOrange(
-                                  title: 'Sign in',
-                                  onPressed: () => sendPhoneNumber(),
-                                  icon: null,
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                  child: ButtonOrange(
+                                    title: 'Sign in',
+                                    onPressed: () => sendPhoneNumber(),
+                                    icon: null,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -315,10 +319,14 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                               const SizedBox(height: 60),
                               SizedBox(
                                 width: 350,
-                                child: ButtonOrange(
-                                  title: 'Log in with Kitchen',
-                                  onPressed: () => {},
-                                  icon: null,
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                  child: ButtonOrange(
+                                    title: 'Log in with Kitchen',
+                                    onPressed: () => {},
+                                    icon: null,
+                                  ),
                                 ),
                               ),
                             ],

@@ -15,7 +15,7 @@ class _ButtonOrangeState extends State<ButtonOrange> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+        // margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
         alignment: Alignment.center,
         height: 50,
         child: TextButton(

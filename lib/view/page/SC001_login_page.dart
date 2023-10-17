@@ -238,10 +238,13 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(
                             width: 350,
-                            child: ButtonOrange(
-                              title: 'Sign in',
-                              onPressed: onSignInClick,
-                              icon: null,
+                            child: Container(
+                              margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                              child: ButtonOrange(
+                                title: 'Sign in',
+                                onPressed: onSignInClick,
+                                icon: null,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 20),
