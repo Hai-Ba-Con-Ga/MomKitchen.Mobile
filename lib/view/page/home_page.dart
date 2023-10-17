@@ -22,48 +22,33 @@ class _HomePageState extends State<HomePage> {
           toolbarHeight: 100,
           surfaceTintColor: Colors.white,
           centerTitle: true,
-          leadingWidth: 50,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: InkWell(
-                onTap: () => context.go(AppPath.home),
-                child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Color(0xddddddFF),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.chevron_left_sharp,
-                    ))),
-          ),
           title: Container(
             alignment: Alignment.centerLeft,
             child: Stack(children: [
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search',
-                  fillColor: Color(0xddddddFF),
+                  fillColor: const Color(0xddddddFF),
                   filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                   // conteprefixIconntPadding: EdgeInsets.only(right: 50),
                   // prefixIconConstraints: BoxConstraints(
                   //   minWidth: 80,
                   // ),
                   prefixIcon: GestureDetector(
                     onTap: () => context.go(AppPath.search),
-                    child: Icon(Icons.search),
+                    child: const Icon(Icons.search),
                   ),
                 ),
               ),
               Positioned(
                 right: 10,
-                child: IconButton(onPressed: () {}, icon: Icon(Icons.cancel)),
+                child: IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.cancel)),
               )
             ]),
           ),
@@ -71,15 +56,32 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: InkWell(
+                onTap: () => context.go(AppPath.orderdetail),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                    color: Color(0xddddddFF),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.airplane_ticket_outlined,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: InkWell(
                 onTap: () => context.go(AppPath.notification),
                 child: Container(
                   height: 40,
                   width: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xddddddFF),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.notifications_none_sharp,
                   ),
                 ),
@@ -98,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 title: 'Select Location',
                 icon: Icons.location_on,
                 onPressed: () => context.go(AppPath.kitchenmap)),
-            ListTile(
+            const ListTile(
               title: Text("Recent Kitchen"),
             ),
             Container(
@@ -114,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Top Trending"),
             ),
             Container(
@@ -130,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Favorite kitchen"),
             ),
             Container(

@@ -21,12 +21,12 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         leading: ButtonBack(onPressed: () => context.go(AppPath.home)),
         leadingWidth: 70,
         toolbarHeight: 100,
-        backgroundColor: Color.fromRGBO(30, 30, 46, 1),
-        foregroundColor: Color.fromRGBO(30, 30, 46, 1),
-        surfaceTintColor: Color.fromRGBO(30, 30, 46, 1),
+        backgroundColor: const Color.fromRGBO(30, 30, 46, 1),
+        foregroundColor: const Color.fromRGBO(30, 30, 46, 1),
+        surfaceTintColor: const Color.fromRGBO(30, 30, 46, 1),
       ),
       body: Container(
-        decoration: BoxDecoration(color: Color.fromRGBO(30, 30, 46, 1)),
+        decoration: const BoxDecoration(color: Color.fromRGBO(30, 30, 46, 1)),
         child: ListView(
             controller: _controller, // Sử dụng ScrollController
             // physics: NeverScrollableScrollPhysics(),
@@ -38,7 +38,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     fontSize: Theme.of(context).textTheme.headline1?.fontSize),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: Text(
                   "Please give this QR code to the\n kitchen owner to confirm order",
@@ -49,16 +49,17 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Icon(Icons.qr_code, size: 250, color: Colors.white),
+              const Icon(Icons.qr_code, size: 250, color: Colors.white),
               GestureDetector(
                 onTap: () {
                   _controller.animateTo(1000,
-                      duration: Duration(seconds: 1), curve: Curves.easeInOut);
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeInOut);
                 },
                 child: Container(
                   height: 500,
                   // margin: EdgeInsets.fromLTRB(20, 30, 20, 0),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(30))),

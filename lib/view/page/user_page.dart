@@ -14,13 +14,26 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: TextButton(
-          onPressed: () => context.go(
-            AppPath.login,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: TextButton(
+              onPressed: () => context.go(
+                AppPath.kitchenhome,
+              ),
+              child: const Text('kitchen home'),
+            ),
           ),
-          child: const Text('Log Out'),
-        ),
+          Center(
+            child: TextButton(
+              onPressed: () => context.go(
+                AppPath.login,
+              ),
+              child: const Text('Log Out'),
+            ),
+          ),
+        ],
       ),
     );
   }

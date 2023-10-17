@@ -9,6 +9,11 @@ import '../view/page/SC009_order_page.dart';
 import '../view/page/SC010_payment_page.dart';
 import '../view/page/SC013_order_detail_page.dart';
 import '../view/page/SC015_notification_page.dart';
+import '../view/page/SC017_kitchen_home_page.dart';
+import '../view/page/SC018_01_meal_page_add.dart';
+import '../view/page/SC018_02_tray_page_add.dart';
+import '../view/page/SC018_03_dish_page_add.dart';
+import '../view/page/SC018_kitchen_manager_page.dart';
 import '../view/page/home_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
@@ -22,7 +27,7 @@ class AppPath {
   static const String signUp = '/signUp';
   static const String signUpPhone = '/signUpPhone';
   static const String otp = '/otp';
-  static const String home = '/home';
+  static const String home = '/';
   static const String favorite = '/favorite';
   static const String notification = '/notification';
   static const String user = '/user';
@@ -32,6 +37,11 @@ class AppPath {
   static const String mealdetail = '/mealdetail';
   static const String order = '/order';
   static const String payment = '/payment';
+  static const String kitchenhome = '/kitchenhome';
+  static const String kitchenmanager = '/kitchenmanager';
+  static const String adddish = '/adddish';
+  static const String addtray = '/addtray';
+  static const String addmeal = '/addmeal';
 }
 
 class AppRouter {
@@ -129,6 +139,25 @@ class AppRouter {
       GoRoute(
           path: AppPath.payment,
           builder: (context, state) => const PaymentPage()),
+      GoRoute(
+          path: AppPath.kitchenhome,
+          builder: (context, state) => const KitchenHome()),
+      GoRoute(
+        path: '${AppPath.kitchenmanager}/:tab',
+        // path: AppPath.kitchenmanager,
+        builder: (context, state) => KitchenManager(
+          selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
+        ),
+      ),
+      GoRoute(
+          path: AppPath.adddish,
+          builder: (context, state) => const AddDishPage()),
+      GoRoute(
+          path: AppPath.addtray,
+          builder: (context, state) => const AddTrayPage()),
+      GoRoute(
+          path: AppPath.addmeal,
+          builder: (context, state) => const AddMealPage()),
     ],
     debugLogDiagnostics: true,
   );

@@ -44,11 +44,11 @@ class _ListDishState extends State<ListDish> {
                         ),
                       ),
                       Container(
-                        color: Color.fromARGB(255, 255, 251, 244),
+                        color: const Color.fromARGB(255, 255, 251, 244),
                         height: 30,
                         width: 150,
                         margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text("Snack"),
@@ -68,7 +68,7 @@ class _ListDishState extends State<ListDish> {
               },
               itemCount: 10),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }

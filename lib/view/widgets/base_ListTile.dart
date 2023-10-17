@@ -5,17 +5,18 @@ import 'package:go_router/go_router.dart';
 import '../../router/router.dart';
 
 class BaseListTile extends StatefulWidget {
-  const BaseListTile({
-    super.key,
-    this.icon,
-    this.title,
-    this.description,
-    this.time,
-  });
+  const BaseListTile(
+      {super.key,
+      this.icon,
+      this.title,
+      this.description,
+      this.time,
+      this.trailing});
   final Icon? icon;
   final Text? title;
   final Text? description;
   final Text? time;
+  final Widget? trailing;
 
   @override
   State<BaseListTile> createState() => _BaseListTileState();
@@ -25,28 +26,29 @@ class _BaseListTileState extends State<BaseListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: ListTile(
         isThreeLine: true,
-        tileColor: Color.fromRGBO(240, 245, 250, 1),
+        tileColor: const Color(0xFFECF0F4),
+        leading: widget.icon ?? const SizedBox.shrink(),
+        trailing: widget.trailing ?? const Icon(Icons.more_vert),
         title: Row(
           children: [
-            widget.icon ?? SizedBox.shrink(),
-            SizedBox(width: 5),
-            widget.title ?? SizedBox.shrink(),
+            const SizedBox(width: 5),
+            widget.title ?? const SizedBox.shrink(),
           ],
         ),
         subtitle:
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          widget.description ?? SizedBox.shrink(),
-          SizedBox(height: 5),
-          widget.time ?? SizedBox.shrink(),
+          widget.description ?? const SizedBox.shrink(),
+          const SizedBox(height: 5),
+          widget.time ?? const SizedBox.shrink(),
         ]),
         onTap: () => context.go(AppPath.home),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       ),
     );
   }

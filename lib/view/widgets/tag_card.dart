@@ -19,7 +19,7 @@ class _TagCardState extends State<TagCard> {
         child: Container(
           height: 250,
           // width: 100,
-          child: Center(
+          child: const Center(
             child: Text(
               'haha',
               style: TextStyle(

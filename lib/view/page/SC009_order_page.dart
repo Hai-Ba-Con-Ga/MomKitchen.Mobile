@@ -17,14 +17,14 @@ class _OrderPageState extends State<OrderPage> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(onPressed: () => context.go(AppPath.mealdetail)),
-        title: Text("Order"),
+        title: const Text('Order'),
       ),
       // body: Text("123"),
       floatingActionButton: Container(
-        padding: EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.only(left: 20),
         child: ButtonOrange(
           onPressed: () => context.go(AppPath.payment),
-          title: "THANH TOÁN",
+          title: 'THANH TOÁN',
         ),
       ),
     );

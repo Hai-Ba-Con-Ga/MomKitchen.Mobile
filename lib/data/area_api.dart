@@ -12,6 +12,8 @@ class AreaApi {
   }
   Future<List<Area>> getAll() async {
     Response response = await _dio.get('');
-    return (response.data['data'] as List).map((e) => Area.fromJson(e)).toList();
+    return (response.data['data'] as List)
+        .map((e) => Area.fromJson(e))
+        .toList();
   }
 }
