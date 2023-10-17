@@ -8,13 +8,25 @@ import '../widgets/card_dish.dart';
 import '../widgets/search/search.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  const SearchPage({super.key, this.searchText});
+  final String? searchText;
 
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final TextEditingController _searchTextController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchTextController.addListener(() {
+      setState(() {});
+    });
+    _searchTextController.text = widget.searchText ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,33 +52,39 @@ class _SearchPageState extends State<SearchPage> {
         ),
         title: Container(
           alignment: Alignment.centerLeft,
-          child: Stack(children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search',
-                fillColor: const Color(0xddddddFF),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                // conteprefixIconntPadding: EdgeInsets.only(right: 50),
-                // prefixIconConstraints: BoxConstraints(
-                //   minWidth: 80,
-                // ),
-                prefixIcon: GestureDetector(
-                  onTap: () => context.go(AppPath.search),
-                  child: const Icon(Icons.search),
-                ),
+          child: TextField(
+            controller: _searchTextController,
+            decoration: InputDecoration(
+              hintText: 'Search',
+              fillColor: const Color(0xddddddFF),
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide.none,
               ),
+              contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              // conteprefixIconntPadding: EdgeInsets.only(right: 50),
+              // prefixIconConstraints: BoxConstraints(
+              //   minWidth: 80,
+              // ),
+              prefixIcon: GestureDetector(
+                onTap: () {
+                  if (_searchTextController.text.isEmpty) {
+                    return;
+                  }
+                  context.go('${AppPath.search}/${_searchTextController.text}');
+                },
+                child: const Icon(Icons.search),
+              ),
+              suffixIcon: _searchTextController.text.isNotEmpty
+                  ? IconButton(
+                      onPressed: () {
+                        _searchTextController.clear();
+                      },
+                      icon: const Icon(Icons.cancel))
+                  : const SizedBox.shrink(),
             ),
-            Positioned(
-              right: 10,
-              child:
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.cancel)),
-            )
-          ]),
+          ),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(20),
