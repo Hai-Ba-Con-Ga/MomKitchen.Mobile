@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../router/router.dart';
 import '../../utils/palette.dart';
+import '../widgets/base_date_picker.dart';
 import '../widgets/button_orange.dart';
 import '../widgets/card_dish.dart';
 
@@ -105,29 +106,6 @@ class _HomePageState extends State<HomePage> {
               ),
             )
           ],
-          // bottom: PreferredSize(
-          //   preferredSize: const Size.fromHeight(50),
-          //   child: Container(
-          //     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           "KHU VỰC HIỆN TẠI",
-          //           style: TextStyle(
-          //               color: primaryColor, fontWeight: FontWeight.bold),
-          //         ),
-          //         Row(
-          //           children: [
-          //             Text("Nhà Bè Hà Lan",
-          //                 style: TextStyle(color: Color(0xFF676767))),
-          //             Icon(Icons.arrow_drop_down)
-          //           ],
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ),
         body: ListView(
           children: [
@@ -167,6 +145,13 @@ class _HomePageState extends State<HomePage> {
             Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Image.asset("assets/images/googlemap_illustrator.png")),
+            Container(
+              width: 100,
+              height: 100,
+              child: BaseDatePicker(
+                restorationId: 'main',
+              ),
+            ),
             const ListTile(
               title: Text("Recent Kitchen"),
             ),

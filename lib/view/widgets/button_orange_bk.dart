@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 
 import '../../utils/palette.dart';
 
-class ButtonOrange extends StatefulWidget {
-  const ButtonOrange({super.key, this.title, this.icon, this.onPressed});
+class ButtonOrangeBK extends StatefulWidget {
+  const ButtonOrangeBK({super.key, this.title, this.icon, this.onPressed});
   final String? title;
   final IconData? icon;
   final Function? onPressed;
 
   @override
-  State<ButtonOrange> createState() => _ButtonOrangeState();
+  State<ButtonOrangeBK> createState() => _ButtonOrangeBKState();
 }
 
-class _ButtonOrangeState extends State<ButtonOrange> {
+class _ButtonOrangeBKState extends State<ButtonOrangeBK> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +23,13 @@ class _ButtonOrangeState extends State<ButtonOrange> {
         child: TextButton(
           onPressed: widget.onPressed as void Function()?,
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide(
+                  color: primaryColor, width: 2), // Đặt màu viền và độ rộng
+            )),
+            backgroundColor: MaterialStateProperty.all(Colors.white),
             minimumSize:
                 MaterialStateProperty.all(const Size(double.infinity, 60)),
           ),
@@ -34,10 +40,12 @@ class _ButtonOrangeState extends State<ButtonOrange> {
               children: [
                 (widget.icon == null)
                     ? const SizedBox.shrink()
-                    : Icon(widget.icon ?? null, color: Colors.white),
-                SizedBox(width: 5),
+                    : Icon(widget.icon ?? null, color: primaryColor),
+                SizedBox(
+                  width: 5,
+                ),
                 Text(widget.title ?? '',
-                    style: const TextStyle(color: Colors.white, fontSize: 20)),
+                    style: TextStyle(color: primaryColor, fontSize: 20)),
               ],
             ),
           ),
