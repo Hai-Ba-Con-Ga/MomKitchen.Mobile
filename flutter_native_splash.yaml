@@ -1,0 +1,6 @@
+flutter_native_splash:
+  # dart run flutter_native_splash:create
+  # dart run flutter_native_splash:remove
+  color: "#FFFFFF"
+  image: assets/images/Logo_x3.png
+  android_12:
