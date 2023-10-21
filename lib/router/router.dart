@@ -125,24 +125,12 @@ class AppRouter {
                   const KitchenMapPage()),
         ],
       ),
-      GoRoute(
-          path: AppPath.orderdetail,
-          builder: (context, state) => const OrderDetailPage()),
-      GoRoute(
-          path: '${AppPath.search}/:searchText',
-          builder: (context, state) =>
-              SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
-      GoRoute(
-          path: AppPath.mealdetail,
-          builder: (context, state) => const MealDetail()),
-      GoRoute(
-          path: AppPath.order, builder: (context, state) => const OrderPage()),
-      GoRoute(
-          path: AppPath.payment,
-          builder: (context, state) => const PaymentPage()),
-      GoRoute(
-          path: AppPath.kitchenhome,
-          builder: (context, state) => const KitchenHome()),
+      GoRoute(path: AppPath.orderdetail, builder: (context, state) => const OrderDetailPage()),
+      GoRoute(path: '${AppPath.search}/:searchText', builder: (context, state) => SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
+      GoRoute(path: AppPath.mealdetail, builder: (context, state) => const MealDetail()),
+      GoRoute(path: AppPath.order, builder: (context, state) => const OrderPage()),
+      GoRoute(path: AppPath.payment, builder: (context, state) => const PaymentPage()),
+      GoRoute(path: AppPath.kitchenhome, builder: (context, state) => const KitchenHome()),
       GoRoute(
         path: '${AppPath.kitchenmanager}/:tab',
         // path: AppPath.kitchenmanager,
@@ -150,15 +138,9 @@ class AppRouter {
           selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
         ),
       ),
-      GoRoute(
-          path: AppPath.adddish,
-          builder: (context, state) => const AddDishPage()),
-      GoRoute(
-          path: AppPath.addtray,
-          builder: (context, state) => const AddTrayPage()),
-      GoRoute(
-          path: AppPath.addmeal,
-          builder: (context, state) => const AddMealPage()),
+      GoRoute(path: AppPath.adddish, builder: (context, state) => const AddDishPage()),
+      GoRoute(path: AppPath.addtray, builder: (context, state) => const AddTrayPage()),
+      GoRoute(path: AppPath.addmeal, builder: (context, state) => const AddMealPage()),
     ],
     debugLogDiagnostics: true,
   );

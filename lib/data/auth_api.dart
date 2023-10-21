@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 
 import '../model/auth_model.dart';
 import '../utils/constants.dart';
@@ -12,16 +13,9 @@ class AuthApi {
     _dio.options.responseType = ResponseType.json;
   }
 
-  Future<ResponseUser?> loginUser(String idToken, String fcmToken) async {
-    Response response = await _dio.post('', data: {
-      'idToken': idToken,
-      'fcmToken': fcmToken,
-      'roleName': 'Customer'
-    });
-    print("................................................................");
-    print("IS FIRST TIME");
-    print(ResponseUser.fromJson(response.data['data']).isFirstTime);
-    print(ResponseUser.fromJson(response.data['data']).token);
+  Future<ResponseUser?> loginUser(String idToken, String fcmToken, [String? roleName]) async {
+    Response response = await _dio.post('', data: {'idToken': idToken, 'fcmToken': fcmToken, 'roleName': roleName ?? 'Customer'});
+    Logger().i(ResponseUser.fromJson(response.data['data']).user.roleName);
     return ResponseUser.fromJson(response.data['data']);
   }
 }
