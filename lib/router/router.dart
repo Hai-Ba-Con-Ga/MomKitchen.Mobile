@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../view/page/SC002_01_otp_page.dart';
+import '../view/page/SC002_signup_kitchen_page.dart';
 import '../view/page/SC005_kitchen_map_page.dart';
 import '../view/page/SC006_search_page.dart';
 import '../view/page/SC008_meal_detail_page.dart';
@@ -15,16 +16,19 @@ import '../view/page/SC018_02_tray_page_add.dart';
 import '../view/page/SC018_03_dish_page_add.dart';
 import '../view/page/SC018_kitchen_manager_page.dart';
 import '../view/page/SC004_home_page.dart';
+import '../view/page/SC028_kitchen_profile_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
 import '../view/page/SC002_signup_page.dart';
 import '../view/page/user_page.dart';
 import '../view/widgets/base_scaffold.dart';
+import '../view/widgets/base_scaffold_kitchen.dart';
 import 'router_key_management.dart';
 
 class AppPath {
   static const String login = '/login';
   static const String signUp = '/signUp';
+  static const String signUpPhoneKitchen = '/signUpPhoneKitchen';
   static const String signUpPhone = '/signUpPhone';
   static const String otp = '/otp';
   static const String home = '/';
@@ -42,6 +46,7 @@ class AppPath {
   static const String adddish = '/adddish';
   static const String addtray = '/addtray';
   static const String addmeal = '/addmeal';
+  static const String kitchenprofile = '/kitchenprofile';
 }
 
 class AppRouter {
@@ -72,6 +77,14 @@ class AppRouter {
           state,
         ) =>
             const SignInPhonePage(),
+      ),
+      GoRoute(
+        path: AppPath.signUpPhoneKitchen,
+        builder: (
+          context,
+          state,
+        ) =>
+            const SignInPhoneKitchenOwnerPage(),
       ),
       ShellRoute(
         navigatorKey: RouterKeyManager.instance.shellNavigatorKey,
@@ -130,17 +143,30 @@ class AppRouter {
       GoRoute(path: AppPath.mealdetail, builder: (context, state) => const MealDetail()),
       GoRoute(path: AppPath.order, builder: (context, state) => const OrderPage()),
       GoRoute(path: AppPath.payment, builder: (context, state) => const PaymentPage()),
-      GoRoute(path: AppPath.kitchenhome, builder: (context, state) => const KitchenHome()),
-      GoRoute(
-        path: '${AppPath.kitchenmanager}/:tab',
-        // path: AppPath.kitchenmanager,
-        builder: (context, state) => KitchenManager(
-          selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
+      ShellRoute(
+        navigatorKey: RouterKeyManager.instance.shellNavigatorKey,
+        builder: (
+          context,
+          state,
+          child,
+        ) =>
+            BaseScaffoldKitchen(
+          child: child,
         ),
+        routes: [
+          GoRoute(path: AppPath.kitchenhome, builder: (context, state) => const KitchenHome()),
+          GoRoute(
+            path: '${AppPath.kitchenmanager}/:tab',
+            builder: (context, state) => KitchenManager(
+              selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
+            ),
+          ),
+          GoRoute(path: AppPath.adddish, builder: (context, state) => const AddDishPage()),
+          GoRoute(path: AppPath.addtray, builder: (context, state) => const AddTrayPage()),
+          GoRoute(path: AppPath.addmeal, builder: (context, state) => const AddMealPage()),
+          GoRoute(path: AppPath.kitchenprofile, builder: (context, state) => const KitchenProfilePage()),
+        ],
       ),
-      GoRoute(path: AppPath.adddish, builder: (context, state) => const AddDishPage()),
-      GoRoute(path: AppPath.addtray, builder: (context, state) => const AddTrayPage()),
-      GoRoute(path: AppPath.addmeal, builder: (context, state) => const AddMealPage()),
     ],
     debugLogDiagnostics: true,
   );

@@ -14,7 +14,8 @@ class AuthApi {
   }
 
   Future<ResponseUser?> loginUser(String idToken, String fcmToken, [String? roleName]) async {
-    Response response = await _dio.post('', data: {'idToken': idToken, 'fcmToken': fcmToken, 'roleName': roleName ?? 'Customer'});
+    var jsondata = {'idToken': idToken, 'fcmToken': fcmToken, 'roleName': roleName ?? 'Customer'};
+    Response response = await _dio.post('', data: jsondata);
     Logger().i(ResponseUser.fromJson(response.data['data']).user.roleName);
     return ResponseUser.fromJson(response.data['data']);
   }

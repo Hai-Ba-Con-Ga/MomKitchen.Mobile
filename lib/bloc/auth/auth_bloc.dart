@@ -205,6 +205,7 @@ class AuthBloc extends BaseCubit {
     required String verificationId,
     required String userOtp,
     required Function onSuccess,
+    String? role,
   }) async {
     emit(
       CommonState(
@@ -222,10 +223,9 @@ class AuthBloc extends BaseCubit {
         String? fcmtoken = prefs.getString('fcmToken');
 
         final authRepository = AuthRepository(authApi: AuthApi());
-        responseLogin = await authRepository.loginUser(idToken!, fcmtoken!, 'Customer');
+        responseLogin = await authRepository.loginUser(idToken!, fcmtoken!, role ?? 'Customer');
 
         await prefs.setString('accessToken', responseLogin.token);
-        Logger().i('accessToken of backend into sharedPreference.');
         onSuccess();
       }
       emit(

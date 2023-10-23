@@ -21,8 +21,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _showPassword = false;
   final AuthBloc _authBloc = AuthBloc();
-  // final TextEditingController _usernameController = TextEditingController(text: 'email123@gmail.com');
-  // final TextEditingController _passwordController = TextEditingController(text: '123456');
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -117,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           Text(
-                            'Login',
+                            'Mom Kitchen',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               // color: Theme.of(context).colorScheme.primary,
@@ -127,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Center(
                             child: Text(
-                              'Please sign in to \nyour existing account',
+                              'Hãy cùng nhau thưởng thức\n hương vị tình thương',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 // color: Theme.of(context).colorScheme.primary,
@@ -161,14 +159,12 @@ class _LoginPageState extends State<LoginPage> {
                             child: TextField(
                               controller: _usernameController,
                               decoration: const InputDecoration(
-                                labelText: 'EMAIL',
-                                hintText: 'Enter your Email',
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
+                                labelText: 'SỐ ĐIỆN THOẠI',
+                                hintText: '. . . . . . . . . . . . . . . . . . . .',
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
                                 // border: InputBorder.none,
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.orange, width: 0.5),
+                                  borderSide: BorderSide(color: Colors.orange, width: 0.5),
                                 ),
                                 enabledBorder: InputBorder.none,
                                 fillColor: Colors.orange,
@@ -194,10 +190,9 @@ class _LoginPageState extends State<LoginPage> {
                                   controller: _passwordController,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    labelText: 'PASSWORD',
-                                    hintText: 'Enter your password',
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
+                                    labelText: 'MẬT KHẨU',
+                                    hintText: '. . . . . . . . . . . . . . . . . . . .',
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
                                     labelStyle: TextStyle(
                                       fontSize: 20,
                                     ),
@@ -206,9 +201,7 @@ class _LoginPageState extends State<LoginPage> {
                                 GestureDetector(
                                   onTap: onToggleShowPassword,
                                   child: Icon(
-                                    !_showPassword
-                                        ? Icons.remove_red_eye
-                                        : Icons.remove_red_eye_outlined,
+                                    !_showPassword ? Icons.remove_red_eye : Icons.remove_red_eye_outlined,
                                   ),
                                 ),
                               ],
@@ -223,25 +216,28 @@ class _LoginPageState extends State<LoginPage> {
                                 onTap: () => context.go(
                                   AppPath.signUp,
                                 ),
-                                child: const Text('Remeber me'),
+                                child: const Text('Ghi nhớ'),
                               ),
                               GestureDetector(
                                 onTap: () => context.go(
                                   AppPath.signUp,
                                 ),
                                 child: const Text(
-                                  'Forgot password?',
+                                  'Quên mật khẩu?',
                                   style: TextStyle(color: Colors.orange),
                                 ),
                               ),
                             ],
                           ),
                           SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
                             width: 350,
                             child: Container(
                               margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                               child: ButtonOrange(
-                                title: 'Sign in',
+                                title: 'ĐĂNG NHẬP',
                                 onPressed: onSignInClick,
                                 icon: null,
                               ),
@@ -256,35 +252,28 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Don\'t have Account?',
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 16),
+                                  'Không có tài khoản?',
+                                  style: TextStyle(color: Colors.grey, fontSize: 16),
                                 ),
                                 SizedBox(width: 10),
                                 Text(
-                                  'Sign up',
-                                  style: TextStyle(
-                                      color: Colors.orange, fontSize: 16),
+                                  'Đăng ký',
+                                  style: TextStyle(color: Colors.orange, fontSize: 16),
                                 ),
                               ],
                             ),
                           ),
                           const SizedBox(height: 10),
-                          const Text('Or'),
+                          const Text('Hoặc '),
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GestureDetector(
-                                  onTap: () {},
-                                  child:
-                                      Image.asset('assets/images/google.png')),
+                              GestureDetector(onTap: () {}, child: Image.asset('assets/images/google.png')),
                               const SizedBox(
                                 width: 10,
                               ),
-                              GestureDetector(
-                                  onTap: () {},
-                                  child: Image.asset('assets/images/fb.png')),
+                              GestureDetector(onTap: () {}, child: Image.asset('assets/images/fb.png')),
                             ],
                           )
                         ],

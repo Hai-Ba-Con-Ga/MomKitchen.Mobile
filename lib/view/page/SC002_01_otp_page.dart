@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../router/router.dart';
@@ -113,7 +114,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         child: Column(
                           children: <Widget>[
                             Text(
-                              'Verification',
+                              'Xác Thực OTP',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 // color: Theme.of(context).colorScheme.primary,
@@ -123,7 +124,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             ),
                             Center(
                               child: Text(
-                                'We have sent a code\n to your SMS',
+                                'Chúng tôi đã gửi OTP\n đến số điện thoại của bạn',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   // color: Theme.of(context).colorScheme.primary,
@@ -194,7 +195,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   child: Container(
                                     margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                                     child: ButtonOrange(
-                                      title: 'Verify',
+                                      title: 'Xác thực',
                                       onPressed: () {
                                         if (otpCode != null) {
                                           verifyOtp(context, otpCode!);
@@ -208,7 +209,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                                 const SizedBox(height: 20),
                                 const Text(
-                                  "Didn't receive any code?",
+                                  "Không nhận được mã OTP?",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
@@ -217,7 +218,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                                 const SizedBox(height: 15),
                                 const Text(
-                                  'Resend New Code',
+                                  'Gửi lại mã OTP',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -239,16 +240,20 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   // verify otp
-  void verifyOtp(BuildContext context, String userOtp) {
+  void verifyOtp(BuildContext context, String userOtp) async {
+    final prefs = await SharedPreferences.getInstance();
+    var role = prefs.getString('role');
+
     AuthBloc().verifyOtp(
         context: context,
         verificationId: widget.verificationId,
         userOtp: userOtp,
         onSuccess: () {
-          Logger().i('verifyOtp success -> go to home page');
+          var wheretogo = role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
           context.go(
-            AppPath.home,
+            wheretogo,
           );
-        });
+        },
+        role: role ?? 'Customer');
   }
 }

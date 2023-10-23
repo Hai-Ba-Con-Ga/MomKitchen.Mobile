@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/base_state.dart';
@@ -12,15 +14,15 @@ import '../../router/router.dart';
 import '../widgets/button_orange.dart';
 import '../widgets/button_orange_bk.dart';
 
-class SignInPhonePage extends StatefulWidget {
-  const SignInPhonePage({super.key});
+class SignInPhoneKitchenOwnerPage extends StatefulWidget {
+  const SignInPhoneKitchenOwnerPage({super.key});
 
   @override
-  State<SignInPhonePage> createState() => _SignInPhonePageState();
+  State<SignInPhoneKitchenOwnerPage> createState() => _SignInPhoneKitchenOwnerPageState();
 }
 
-class _SignInPhonePageState extends State<SignInPhonePage> {
-  final TextEditingController phoneController = TextEditingController(text: '0947339718');
+class _SignInPhoneKitchenOwnerPageState extends State<SignInPhoneKitchenOwnerPage> {
+  final TextEditingController phoneController = TextEditingController(text: '0982988421');
 
   Country selectedCountry = Country(
     phoneCode: '84',
@@ -141,7 +143,7 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                               ),
                               Center(
                                 child: Text(
-                                  'Tham gia nền tảng\n Momkitchen bằng số điện thoại',
+                                  'Trở thành cộng tác viên của \n Momkitchen bằng số điện thoại',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     // color: Theme.of(context).colorScheme.primary,
@@ -293,42 +295,21 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 10),
-                              const Text('Hoặc'),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(onTap: () {}, child: Image.asset('assets/images/google.png')),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  GestureDetector(onTap: () {}, child: Image.asset('assets/images/fb.png')),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 150),
                               Container(
                                 // color: Colors.red,
                                 height: 190,
-                                child: Stack(children: [
-                                  Positioned(top: 0, left: 10, child: Image.asset('assets/images/kitchenowner.png')),
-                                  Positioned(
-                                    bottom: 0,
-                                    left: 10,
-                                    right: 10,
-                                    child: SizedBox(
-                                      width: 350,
-                                      child: Container(
-                                        margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                                        child: ButtonOrangeBK(
-                                          title: 'Đăng ký dưới dạng Nhà bếp',
-                                          onPressed: () => {context.go(AppPath.signUpPhoneKitchen)},
-                                          icon: null,
-                                        ),
-                                      ),
+                                child: SizedBox(
+                                  width: 350,
+                                  child: Container(
+                                    margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                    child: ButtonOrangeBK(
+                                      title: 'Đăng ký dưới dạng người dùng',
+                                      onPressed: () => {context.go(AppPath.signUpPhone)},
+                                      icon: null,
                                     ),
                                   ),
-                                ]),
+                                ),
                               ),
                             ],
                           ),
@@ -341,7 +322,10 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
         ));
   }
 
-  void sendPhoneNumber() {
+  void sendPhoneNumber() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('role', 'Kitchen');
+
     String phoneNumber = phoneController.text.trim();
     AuthBloc().loginWithPhone(context: context, phoneNumber: "+${selectedCountry.phoneCode}$phoneNumber");
   }

@@ -3,14 +3,14 @@ import 'package:go_router/go_router.dart';
 
 import '../../router/router.dart';
 
-class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+class KitchenProfilePage extends StatefulWidget {
+  const KitchenProfilePage({super.key});
 
   @override
-  State<UserPage> createState() => _UserPageState();
+  State<KitchenProfilePage> createState() => _KitchenProfilePageState();
 }
 
-class _UserPageState extends State<UserPage> {
+class _KitchenProfilePageState extends State<KitchenProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
