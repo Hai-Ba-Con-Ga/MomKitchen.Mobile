@@ -147,7 +147,8 @@ class _OtpScreenState extends State<OtpScreen> {
                             )),
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 25, horizontal: 30),
                             child: Column(
                               children: [
                                 const Row(
@@ -193,14 +194,16 @@ class _OtpScreenState extends State<OtpScreen> {
                                 SizedBox(
                                   width: 350,
                                   child: Container(
-                                    margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(20, 5, 20, 5),
                                     child: ButtonOrange(
                                       title: 'Xác thực',
                                       onPressed: () {
                                         if (otpCode != null) {
                                           verifyOtp(context, otpCode!);
                                         } else {
-                                          showSnackBar(context, 'Enter 6-Digit code');
+                                          showSnackBar(
+                                              context, 'Enter 6-Digit code');
                                         }
                                       },
                                       icon: null,
@@ -244,6 +247,7 @@ class _OtpScreenState extends State<OtpScreen> {
     final prefs = await SharedPreferences.getInstance();
     var role = prefs.getString('role');
 
+    await AuthBloc().verifyOtp(
     await AuthBloc().verifyOtp(
         context: context,
         verificationId: widget.verificationId,

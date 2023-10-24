@@ -20,27 +20,23 @@ class _PaymentPageState extends State<PaymentPage> {
         title: const Text('Payment'),
       ),
       body: SingleChildScrollView(
-        child: Container(
-            child: Column(
+        child: Column(
           children: [
             Container(
               height: 100,
               color: Colors.red,
               width: double.infinity,
-              child: const Row(
+              child: const Column(
                 children: [
-                  // ListView.builder(
-                  //   itemBuilder: (context, index) {
-                  //     return Container(
-                  //         width: 50, height: 50, child: Text("123"));
-                  //   },
-                  //   itemCount: 10,
-                  // ),
+                  Text('Payment Page'),
                 ],
               ),
-            )
+            ),
+            Text('hehe'),
+            Text('hehe'),
+            Text('hehe'),
           ],
-        )),
+        ),
       ),
       floatingActionButton: Container(
         padding: const EdgeInsets.only(left: 20),

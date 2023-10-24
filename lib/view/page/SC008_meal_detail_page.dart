@@ -57,7 +57,7 @@ class _MealDetailState extends State<MealDetail> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Buoi Toi Sang Chanh Cua Mien Tay',
+                  'Buổi Tối Sang Chảnh Của Miền Tây',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -68,7 +68,7 @@ class _MealDetailState extends State<MealDetail> {
                   height: 15,
                 ),
                 Text(
-                  'tuu quan sinh vien',
+                  'tửu quán sinh viên',
                   style: TextStyle(
                     fontSize: 14,
                     // color: Color(0x181C2EFF),
