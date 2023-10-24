@@ -11,7 +11,7 @@ class AuthApi {
   final Dio _dio = Dio();
 
   AuthApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/Authentication';
+    _dio.options.baseUrl = '${AppConstants.domainAddress}/Authentication/login';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
@@ -33,12 +33,4 @@ class AuthApi {
     log.i('fcmToken $fcmToken');
     return ResponseUser.fromJson(response.data['data']);
   }
-
-  // Future<ResponseUser> logout(String fcmToken) async {
-  //   Response response = await _dio.delete('', data: {
-  //     'idToken': idToken,
-  //     'fcmToken': fcmToken,
-  //     'roleName': 'Customer'
-  //   });
-  // }
 }

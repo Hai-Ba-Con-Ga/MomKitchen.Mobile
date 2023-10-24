@@ -10,21 +10,24 @@ String areaToJson(Area data) => json.encode(data.toJson());
 
 class Area {
   String name;
+  String id;
   List<Boundary> boundaries;
 
   Area({
     required this.name,
+    required this.id,
     required this.boundaries,
   });
 
   factory Area.fromJson(Map<String, dynamic> json) => Area(
         name: json['name'],
-        boundaries: List<Boundary>.from(
-            json['boundaries'].map((x) => Boundary.fromJson(x))),
+        id: json['id'],
+        boundaries: List<Boundary>.from(json['boundaries'].map((x) => Boundary.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         'name': name,
+        'id': id,
         'boundaries': List<dynamic>.from(boundaries.map((x) => x.toJson())),
       };
 }

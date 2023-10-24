@@ -21,7 +21,7 @@ class _NotificationPageState extends State<NotificationPage> {
     var formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(time);
     return Scaffold(
         appBar: AppBar(
-          leading: ButtonBack(onPressed: () => context.go(AppPath.home)),
+          leading: ButtonBack(onPressed: () => context.pop()),
           leadingWidth: 70,
           toolbarHeight: 100,
           title: const Text('Notification'),
@@ -31,10 +31,9 @@ class _NotificationPageState extends State<NotificationPage> {
               itemBuilder: (context, index) {
                 return BaseListTile(
                   icon: const Icon(Icons.notifications, color: Colors.red),
-                  title: const Text("notification",
-                      style: TextStyle(fontSize: 20)),
+                  title: const Text("notification", style: TextStyle(fontSize: 20)),
                   description: const Text(
-                    'Giao tinh quan tu nhat nhu nuoc, ket giao tieu nhan ngot ruou nong',
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                     style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),
                   ),
                   time: Text(formattedDate),

@@ -5,18 +5,21 @@ import 'package:go_router/go_router.dart';
 import '../../router/router.dart';
 
 class BaseListTile extends StatefulWidget {
-  const BaseListTile(
-      {super.key,
-      this.icon,
-      this.title,
-      this.description,
-      this.time,
-      this.trailing});
+  const BaseListTile({
+    super.key,
+    this.icon,
+    this.title,
+    this.description,
+    this.time,
+    this.trailing,
+    this.onPressed,
+  });
   final Icon? icon;
   final Text? title;
   final Text? description;
   final Text? time;
   final Widget? trailing;
+  final Function? onPressed;
 
   @override
   State<BaseListTile> createState() => _BaseListTileState();
@@ -38,13 +41,16 @@ class _BaseListTileState extends State<BaseListTile> {
             widget.title ?? const SizedBox.shrink(),
           ],
         ),
-        subtitle:
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           widget.description ?? const SizedBox.shrink(),
           const SizedBox(height: 5),
           widget.time ?? const SizedBox.shrink(),
         ]),
-        onTap: () => context.go(AppPath.home),
+        onTap: () {
+          if (widget.onPressed != null) {
+            widget.onPressed!();
+          }
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
