@@ -40,7 +40,9 @@ class _MealDetailState extends State<MealDetail> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+            borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30)),
             child: Image.network(
               'https://momkitchen.s3.ap-southeast-1.amazonaws.com/cc6a28fd-6d14-4f59-91a3-1a888ce00c15',
               height: 400,
@@ -97,7 +99,8 @@ class _MealDetailState extends State<MealDetail> {
                 SizedBox(
                   height: 5,
                 ),
-                Text('Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.'),
+                Text(
+                    'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.'),
                 Text('FeedBack'),
               ],
             ),
@@ -107,7 +110,7 @@ class _MealDetailState extends State<MealDetail> {
       floatingActionButton: Container(
         padding: const EdgeInsets.only(left: 20),
         child: ButtonOrange(
-          onPressed: () => context.go(AppPath.order),
+          onPressed: () => context.push(AppPath.order),
           title: 'ĐẶT NGAY NÈ',
         ),
       ),

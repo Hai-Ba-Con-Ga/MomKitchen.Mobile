@@ -16,7 +16,7 @@ final ThemeData mainTheme = ThemeData(
         const TextStyle(fontSize: 16, color: Colors.white),
       ),
       backgroundColor:
-          MaterialStateProperty.all<Color>(lightColorScheme.tertiary),
+          MaterialStateProperty.all<Color>(lightColorScheme.inverseSurface),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

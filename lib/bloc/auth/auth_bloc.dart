@@ -269,6 +269,8 @@ class AuthBloc extends BaseCubit {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('accessToken', '');
+      await prefs.setString('userId', '');
+      await prefs.setString('userInfo', '');
       await FirebaseAuth.instance.signOut();
       await googleSignIn.signOut();
     } catch (e) {

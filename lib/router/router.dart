@@ -21,6 +21,7 @@ import '../view/page/SC028_kitchen_profile_page.dart';
 import '../view/page/SC001_login_page.dart';
 // import '../view/page/SC002_signIn_page.dart';
 import '../view/page/sign_up_page.dart';
+import '../view/page/user_edit_page.dart';
 import '../view/page/user_page.dart';
 import '../view/widgets/base_scaffold.dart';
 import '../view/widgets/base_scaffold_kitchen.dart';
@@ -36,6 +37,7 @@ class AppPath {
   static const String favorite = '/favorite';
   static const String notification = '/notification';
   static const String user = '/user';
+  static const String userEdit = '/userEdit';
   static const String kitchenmap = '/kitchenmap';
   static const String orderdetail = '/orderdetail';
   static const String search = '/search';
@@ -130,6 +132,14 @@ class AppRouter {
                 state,
               ) =>
                   const UserPage(),
+            ),
+            GoRoute(
+              path: AppPath.userEdit,
+              builder: (
+                context,
+                state,
+              ) =>
+                  const UserEditScreen(),
             ),
             GoRoute(
                 path: AppPath.kitchenmap,
