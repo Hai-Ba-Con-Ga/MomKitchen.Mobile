@@ -65,23 +65,23 @@ class KitchenManagerState extends State<KitchenManager> with SingleTickerProvide
             DishPage(),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            switch (_currentTabIndex) {
-              case 0:
-                context.push(AppPath.addmeal);
-                break;
-              case 1:
-                context.push(AppPath.addtray);
-                break;
-              case 2:
-                context.push(AppPath.adddish);
-                break;
-            }
-          },
-          child: const Icon(Icons.add),
-          backgroundColor: primaryColor,
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     switch (_currentTabIndex) {
+        //       case 0:
+        //         context.push(AppPath.addmeal);
+        //         break;
+        //       case 1:
+        //         context.push(AppPath.addtray);
+        //         break;
+        //       case 2:
+        //         context.push(AppPath.adddish);
+        //         break;
+        //     }
+        //   },
+        //   child: const Icon(Icons.add),
+        //   backgroundColor: primaryColor,
+        // ),
       ),
     );
   }

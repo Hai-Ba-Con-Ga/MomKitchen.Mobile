@@ -174,6 +174,7 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
                   ownerId: userData.id,
                 );
                 await kitchenRepository.CreateKitchen(kitchenRequest);
+                context.go('${AppPath.kitchenprofile}');
               } else {
                 Logger().e("User is null");
               }

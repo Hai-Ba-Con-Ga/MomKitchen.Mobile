@@ -6,7 +6,7 @@ import '../utils/constants.dart';
 class DishApi {
   final Dio _dio = Dio();
   DishApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/dish';
+    _dio.options.baseUrl = '${AppConstants.localhostAdress}/dish';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
@@ -24,8 +24,9 @@ class DishApi {
 
   Future<List<Dish>> getAllDishes() async {
     try {
-      Response response = await _dio.get('');
-      List<dynamic> dishData = response.data as List<dynamic>;
+      // add fields to get
+      Response response = await _dio.get('', queryParameters: {'fields': 'UpdatedDate:desc'});
+      List<dynamic> dishData = response.data['data'] as List<dynamic>;
       List<Dish> dishes = dishData.map((data) => Dish.fromJson(data)).toList();
       return dishes;
     } catch (error) {
@@ -36,7 +37,7 @@ class DishApi {
 
   Future<void> updateDish(String dishId, DishUpdateRequest dishRequest) async {
     try {
-      Response response = await _dio.put('/$dishId', data: dishRequest.toRawJson());
+      Response response = await _dio.put('', queryParameters: {'dishId': dishId}, data: dishRequest.toRawJson());
       Logger().i(response.data);
     } catch (error) {
       Logger().e("Error updating dish: $error");
@@ -46,7 +47,8 @@ class DishApi {
 
   Future<void> deleteDish(String dishId) async {
     try {
-      Response response = await _dio.delete('/$dishId');
+      Logger().i(dishId);
+      Response response = await _dio.delete('', queryParameters: {'dishId': dishId});
       Logger().i(response.data);
     } catch (error) {
       Logger().e("Error deleting dish: $error");
@@ -56,7 +58,7 @@ class DishApi {
 
   Future<Dish> getDishById(String dishId) async {
     try {
-      Response response = await _dio.get('/$dishId');
+      Response response = await _dio.get('', queryParameters: {'dishId': dishId});
       Map<String, dynamic> dishData = response.data as Map<String, dynamic>;
       Dish dish = Dish.fromJson(dishData);
       return dish;
