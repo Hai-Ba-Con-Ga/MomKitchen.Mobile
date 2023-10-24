@@ -243,17 +243,17 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   // verify otp
-  void verifyOtp(BuildContext context, String userOtp) async {
+  Future<void> verifyOtp(BuildContext context, String userOtp) async {
     final prefs = await SharedPreferences.getInstance();
     var role = prefs.getString('role');
 
-    await AuthBloc().verifyOtp(
     await AuthBloc().verifyOtp(
         context: context,
         verificationId: widget.verificationId,
         userOtp: userOtp,
         onSuccess: (role, isFirstTime) {
-          var wheretogo = role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
+          var wheretogo =
+              role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
           if (wheretogo == 'Customer') {
             context.go(
               wheretogo,
