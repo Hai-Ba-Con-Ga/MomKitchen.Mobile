@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../router/router.dart';
+import '../../utils/utils.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -19,9 +20,12 @@ class _UserPageState extends State<UserPage> {
         children: [
           Center(
             child: TextButton(
-              onPressed: () => context.go(
-                AppPath.login,
-              ),
+              onPressed: () async {
+                await logout();
+                context.go(
+                  AppPath.login,
+                );
+              },
               child: const Text('Log Out'),
             ),
           ),
