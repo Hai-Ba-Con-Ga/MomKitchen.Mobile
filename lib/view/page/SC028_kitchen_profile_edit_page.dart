@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 import '../../bloc/area/area_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../data/area_api.dart';
+import '../../data/kitchen_api.dart';
 import '../../model/area_model.dart';
 import '../../model/auth_model.dart';
+import '../../model/kitchen_model.dart';
 import '../../repository/area_repository.dart';
+import '../../repository/kitchen_repository.dart';
 import '../../router/router.dart';
 import '../../utils/palette.dart';
 import '../widgets/base_ListTile.dart';
@@ -19,7 +24,8 @@ import '../widgets/button_back.dart';
 import '../widgets/button_orange.dart';
 
 class KitchenProfileEditPage extends StatefulWidget {
-  const KitchenProfileEditPage({Key? key, title}) : super(key: key);
+  const KitchenProfileEditPage({Key? key, title, isFirstTime}) : super(key: key);
+  final bool? isFirstTime = false;
   final String? title = 'Tạo Hồ sơ cá nhân';
   @override
   _KitchenProfileEditPageState createState() => _KitchenProfileEditPageState();
@@ -29,7 +35,7 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
   File? _image;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _kitchenNameController = TextEditingController();
-  final TextEditingController _locationNameController = TextEditingController();
+  final TextEditingController _addressNameController = TextEditingController();
   final TextEditingController _areaNameController = TextEditingController(text: "Chọn khu vực");
 
   Area? area;
@@ -103,7 +109,7 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
               const Text('ĐỊA CHỈ', style: TextStyle(fontSize: 16.0)),
               SizedBox(height: 5.0),
               TextFormField(
-                controller: _locationNameController,
+                controller: _addressNameController,
                 decoration: InputDecoration(
                   hintText: 'Số nhà, đường, phường, quận, thành phố...etc',
                   hintStyle: TextStyle(color: Color(0xFFA0A5BA)),
@@ -128,9 +134,9 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
                         MaterialPageRoute(
                           builder: (context) => SelectKitchenMap(),
                         ));
-                    Area area = Area.fromJson(jsonDecode(resultArea));
+                    area = Area.fromJson(jsonDecode(resultArea));
                     setState(() {
-                      _areaNameController.text = area.name;
+                      _areaNameController.text = area?.name ?? "Chọn Khu Vực";
                     });
                   },
                   child: TextField(
@@ -147,16 +153,32 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
         height: 50.0,
         width: MediaQuery.of(context).size.width * 0.9,
         child: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
             if (_formKey.currentState!.validate()) {
               // Thực hiện lưu dữ liệu món ăn ở đây
-              String foodName = _kitchenNameController.text;
-              String foodDescription = _locationNameController.text;
-              // Sử dụng _image để lưu đường dẫn hình ảnh
+              String kitchenName = _kitchenNameController.text;
+              String addressName = _addressNameController.text;
+              String areaId = area?.id ?? "";
 
-              // Sau khi lưu, có thể quay lại màn hình chính hoặc thực hiện các thao tác khác
+              var prefs = await SharedPreferences.getInstance();
+              var user = await prefs.getString('userData');
+              if (user != null) {
+                User userData = User.fromJson(jsonDecode(user));
+                KitchenRepository kitchenRepository = KitchenRepository(kitchenApi: KitchenApi());
+                KitchenRequest kitchenRequest = KitchenRequest(
+                  name: kitchenName,
+                  address: addressName,
+                  status: "ACTIVE",
+                  location: Location(lat: 0, lng: 0),
+                  areaId: areaId,
+                  ownerId: userData.id,
+                );
+                await kitchenRepository.CreateKitchen(kitchenRequest);
+              } else {
+                Logger().e("User is null");
+              }
             }
-            context.go('${AppPath.kitchenprofile}');
+            // context.go('${AppPath.kitchenprofile}');
           },
           child: const Icon(Icons.add),
           backgroundColor: primaryColor,
@@ -241,7 +263,7 @@ class _ListAreaState extends State<ListArea> {
                 title: Text(state.model[index].name, style: const TextStyle(fontSize: 20)),
                 onPressed: () {},
                 // description: const Text(
-                //   'Giao tinh quan tu nhat nhu nuoc, ket giao tieu nhan ngot ruou nong',
+                //   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                 //   style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),
                 // ),
               );

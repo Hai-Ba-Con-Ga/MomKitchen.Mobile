@@ -8,30 +8,15 @@ class AuthApi {
   final Dio _dio = Dio();
 
   AuthApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/Authentication';
+    _dio.options.baseUrl = '${AppConstants.domainAddress}/Authentication/login';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
 
-  Future<ResponseUser?> loginUser(
-      String idToken, String fcmToken, String? roleName) async {
-    Response response = await _dio.post('/login', data: {
-      'idToken': idToken,
-      'fcmToken': fcmToken,
-      'roleName': 'Customer'
-    });
-    var log = Logger();
-    // log.i(ResponseUser.fromJson(response.data['data']).isFirstTime);
-    log.i(ResponseUser.fromJson(response.data['data']).user.id);
-    log.i('fcmToken $fcmToken');
+  Future<ResponseUser?> loginUser(String idToken, String fcmToken, [String? roleName]) async {
+    var jsondata = {'idToken': idToken, 'fcmToken': fcmToken, 'roleName': roleName ?? 'Customer'};
+    Response response = await _dio.post('', data: jsondata);
+    Logger().i(ResponseUser.fromJson(response.data['data']).user.roleName);
     return ResponseUser.fromJson(response.data['data']);
   }
-
-  // Future<ResponseUser> logout(String fcmToken) async {
-  //   Response response = await _dio.delete('', data: {
-  //     'idToken': idToken,
-  //     'fcmToken': fcmToken,
-  //     'roleName': 'Customer'
-  //   });
-  // }
 }

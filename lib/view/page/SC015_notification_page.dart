@@ -33,7 +33,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   icon: const Icon(Icons.notifications, color: Colors.red),
                   title: const Text("notification", style: TextStyle(fontSize: 20)),
                   description: const Text(
-                    'Giao tinh quan tu nhat nhu nuoc, ket giao tieu nhan ngot ruou nong',
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                     style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),
                   ),
                   time: Text(formattedDate),

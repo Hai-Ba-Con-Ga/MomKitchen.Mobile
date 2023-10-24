@@ -69,13 +69,13 @@ class KitchenManagerState extends State<KitchenManager> with SingleTickerProvide
           onPressed: () {
             switch (_currentTabIndex) {
               case 0:
-                context.go(AppPath.addmeal);
+                context.push(AppPath.addmeal);
                 break;
               case 1:
-                context.go(AppPath.addtray);
+                context.push(AppPath.addtray);
                 break;
               case 2:
-                context.go(AppPath.adddish);
+                context.push(AppPath.adddish);
                 break;
             }
           },

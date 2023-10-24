@@ -18,7 +18,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: ButtonBack(onPressed: () => context.pop()),
+        leading: ButtonBack(),
         leadingWidth: 70,
         toolbarHeight: 100,
         backgroundColor: const Color.fromRGBO(30, 30, 46, 1),
