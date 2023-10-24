@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ButtonBack extends StatelessWidget {
   const ButtonBack({super.key, this.onPressed});
@@ -8,7 +11,7 @@ class ButtonBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed as void Function()?,
+      onTap: (onPressed != null) ? (onPressed as void Function()) : (() => context.pop()),
       child: Container(
         margin: const EdgeInsets.all(15),
         // width: 30.0,

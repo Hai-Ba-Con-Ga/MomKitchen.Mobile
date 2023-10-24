@@ -257,7 +257,7 @@ class _OtpScreenState extends State<OtpScreen> {
           } else {
             if (isFirstTime == true) {
               context.go(
-                AppPath.kitchenhome,
+                AppPath.kitchenprofile,
               );
             } else {
               context.go(

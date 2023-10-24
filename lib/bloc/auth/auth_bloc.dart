@@ -225,6 +225,7 @@ class AuthBloc extends BaseCubit {
         final authRepository = AuthRepository(authApi: AuthApi());
         responseLogin = await authRepository.loginUser(idToken!, fcmtoken!, role ?? 'Customer');
 
+        await prefs.setString('user', responseLogin);
         await prefs.setString('accessToken', responseLogin.token);
         onSuccess(responseLogin.user.roleName, responseLogin.isFirstTime);
       }

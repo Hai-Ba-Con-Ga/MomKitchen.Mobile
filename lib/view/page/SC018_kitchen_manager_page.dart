@@ -16,16 +16,14 @@ class KitchenManager extends StatefulWidget {
   State<KitchenManager> createState() => KitchenManagerState();
 }
 
-class KitchenManagerState extends State<KitchenManager>
-    with SingleTickerProviderStateMixin {
+class KitchenManagerState extends State<KitchenManager> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late int _currentTabIndex;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-        length: 3, vsync: this, initialIndex: widget.selectedTab ?? 0);
+    _tabController = TabController(length: 3, vsync: this, initialIndex: widget.selectedTab ?? 0);
     _tabController.addListener(() {
       setState(() {
         _currentTabIndex = _tabController.index;
@@ -40,7 +38,7 @@ class KitchenManagerState extends State<KitchenManager>
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          leading: ButtonBack(onPressed: () => context.go(AppPath.kitchenhome)),
+          leading: ButtonBack(onPressed: () => context.pop()),
           leadingWidth: 70,
           toolbarHeight: 80,
           title: const Text('Kitchen manager'),
