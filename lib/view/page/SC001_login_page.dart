@@ -160,11 +160,14 @@ class _LoginPageState extends State<LoginPage> {
                               controller: _usernameController,
                               decoration: const InputDecoration(
                                 labelText: 'SỐ ĐIỆN THOẠI',
-                                hintText: '. . . . . . . . . . . . . . . . . . . .',
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                hintText:
+                                    '. . . . . . . . . . . . . . . . . . . .',
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 // border: InputBorder.none,
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.orange, width: 0.5),
+                                  borderSide: BorderSide(
+                                      color: Colors.orange, width: 0.5),
                                 ),
                                 enabledBorder: InputBorder.none,
                                 fillColor: Colors.orange,
@@ -191,8 +194,10 @@ class _LoginPageState extends State<LoginPage> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     labelText: 'MẬT KHẨU',
-                                    hintText: '. . . . . . . . . . . . . . . . . . . .',
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    hintText:
+                                        '. . . . . . . . . . . . . . . . . . . .',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
                                     labelStyle: TextStyle(
                                       fontSize: 20,
                                     ),
@@ -201,7 +206,9 @@ class _LoginPageState extends State<LoginPage> {
                                 GestureDetector(
                                   onTap: onToggleShowPassword,
                                   child: Icon(
-                                    !_showPassword ? Icons.remove_red_eye : Icons.remove_red_eye_outlined,
+                                    !_showPassword
+                                        ? Icons.remove_red_eye
+                                        : Icons.remove_red_eye_outlined,
                                   ),
                                 ),
                               ],
@@ -253,12 +260,14 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 Text(
                                   'Không có tài khoản?',
-                                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 16),
                                 ),
                                 SizedBox(width: 10),
                                 Text(
                                   'Đăng ký',
-                                  style: TextStyle(color: Colors.orange, fontSize: 16),
+                                  style: TextStyle(
+                                      color: Colors.orange, fontSize: 16),
                                 ),
                               ],
                             ),
@@ -269,11 +278,16 @@ class _LoginPageState extends State<LoginPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GestureDetector(onTap: () {}, child: Image.asset('assets/images/google.png')),
+                              GestureDetector(
+                                  onTap: onGoogleClick,
+                                  child:
+                                      Image.asset('assets/images/google.png')),
                               const SizedBox(
                                 width: 10,
                               ),
-                              GestureDetector(onTap: () {}, child: Image.asset('assets/images/fb.png')),
+                              GestureDetector(
+                                  onTap: () {},
+                                  child: Image.asset('assets/images/fb.png')),
                             ],
                           )
                         ],
@@ -302,5 +316,9 @@ class _LoginPageState extends State<LoginPage> {
         _showPassword = !_showPassword;
       },
     );
+  }
+
+  Future<void> onGoogleClick() async {
+    await _authBloc.loginWithGoogle();
   }
 }

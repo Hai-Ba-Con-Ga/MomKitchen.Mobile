@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'router/router.dart';
+import 'utils/color.dart';
 import 'utils/theme.dart';
 
 class MomKitchen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _MomKitchenState extends State<MomKitchen> {
     return MaterialApp.router(
       routerConfig: AppRouter().Router(widget.firstRoute),
       theme: mainTheme,
+      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       debugShowCheckedModeBanner: false,
     );
   }

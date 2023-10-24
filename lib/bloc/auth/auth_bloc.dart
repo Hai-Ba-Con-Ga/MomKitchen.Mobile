@@ -51,7 +51,8 @@ class AuthBloc extends BaseCubit {
         confirmPassword: confirmPassword,
       );
       if (validateMessage.isEmpty) {
-        final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -95,7 +96,8 @@ class AuthBloc extends BaseCubit {
           isLoading: true,
         ),
       );
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -129,15 +131,27 @@ class AuthBloc extends BaseCubit {
           isLoading: true,
         ),
       );
-      FirebaseAuth auth = FirebaseAuth.instance;
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-      final AuthCredential authCredential = GoogleAuthProvider.credential(accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      final AuthCredential authCredential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
 
       final credential = await auth.signInWithCredential(authCredential);
+
+      var log = Logger();
+      String? idToken = await auth.currentUser?.getIdToken();
+      final prefs = await SharedPreferences.getInstance();
+      String? fcmtoken = prefs.getString('fcmToken');
+
+      final authRepository = AuthRepository(authApi: AuthApi());
+      var responseLogin = await authRepository.loginUser(idToken!, fcmtoken!);
+
+      await prefs.setString('accessToken', responseLogin!.token);
+      // log.i(responseLogin!.token);
 
       emit(
         CommonState(
@@ -161,7 +175,8 @@ class AuthBloc extends BaseCubit {
     }
   }
 
-  Future<void> loginWithPhone({required BuildContext context, required String phoneNumber}) async {
+  Future<void> loginWithPhone(
+      {required BuildContext context, required String phoneNumber}) async {
     try {
       emit(
         CommonState(
@@ -177,11 +192,10 @@ class AuthBloc extends BaseCubit {
         },
         verificationFailed: (FirebaseAuthException e) {
           if (e.code == 'invalid-phone-number') {
-            Logger().w('The provided phone number is not valid.');
+            print('The provided phone number is not valid.');
           }
         },
         codeSent: (verificationId, forceResendingToken) async {
-          Logger().i('Phone number verification code sent.');
           await Navigator.push(
             context,
             MaterialPageRoute(
@@ -205,7 +219,7 @@ class AuthBloc extends BaseCubit {
     required String verificationId,
     required String userOtp,
     required Function onSuccess,
-    String? role,
+    required String role,
   }) async {
     emit(
       CommonState(
@@ -214,8 +228,9 @@ class AuthBloc extends BaseCubit {
       ),
     );
     try {
-      dynamic responseLogin;
-      PhoneAuthCredential creds = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: userOtp);
+      var responseLogin;
+      PhoneAuthCredential creds = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: userOtp);
       var user = (await auth.signInWithCredential(creds)).user;
       if (user != null) {
         String? idToken = await auth.currentUser?.getIdToken();
@@ -223,7 +238,7 @@ class AuthBloc extends BaseCubit {
         String? fcmtoken = prefs.getString('fcmToken');
 
         final authRepository = AuthRepository(authApi: AuthApi());
-        responseLogin = await authRepository.loginUser(idToken!, fcmtoken!, role ?? 'Customer');
+        responseLogin = await authRepository.loginUser(idToken!, fcmtoken!);
 
         await prefs.setString('user', responseLogin);
         await prefs.setString('accessToken', responseLogin.token);
@@ -242,6 +257,8 @@ class AuthBloc extends BaseCubit {
 
   Future<void> signOut() async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('accessToken', '');
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       print('Lỗi đăng xuất: $e');
@@ -250,8 +267,11 @@ class AuthBloc extends BaseCubit {
 
   Future<void> signOutWithGoogle() async {
     try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('accessToken', '');
       await FirebaseAuth.instance.signOut();
-      await GoogleSignIn().signOut();
+      await googleSignIn.signOut();
     } catch (e) {
       print('Lỗi đăng xuất Google: $e');
     }

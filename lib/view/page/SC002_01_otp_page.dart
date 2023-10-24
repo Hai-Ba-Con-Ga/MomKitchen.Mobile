@@ -147,7 +147,8 @@ class _OtpScreenState extends State<OtpScreen> {
                             )),
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 25, horizontal: 30),
                             child: Column(
                               children: [
                                 const Row(
@@ -193,14 +194,16 @@ class _OtpScreenState extends State<OtpScreen> {
                                 SizedBox(
                                   width: 350,
                                   child: Container(
-                                    margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(20, 5, 20, 5),
                                     child: ButtonOrange(
                                       title: 'Xác thực',
                                       onPressed: () {
                                         if (otpCode != null) {
                                           verifyOtp(context, otpCode!);
                                         } else {
-                                          showSnackBar(context, 'Enter 6-Digit code');
+                                          showSnackBar(
+                                              context, 'Enter 6-Digit code');
                                         }
                                       },
                                       icon: null,
@@ -240,7 +243,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   // verify otp
-  void verifyOtp(BuildContext context, String userOtp) async {
+  Future<void> verifyOtp(BuildContext context, String userOtp) async {
     final prefs = await SharedPreferences.getInstance();
     var role = prefs.getString('role');
 
@@ -249,7 +252,8 @@ class _OtpScreenState extends State<OtpScreen> {
         verificationId: widget.verificationId,
         userOtp: userOtp,
         onSuccess: (role, isFirstTime) {
-          var wheretogo = role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
+          var wheretogo =
+              role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
           if (wheretogo == 'Customer') {
             context.go(
               wheretogo,

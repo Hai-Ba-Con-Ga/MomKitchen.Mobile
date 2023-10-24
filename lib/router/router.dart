@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../utils/utils.dart';
-import '../view/page/SC002_01_otp_page.dart';
+import '../view/page/SC002_signup_page.dart';
 import '../view/page/SC002_signup_kitchen_page.dart';
 import '../view/page/SC005_kitchen_map_page.dart';
 import '../view/page/SC006_search_page.dart';
@@ -19,9 +19,9 @@ import '../view/page/SC018_03_dish_page_add.dart';
 import '../view/page/SC018_kitchen_manager_page.dart';
 import '../view/page/SC004_home_page.dart';
 import '../view/page/SC028_kitchen_profile_page.dart';
-import '../view/page/sign_up_page.dart';
 import '../view/page/SC001_login_page.dart';
-import '../view/page/SC002_signup_page.dart';
+// import '../view/page/SC002_signIn_page.dart';
+import '../view/page/sign_up_page.dart';
 import '../view/page/user_page.dart';
 import '../view/widgets/base_scaffold.dart';
 import '../view/widgets/base_scaffold_kitchen.dart';
@@ -142,11 +142,22 @@ class AppRouter {
                     const KitchenMapPage()),
           ],
         ),
-        GoRoute(path: AppPath.orderdetail, builder: (context, state) => const OrderDetailPage()),
-        GoRoute(path: '${AppPath.search}/:searchText', builder: (context, state) => SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
-        GoRoute(path: AppPath.mealdetail, builder: (context, state) => const MealDetail()),
-        GoRoute(path: AppPath.order, builder: (context, state) => const OrderPage()),
-        GoRoute(path: AppPath.payment, builder: (context, state) => const PaymentPage()),
+        GoRoute(
+            path: AppPath.orderdetail,
+            builder: (context, state) => const OrderDetailPage()),
+        GoRoute(
+            path: '${AppPath.search}/:searchText',
+            builder: (context, state) => SearchPage(
+                searchText: state.pathParameters['searchText'] ?? '')),
+        GoRoute(
+            path: AppPath.mealdetail,
+            builder: (context, state) => const MealDetail()),
+        GoRoute(
+            path: AppPath.order,
+            builder: (context, state) => const OrderPage()),
+        GoRoute(
+            path: AppPath.payment,
+            builder: (context, state) => const PaymentPage()),
         ShellRoute(
           navigatorKey: RouterKeyManager.instance.shellNavigatorKey,
           builder: (
@@ -158,17 +169,27 @@ class AppRouter {
             child: child,
           ),
           routes: [
-            GoRoute(path: AppPath.kitchenhome, builder: (context, state) => const KitchenHome()),
+            GoRoute(
+                path: AppPath.kitchenhome,
+                builder: (context, state) => const KitchenHome()),
             GoRoute(
               path: '${AppPath.kitchenmanager}/:tab',
               builder: (context, state) => KitchenManager(
                 selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
               ),
             ),
-            GoRoute(path: AppPath.adddish, builder: (context, state) => const AddDishPage()),
-            GoRoute(path: AppPath.addtray, builder: (context, state) => const AddTrayPage()),
-            GoRoute(path: AppPath.addmeal, builder: (context, state) => const AddMealPage()),
-            GoRoute(path: AppPath.kitchenprofile, builder: (context, state) => const KitchenProfilePage()),
+            GoRoute(
+                path: AppPath.adddish,
+                builder: (context, state) => const AddDishPage()),
+            GoRoute(
+                path: AppPath.addtray,
+                builder: (context, state) => const AddTrayPage()),
+            GoRoute(
+                path: AppPath.addmeal,
+                builder: (context, state) => const AddMealPage()),
+            GoRoute(
+                path: AppPath.kitchenprofile,
+                builder: (context, state) => const KitchenProfilePage()),
           ],
         ),
         GoRoute(
@@ -180,6 +201,7 @@ class AppRouter {
     );
   }
 
+<<<<<<< HEAD
   // static final router = GoRouter(
   //   initialLocation: AppPath.login,
   //   navigatorKey: RouterKeyManager.instance.rootNavigatorKey,
@@ -300,4 +322,146 @@ class AppRouter {
   //   ],
   //   debugLogDiagnostics: true,
   // );
+=======
+  static final router = GoRouter(
+    initialLocation: AppPath.login,
+    navigatorKey: RouterKeyManager.instance.rootNavigatorKey,
+    routes: <RouteBase>[
+      GoRoute(
+        path: AppPath.login,
+        builder: (
+          context,
+          state,
+        ) =>
+            const LoginPage(),
+      ),
+      GoRoute(
+        path: AppPath.signUp,
+        builder: (
+          context,
+          state,
+        ) =>
+            const LoginPage(),
+      ),
+      GoRoute(
+        path: AppPath.signUpPhone,
+        builder: (
+          context,
+          state,
+        ) =>
+            const SignInPhonePage(),
+      ),
+      GoRoute(
+        path: AppPath.signUpPhoneKitchen,
+        builder: (
+          context,
+          state,
+        ) =>
+            const SignInPhoneKitchenOwnerPage(),
+      ),
+      ShellRoute(
+        navigatorKey: RouterKeyManager.instance.shellNavigatorKey,
+        builder: (
+          context,
+          state,
+          child,
+        ) =>
+            BaseScaffold(
+          child: child,
+        ),
+        routes: [
+          GoRoute(
+            path: AppPath.home,
+            builder: (
+              context,
+              state,
+            ) =>
+                const HomePage(),
+          ),
+          GoRoute(
+            path: AppPath.favorite,
+            builder: (
+              context,
+              state,
+            ) =>
+                const SizedBox(),
+          ),
+          GoRoute(
+            path: AppPath.notification,
+            builder: (
+              context,
+              state,
+            ) =>
+                const NotificationPage(),
+          ),
+          GoRoute(
+            path: AppPath.user,
+            builder: (
+              context,
+              state,
+            ) =>
+                const KitchenProfilePage(),
+          ),
+          GoRoute(
+              path: AppPath.kitchenmap,
+              builder: (
+                context,
+                state,
+              ) =>
+                  const KitchenMapPage()),
+        ],
+      ),
+      GoRoute(
+          path: AppPath.orderdetail,
+          builder: (context, state) => const OrderDetailPage()),
+      GoRoute(
+          path: '${AppPath.search}/:searchText',
+          builder: (context, state) =>
+              SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
+      GoRoute(
+          path: AppPath.mealdetail,
+          builder: (context, state) => const MealDetail()),
+      GoRoute(
+          path: AppPath.order, builder: (context, state) => const OrderPage()),
+      GoRoute(
+          path: AppPath.payment,
+          builder: (context, state) => const PaymentPage()),
+      ShellRoute(
+        navigatorKey: RouterKeyManager.instance.shellNavigatorKey,
+        builder: (
+          context,
+          state,
+          child,
+        ) =>
+            BaseScaffoldKitchen(
+          child: child,
+        ),
+        routes: [
+          GoRoute(
+              path: AppPath.kitchenhome,
+              builder: (context, state) => const KitchenHome()),
+          GoRoute(
+            path: '${AppPath.kitchenmanager}/:tab',
+            builder: (context, state) => KitchenManager(
+              selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
+            ),
+          ),
+          GoRoute(
+              path: AppPath.adddish,
+              builder: (context, state) => const AddDishPage()),
+          GoRoute(
+              path: AppPath.addtray,
+              builder: (context, state) => const AddTrayPage()),
+          GoRoute(
+              path: AppPath.addmeal,
+              builder: (context, state) => const AddMealPage()),
+          GoRoute(
+              path: AppPath.kitchenprofile,
+              builder: (context, state) => const KitchenProfilePage()),
+        ],
+      ),
+    ],
+    debugLogDiagnostics: true,
+  );
+>>>>>>> main
 }

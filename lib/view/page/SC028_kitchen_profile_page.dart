@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../bloc/auth/auth_bloc.dart';
 import '../../router/router.dart';
 import '../../utils/utils.dart';
 
@@ -37,11 +38,11 @@ class _KitchenProfilePageState extends State<KitchenProfilePage> {
         children: [
           Center(
             child: TextButton(
-              onPressed: () {
-                logout();
+              onPressed: () => {
+                logOut(),
                 context.go(
                   AppPath.login,
-                );
+                )
               },
               child: const Text('Log Out'),
             ),
@@ -49,5 +50,9 @@ class _KitchenProfilePageState extends State<KitchenProfilePage> {
         ],
       ),
     );
+  }
+
+  Future<void> logOut() async {
+    await AuthBloc().signOutWithGoogle();
   }
 }

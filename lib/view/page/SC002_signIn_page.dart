@@ -5,27 +5,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../router/router.dart';
 import '../widgets/button_orange.dart';
-import '../widgets/button_orange_bk.dart';
 
-class SignInPhoneKitchenOwnerPage extends StatefulWidget {
-  const SignInPhoneKitchenOwnerPage({super.key});
+class SignInPhonePage extends StatefulWidget {
+  const SignInPhonePage({super.key});
 
   @override
-  State<SignInPhoneKitchenOwnerPage> createState() =>
-      _SignInPhoneKitchenOwnerPageState();
+  State<SignInPhonePage> createState() => _SignInPhonePageState();
 }
 
-class _SignInPhoneKitchenOwnerPageState
-    extends State<SignInPhoneKitchenOwnerPage> {
-  final TextEditingController phoneController =
-      TextEditingController(text: '0982988421');
+class _SignInPhonePageState extends State<SignInPhonePage> {
+  final TextEditingController phoneController = TextEditingController();
 
   Country selectedCountry = Country(
     phoneCode: '84',
@@ -44,6 +38,7 @@ class _SignInPhoneKitchenOwnerPageState
 
   @override
   Widget build(BuildContext context) {
+    phoneController.text = '0938971690';
     phoneController.selection = TextSelection.fromPosition(
       TextPosition(
         offset: phoneController.text.length,
@@ -136,7 +131,7 @@ class _SignInPhoneKitchenOwnerPageState
                           child: Column(
                             children: <Widget>[
                               Text(
-                                'ĐĂNG KÝ',
+                                'Login',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   // color: Theme.of(context).colorScheme.primary,
@@ -146,7 +141,7 @@ class _SignInPhoneKitchenOwnerPageState
                               ),
                               Center(
                                 child: Text(
-                                  'Trở thành cộng tác viên của \n Momkitchen bằng số điện thoại',
+                                  'Please sign in to \nyour existing account',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     // color: Theme.of(context).colorScheme.primary,
@@ -179,7 +174,7 @@ class _SignInPhoneKitchenOwnerPageState
                                       0,
                                     ),
                                     child: Text(
-                                      'SỐ ĐIỆN THOẠI',
+                                      'PHONE NUMBER',
                                       textAlign: TextAlign.left,
                                     ),
                                   ),
@@ -205,7 +200,7 @@ class _SignInPhoneKitchenOwnerPageState
                                     });
                                   },
                                   decoration: InputDecoration(
-                                    hintText: 'Nhập số điện thoại',
+                                    hintText: 'Enter phone number',
                                     hintStyle: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15,
@@ -221,32 +216,32 @@ class _SignInPhoneKitchenOwnerPageState
                                       borderSide: const BorderSide(
                                           color: Colors.black12),
                                     ),
-                                    // prefixIcon: Container(
-                                    //   padding: const EdgeInsets.all(8.0),
-                                    //   child: InkWell(
-                                    //     onTap: () {
-                                    //       showCountryPicker(
-                                    //           context: context,
-                                    //           countryListTheme:
-                                    //               const CountryListThemeData(
-                                    //             bottomSheetHeight: 550,
-                                    //           ),
-                                    //           onSelect: (value) {
-                                    //             setState(() {
-                                    //               selectedCountry = value;
-                                    //             });
-                                    //           });
-                                    //     },
-                                    //     child: Text(
-                                    //       '${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}',
-                                    //       style: const TextStyle(
-                                    //         fontSize: 18,
-                                    //         color: Colors.black,
-                                    //         fontWeight: FontWeight.bold,
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
+                                    prefixIcon: Container(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          showCountryPicker(
+                                              context: context,
+                                              countryListTheme:
+                                                  const CountryListThemeData(
+                                                bottomSheetHeight: 550,
+                                              ),
+                                              onSelect: (value) {
+                                                setState(() {
+                                                  selectedCountry = value;
+                                                });
+                                              });
+                                        },
+                                        child: Text(
+                                          '${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                     suffixIcon: phoneController.text.length > 9
                                         ? Container(
                                             height: 30,
@@ -267,23 +262,24 @@ class _SignInPhoneKitchenOwnerPageState
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 10),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     GestureDetector(
                                       onTap: () => context.go(
                                         AppPath.signUp,
                                       ),
-                                      child: const Text('Đã có tài khoản? '),
+                                      child:
+                                          const Text('Do not have an account?'),
                                     ),
                                     GestureDetector(
                                       onTap: () => context.go(
-                                        AppPath.login,
+                                        AppPath.signUp,
                                       ),
                                       child: const Text(
-                                        'Đăng nhập',
+                                        'Sign up',
                                         style: TextStyle(color: Colors.orange),
                                       ),
                                     ),
@@ -292,34 +288,32 @@ class _SignInPhoneKitchenOwnerPageState
                               ),
                               SizedBox(
                                 width: 350,
-                                child: Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                                  child: ButtonOrange(
-                                    title: 'Nhận OPT',
-                                    onPressed: () => sendPhoneNumber(),
-                                    icon: null,
-                                  ),
+                                child: ButtonOrange(
+                                  title: 'Sign in',
+                                  onPressed: () => sendPhoneNumber(),
+                                  icon: null,
                                 ),
                               ),
-                              const SizedBox(height: 150),
-                              Container(
-                                // color: Colors.red,
-                                height: 190,
-                                child: SizedBox(
-                                  width: 350,
-                                  child: Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                                    child: ButtonOrangeBK(
-                                      title: 'Đăng ký dưới dạng người dùng',
-                                      onPressed: () =>
-                                          {context.go(AppPath.signUpPhone)},
-                                      icon: null,
-                                    ),
+                              const SizedBox(height: 10),
+                              const Text('Or'),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                      onTap: () {},
+                                      child: Image.asset(
+                                          'assets/images/google.png')),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
-                                ),
+                                  GestureDetector(
+                                      onTap: () {},
+                                      child:
+                                          Image.asset('assets/images/fb.png')),
+                                ],
                               ),
+                              const SizedBox(height: 60),
                             ],
                           ),
                         ),
@@ -331,14 +325,10 @@ class _SignInPhoneKitchenOwnerPageState
         ));
   }
 
-  Future<void> sendPhoneNumber() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('role', 'Kitchen');
-
+  void sendPhoneNumber() {
     String phoneNumber = phoneController.text.trim();
     AuthBloc().loginWithPhone(
         context: context,
-        phoneNumber:
-            "+${selectedCountry.phoneCode}${phoneNumber.substring(1)}");
+        phoneNumber: "+${selectedCountry.phoneCode}$phoneNumber");
   }
 }
