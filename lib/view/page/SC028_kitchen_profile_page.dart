@@ -16,6 +16,23 @@ class _KitchenProfilePageState extends State<KitchenProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 80,
+        title: Text('Hồ sơ nhà bếp'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.push(
+                AppPath.kitchenprofileedit,
+              );
+            },
+            icon: const Icon(
+              Icons.edit_document,
+              color: Colors.orange,
+            ),
+          ),
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

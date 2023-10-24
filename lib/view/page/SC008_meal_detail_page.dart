@@ -19,7 +19,7 @@ class _MealDetailState extends State<MealDetail> {
       backgroundColor: Colors.green[50],
       appBar: AppBar(
         leading: BackButton(
-          onPressed: () => context.go(AppPath.search),
+          onPressed: () => context.pop(),
         ),
         backgroundColor: Colors.transparent,
         // backgroundColor: Color(0x44000000),

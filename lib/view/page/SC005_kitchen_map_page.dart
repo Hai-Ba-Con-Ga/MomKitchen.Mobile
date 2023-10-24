@@ -32,9 +32,7 @@ class _KitchenMapPageState extends State<KitchenMapPage> {
       body: RepositoryProvider(
         create: (context) => AreaRepository(areaApi: AreaApi()),
         child: BlocProvider(
-          create: (context) =>
-              AreaBloc(RepositoryProvider.of<AreaRepository>(context))
-                ..getArea(),
+          create: (context) => AreaBloc(RepositoryProvider.of<AreaRepository>(context))..getArea(),
           child: const ListArea(),
         ),
       ),
@@ -64,10 +62,9 @@ class ListArea extends StatelessWidget {
               itemBuilder: (context, index) {
                 return BaseListTile(
                   icon: const Icon(Icons.location_on, color: Colors.blueAccent),
-                  title: Text(state.model[index].name,
-                      style: const TextStyle(fontSize: 20)),
+                  title: Text(state.model[index].name, style: const TextStyle(fontSize: 20)),
                   description: const Text(
-                    'Giao tinh quan tu nhat nhu nuoc, ket giao tieu nhan ngot ruou nong',
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                     style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),
                   ),
                 );
@@ -81,10 +78,9 @@ class ListArea extends StatelessWidget {
             itemBuilder: (context, index) {
               return BaseListTile(
                 icon: const Icon(Icons.notifications, color: Colors.red),
-                title: Text(state.model[index].name,
-                    style: const TextStyle(fontSize: 20)),
+                title: Text(state.model[index].name, style: const TextStyle(fontSize: 20)),
                 description: const Text(
-                  'Giao tinh quan tu nhat nhu nuoc, ket giao tieu nhan ngot ruou nong',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                   style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),
                 ),
               );

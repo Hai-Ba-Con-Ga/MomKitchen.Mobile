@@ -18,7 +18,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: ButtonBack(onPressed: () => context.go(AppPath.home)),
+        leading: ButtonBack(),
         leadingWidth: 70,
         toolbarHeight: 100,
         backgroundColor: const Color.fromRGBO(30, 30, 46, 1),
@@ -33,45 +33,31 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             children: <Widget>[
               Text(
                 "Your Order",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: Theme.of(context).textTheme.headline1?.fontSize),
+                style: TextStyle(color: Colors.white, fontSize: Theme.of(context).textTheme.headline1?.fontSize),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
               Center(
                 child: Text(
                   "Please give this QR code to the\n kitchen owner to confirm order",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize:
-                          Theme.of(context).textTheme.bodyLarge?.fontSize),
+                  style: TextStyle(color: Colors.white, fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize),
                   textAlign: TextAlign.center,
                 ),
               ),
               const Icon(Icons.qr_code, size: 250, color: Colors.white),
               GestureDetector(
                 onTap: () {
-                  _controller.animateTo(1000,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.easeInOut);
+                  _controller.animateTo(1000, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
                 },
                 child: Container(
                   height: 500,
                   // margin: EdgeInsets.fromLTRB(20, 30, 20, 0),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30))),
+                  decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                       "Information",
-                      style: TextStyle(
-                          fontSize: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.fontSize),
+                      style: TextStyle(fontSize: Theme.of(context).textTheme.headlineMedium?.fontSize),
                       textAlign: TextAlign.center,
                     ),
                   ),

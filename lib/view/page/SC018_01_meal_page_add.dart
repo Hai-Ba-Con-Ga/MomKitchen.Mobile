@@ -18,8 +18,7 @@ class _AddMealPageState extends State<AddMealPage> {
   File? _image;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _foodNameController = TextEditingController();
-  final TextEditingController _foodDescriptionController =
-      TextEditingController();
+  final TextEditingController _foodDescriptionController = TextEditingController();
 
   Future<void> _getImage() async {
     final picker1 = ImagePicker();
@@ -36,8 +35,7 @@ class _AddMealPageState extends State<AddMealPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: ButtonBack(
-            onPressed: () => context.go('${AppPath.kitchenmanager}/2')),
+        leading: ButtonBack(onPressed: () => context.pop()),
         leadingWidth: 70,
         toolbarHeight: 80,
         title: Text('Thêm Món Ăn'),
@@ -74,11 +72,8 @@ class _AddMealPageState extends State<AddMealPage> {
                   decoration: InputDecoration(
                     hintText: 'Nhập tên món ăn',
                     hintStyle: TextStyle(color: Color(0xFFA0A5BA)),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 25.0, horizontal: 20.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide.none),
                     filled: true,
                     fillColor: const Color(0xFFF0F5FA),
                   ),
@@ -97,11 +92,8 @@ class _AddMealPageState extends State<AddMealPage> {
                   decoration: InputDecoration(
                     hintText: 'Mô tả chi tiết',
                     hintStyle: TextStyle(color: Color(0xFFA0A5BA)),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 25.0, horizontal: 20.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide.none),
                     filled: true,
                     fillColor: const Color(0xFFF0F5FA),
                   ),
