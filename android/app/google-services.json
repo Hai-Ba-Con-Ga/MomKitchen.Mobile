@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "589652830174-slkf5mh7q38lve19plnpq52nvf7bt2i8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chickies.homekitchen_customer_mobile",
+            "certificate_hash": "c13ccc57f06f4542d9f6721f79b6c026145985e3"
+          }
+        },
+        {
           "client_id": "589652830174-9qhor979afjutqadrpniiu7onojki4mo.apps.googleusercontent.com",
           "client_type": 3
         }
