@@ -48,15 +48,14 @@ class User {
       roleName: json['roleName'],
     );
   }
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'email': email,
-      'fullName': fullName,
-      'avatarUrl': avatarUrl,
-      'phone': phone,
-      'birthday': birthday,
-      'roleName': roleName,
-    };
-  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'email': email,
+        'fullName': fullName,
+        'avatarUrl': avatarUrl,
+        'phone': phone,
+        'birthday': birthday,
+        'roleName': roleName,
+      };
 }

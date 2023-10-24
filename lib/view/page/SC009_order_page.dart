@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../data/noti_api.dart';
 import '../../router/router.dart';
 import '../widgets/button_orange.dart';
 
@@ -92,60 +93,68 @@ class _OrderPageState extends State<OrderPage> {
               Container(
                   alignment: Alignment.center,
                   width: double.infinity,
-                  height: 100,
-                  color: Colors.cyan,
-                  child: const Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Ngày 20 Tháng 11 Năm 2023',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
+                  // height: 200,
+                  color: Colors.amber[100],
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Ngày 20 Tháng 11 Năm 2023',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text('Buổi tối : 8 giờ.',
-                                style: TextStyle(fontSize: 20)),
-                          ],
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text('Buổi tối : 8 giờ.',
+                                  style: TextStyle(fontSize: 20)),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )),
               Container(
                 margin:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: TextButton(
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                child: SizedBox(
+                  height: 100,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: TextButton(
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor: Colors.amber[500],
                         ),
-                        backgroundColor: Colors.cyan,
-                      ),
-                      onPressed: () => {context.go(AppPath.payment)},
-                      child: const Text(
-                        'Chọn phương thức thanh toán',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    )),
-                  ],
+                        onPressed: () => {
+                          context.push(AppPath.payment),
+                        },
+                        child: const Text(
+                          'Chọn phương thức thanh toán',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      )),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const BottomAppBar(
-        color: Color.fromARGB(255, 188, 221, 248),
+      bottomNavigationBar: BottomAppBar(
+        // color: Colors.amber,
         height: 120,
         child: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
@@ -162,8 +171,8 @@ class _OrderPageState extends State<OrderPage> {
               SizedBox(
                 width: 350,
                 child: ButtonOrange(
-                  title: 'Click me',
-                  onPressed: null,
+                  title: 'Đặt hàng',
+                  onPressed: onOrder,
                   icon: null,
                 ),
               ),
@@ -172,5 +181,9 @@ class _OrderPageState extends State<OrderPage> {
         ),
       ),
     );
+  }
+
+  onOrder() {
+    NotiApi().pushNoti();
   }
 }

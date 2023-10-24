@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> {
                     if (_searchTextController.text.isEmpty) {
                       return;
                     }
-                    context
-                        .go('${AppPath.search}/${_searchTextController.text}');
+                    context.push(
+                        '${AppPath.search}/${_searchTextController.text}');
                   },
                   child: const Icon(Icons.search),
                 ),
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: InkWell(
-                onTap: () => context.go(AppPath.orderdetail),
+                onTap: () => context.push(AppPath.orderdetail),
                 child: Container(
                   height: 40,
                   width: 40,
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: InkWell(
-                onTap: () => context.go(AppPath.notification),
+                onTap: () => context.push(AppPath.notification),
                 child: Container(
                   height: 40,
                   width: 40,
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                     child: ButtonOrange(
                         title: "Xem bản đồ",
                         icon: Icons.location_on,
-                        onPressed: () => context.go(AppPath.kitchenmap)),
+                        onPressed: () => context.push(AppPath.kitchenmap)),
                   ),
                 ],
               ),
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return CardDish(
-                    onPressed: () => context.go(AppPath.mealdetail),
+                    onPressed: () => context.push(AppPath.mealdetail),
                   );
                 },
               ),
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return CardDish(
-                    onPressed: () => context.go(AppPath.mealdetail),
+                    onPressed: () => context.push(AppPath.mealdetail),
                   );
                 },
               ),
@@ -195,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return CardDish(
-                    onPressed: () => context.go(AppPath.mealdetail),
+                    onPressed: () => context.push(AppPath.mealdetail),
                   );
                 },
               ),
