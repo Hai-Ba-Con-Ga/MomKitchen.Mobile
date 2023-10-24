@@ -11,7 +11,7 @@ class AuthApi {
   final Dio _dio = Dio();
 
   AuthApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/Authentication/login';
+    _dio.options.baseUrl = '${AppConstants.domainAddress}/Authentication';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
