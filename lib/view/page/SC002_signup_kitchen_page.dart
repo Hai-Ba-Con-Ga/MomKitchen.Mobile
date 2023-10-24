@@ -327,6 +327,6 @@ class _SignInPhoneKitchenOwnerPageState extends State<SignInPhoneKitchenOwnerPag
     prefs.setString('role', 'Kitchen');
 
     String phoneNumber = phoneController.text.trim();
-    AuthBloc().loginWithPhone(context: context, phoneNumber: "+${selectedCountry.phoneCode}$phoneNumber");
+    AuthBloc().loginWithPhone(context: context, phoneNumber: "+${selectedCountry.phoneCode}${phoneNumber.substring(1)}");
   }
 }

@@ -30,18 +30,12 @@ class _KitchenHomeState extends State<KitchenHome> {
           ),
           Container(
             margin: EdgeInsets.all(10),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Quản lý đơn ăn"),
-                  Text("--->"),
-                ]),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text("Quản lý đơn ăn"), Icon(Icons.arrow_forward_ios_rounded, size: 15)]),
           ),
           Container(
-            color: Colors.red,
             height: 150,
             padding: EdgeInsets.all(5),
-            child: Row(children: [
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Container(
                 color: Colors.green,
                 height: 100,
@@ -50,7 +44,7 @@ class _KitchenHomeState extends State<KitchenHome> {
                 margin: EdgeInsets.all(5),
                 child: Column(
                   children: [
-                    Text("0"),
+                    Icon(Icons.pending_actions),
                     SizedBox(height: 10),
                     Text("Chờ đến ăn"),
                   ],
@@ -64,9 +58,9 @@ class _KitchenHomeState extends State<KitchenHome> {
                 margin: EdgeInsets.all(5),
                 child: Column(
                   children: [
-                    Text("0"),
+                    Icon(Icons.dinner_dining),
                     SizedBox(height: 10),
-                    Text("Chờ đến ăn"),
+                    Text("Đang ăn"),
                   ],
                 ),
               ),
@@ -78,23 +72,9 @@ class _KitchenHomeState extends State<KitchenHome> {
                 margin: EdgeInsets.all(5),
                 child: Column(
                   children: [
-                    Text("0"),
+                    Icon(Icons.done),
                     SizedBox(height: 10),
-                    Text("Chờ đến ăn"),
-                  ],
-                ),
-              ),
-              Container(
-                color: Colors.green,
-                height: 100,
-                width: 80,
-                padding: EdgeInsets.all(5),
-                margin: EdgeInsets.all(5),
-                child: Column(
-                  children: [
-                    Text("0"),
-                    SizedBox(height: 10),
-                    Text("Chờ đến ăn"),
+                    Text("Đã ăn"),
                   ],
                 ),
               ),

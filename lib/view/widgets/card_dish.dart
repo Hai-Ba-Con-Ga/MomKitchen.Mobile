@@ -38,8 +38,7 @@ class _CardDishState extends State<CardDish> {
                         color: Colors.grey.withOpacity(0.1),
                         spreadRadius: 5,
                         blurRadius: 20,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
+                        offset: const Offset(0, 3), // changes position of shadow
                       ),
                     ],
                     color: Colors.white,
@@ -51,15 +50,12 @@ class _CardDishState extends State<CardDish> {
                     children: [
                       Text(
                         'Cafenio Restaurant',
-                        style: TextStyle(
-                            fontSize: 15.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
                       ),
-                      Text('Buffalo Burgers',
-                          style: TextStyle(color: Colors.grey)),
+                      Text('Buffalo Burgers', style: TextStyle(color: Colors.grey)),
                       Row(
                         children: [
-                          Icon(Icons.location_on_outlined,
-                              color: Colors.orange),
+                          Icon(Icons.location_on_outlined, color: Colors.orange),
                           Text('1.9km'),
                         ],
                       )
@@ -77,7 +73,7 @@ class _CardDishState extends State<CardDish> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
                       child: Image.network(
-                        'https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg',
+                        'https://momkitchen.s3.ap-southeast-1.amazonaws.com/cc6a28fd-6d14-4f59-91a3-1a888ce00c15',
                       ),
                     ),
                   )),

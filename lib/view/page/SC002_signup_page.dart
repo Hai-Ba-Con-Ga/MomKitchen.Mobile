@@ -343,6 +343,6 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
 
   void sendPhoneNumber() {
     String phoneNumber = phoneController.text.trim();
-    AuthBloc().loginWithPhone(context: context, phoneNumber: "+${selectedCountry.phoneCode}$phoneNumber");
+    AuthBloc().loginWithPhone(context: context, phoneNumber: "+${selectedCountry.phoneCode}${phoneNumber.substring(1)}");
   }
 }
