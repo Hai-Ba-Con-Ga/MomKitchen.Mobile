@@ -133,7 +133,7 @@ class _AddDishPageState extends State<AddDishPage> {
     if (_formKey.currentState!.validate()) {
       String? kitchenId = '';
       String foodName = _foodNameController.text;
-      String? urlImage = '';
+      String? urlImage;
       String foodDescription = _foodDescriptionController.text;
 
       var prefs = await SharedPreferences.getInstance();
@@ -143,7 +143,7 @@ class _AddDishPageState extends State<AddDishPage> {
         var storageApi = StorageApi();
         urlImage = await storageApi.createStorage(_fimage!);
         // Logger().i(urlImage);
-      }
+      } else {}
 
       DishRepository dishRepository = DishRepository(dishApi: DishApi());
       Dish dishRequest = Dish(
@@ -156,7 +156,7 @@ class _AddDishPageState extends State<AddDishPage> {
 
       Logger().i('Tạo món ăn thành công');
 
-      context.pop();
+      context.go('${AppPath.kitchenmanager}/2');
     } else {
       Logger().i('Không tạo được món ăn');
     }

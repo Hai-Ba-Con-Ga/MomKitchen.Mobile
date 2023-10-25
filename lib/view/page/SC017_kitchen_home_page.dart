@@ -25,7 +25,7 @@ class _KitchenHomeState extends State<KitchenHome> {
             margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
             child: ButtonOrange(
               title: 'Kitchen Manager',
-              onPressed: () => context.go('${AppPath.kitchenmanager}/0'),
+              onPressed: () => context.push('${AppPath.kitchenmanager}/0'),
             ),
           ),
           Container(

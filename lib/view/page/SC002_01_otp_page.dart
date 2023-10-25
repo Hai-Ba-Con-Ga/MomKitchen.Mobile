@@ -244,7 +244,7 @@ class _OtpScreenState extends State<OtpScreen> {
     final prefs = await SharedPreferences.getInstance();
     var role = prefs.getString('role');
 
-    prefs.setString('kitchenId', '8dac479a-2e1c-4006-a1f9-dee9b35c65a7');
+    prefs.setString('kitchenId', '26c37273-5bc7-4fcc-bc59-ad2a3576931a');
 
     await AuthBloc().verifyOtp(
         context: context,

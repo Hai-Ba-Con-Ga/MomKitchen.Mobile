@@ -8,12 +8,14 @@ class BaseListTile extends StatefulWidget {
   const BaseListTile({
     super.key,
     this.icon,
+    this.image,
     this.title,
     this.description,
     this.time,
     this.trailing,
     this.onPressed,
   });
+  final Image? image;
   final Icon? icon;
   final Text? title;
   final Text? description;
@@ -33,7 +35,7 @@ class _BaseListTileState extends State<BaseListTile> {
       child: ListTile(
         isThreeLine: true,
         tileColor: const Color(0xFFECF0F4),
-        leading: widget.icon ?? const SizedBox.shrink(),
+        leading: widget.image ?? widget.icon ?? const SizedBox.shrink(),
         trailing: widget.trailing ?? const Icon(Icons.more_vert),
         title: Row(
           children: [

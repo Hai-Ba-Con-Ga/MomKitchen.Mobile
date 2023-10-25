@@ -11,8 +11,14 @@ class KitchenApi {
     _dio.options.responseType = ResponseType.json;
   }
 
-  Future<void> createKitchen(KitchenRequest kitchenRequest) async {
-    Response response = await _dio.post('', data: kitchenRequest.toJson());
-    Logger().i(response.data);
+  Future<void> createKitchen(KitchenRequest kitchen) async {
+    try {
+      Logger().i(kitchen.toRawJson());
+      Response response = await _dio.post('', data: kitchen);
+      Logger().i(response.data);
+    } catch (error) {
+      Logger().e("Error creating Dish: $error");
+      throw error;
+    }
   }
 }

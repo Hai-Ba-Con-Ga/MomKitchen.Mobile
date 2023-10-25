@@ -13,8 +13,7 @@ class StorageApi {
   }
 
   Future<String?> createStorage(XFile file) async {
-    return "momkitchen/cc6a28fd-6d14-4f59-91a3-1a888ce00c15";
-
+    // return "https://momkitchen.s3.ap-southeast-1.amazonaws.com/cc6a28fd-6d14-4f59-91a3-1a888ce00c15";
     FormData formData = FormData.fromMap({
       'file': await MultipartFile.fromFile(file.path, filename: file.name),
     });

@@ -52,3 +52,16 @@ Future<File?> pickImage(BuildContext context) async {
 
   return image;
 }
+
+String truncateText(String text, int maxLength) {
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return text.substring(0, maxLength) + '...';
+}
+
+String getStorageUrl(String url) {
+  RegExp regex = RegExp(r'^momkitchen');
+  if (regex.hasMatch(url)) return url.replaceAll('momkitchen/', 'https://momkitchen.s3.ap-southeast-1.amazonaws.com/');
+  return url;
+}
