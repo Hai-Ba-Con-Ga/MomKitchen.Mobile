@@ -17,7 +17,7 @@ class TrayApi {
       Response response = await _dio.post('', data: trayRequest);
       Logger().i(response.data);
     } catch (error) {
-      Logger().e("Error creating Dish: $error");
+      Logger().e("Error creating Tray: $error");
       throw error;
     }
   }
@@ -26,44 +26,44 @@ class TrayApi {
     try {
       // add fields to get
       Response response = await _dio.get('', queryParameters: {'fields': 'UpdatedDate:desc'});
-      List<dynamic> DishData = response.data['data'] as List<dynamic>;
-      List<Tray> Dishes = DishData.map((data) => Tray.fromJson(data)).toList();
-      return Dishes;
+      List<dynamic> TrayData = response.data['data'] as List<dynamic>;
+      List<Tray> Trayes = TrayData.map((data) => Tray.fromJson(data)).toList();
+      return Trayes;
     } catch (error) {
-      Logger().e("Error fetching Dishes: $error");
+      Logger().e("Error fetching Trayes: $error");
       throw error;
     }
   }
 
-  Future<void> updateTray(String DishId, Tray DishRequest) async {
+  Future<void> updateTray(String trayId, Tray trayRequest) async {
     try {
-      Response response = await _dio.put('', queryParameters: {'DishId': DishId}, data: DishRequest.toRawJson());
+      Response response = await _dio.put('', queryParameters: {'TrayId': trayId}, data: trayRequest.toRawJson());
       Logger().i(response.data);
     } catch (error) {
-      Logger().e("Error updating Dish: $error");
+      Logger().e("Error updating Tray: $error");
       throw error;
     }
   }
 
-  Future<void> deleteTray(String DishId) async {
+  Future<void> deleteTray(String trayId) async {
     try {
-      Logger().i(DishId);
-      Response response = await _dio.delete('', queryParameters: {'DishId': DishId});
+      Logger().i(trayId);
+      Response response = await _dio.delete('', queryParameters: {'TrayId': trayId});
       Logger().i(response.data);
     } catch (error) {
-      Logger().e("Error deleting Dish: $error");
+      Logger().e("Error deleting Tray: $error");
       throw error;
     }
   }
 
-  Future<Tray> getTrayById(String DishId) async {
+  Future<Tray> getTrayById(String trayId) async {
     try {
-      Response response = await _dio.get('', queryParameters: {'DishId': DishId});
-      Map<String, dynamic> DishData = response.data as Map<String, dynamic>;
-      Tray Dish = Tray.fromJson(DishData);
-      return Dish;
+      Response response = await _dio.get('', queryParameters: {'TrayId': trayId});
+      Map<String, dynamic> trayData = response.data as Map<String, dynamic>;
+      Tray tray = Tray.fromJson(trayData);
+      return tray;
     } catch (error) {
-      Logger().e("Error fetching Dish by ID: $error");
+      Logger().e("Error fetching Tray by ID: $error");
       throw error;
     }
   }

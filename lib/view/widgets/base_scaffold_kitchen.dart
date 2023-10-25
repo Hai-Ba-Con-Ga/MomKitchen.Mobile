@@ -24,6 +24,11 @@ class _BaseScaffoldKitchenState extends State<BaseScaffoldKitchen> {
       label: 'Home',
     ),
     BottomNavigationBarItem(
+      icon: Icon(Icons.notifications),
+      label: 'Noti',
+      // backgroundColor: Colors.lightBlueAccent,
+    ),
+    BottomNavigationBarItem(
       icon: Icon(Icons.person),
       label: 'User',
       // backgroundColor: Colors.lightBlueAccent,
@@ -39,6 +44,9 @@ class _BaseScaffoldKitchenState extends State<BaseScaffoldKitchen> {
         context.go(AppPath.kitchenhome);
         break;
       case 1:
+        context.go(AppPath.notification);
+        break;
+      case 2:
         context.go(AppPath.kitchenprofile);
         break;
     }
