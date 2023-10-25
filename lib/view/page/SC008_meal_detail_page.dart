@@ -16,7 +16,7 @@ class _MealDetailState extends State<MealDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.green[50],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: BackButton(
           onPressed: () => context.pop(),
@@ -29,7 +29,7 @@ class _MealDetailState extends State<MealDetail> {
           IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.heart_broken,
+                Icons.favorite,
                 color: Colors.red[600],
                 size: 50,
               )),
@@ -44,7 +44,7 @@ class _MealDetailState extends State<MealDetail> {
                 bottomLeft: Radius.circular(30),
                 bottomRight: Radius.circular(30)),
             child: Image.network(
-              'https://momkitchen.s3.ap-southeast-1.amazonaws.com/cc6a28fd-6d14-4f59-91a3-1a888ce00c15',
+              'https://momkitchen.s3.ap-southeast-1.amazonaws.com/0bcdf56c-a405-4e03-b9d9-2cb6982c2462',
               height: 400,
               width: 500,
               fit: BoxFit.fitWidth,
