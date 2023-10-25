@@ -44,7 +44,7 @@ class _BaseScaffoldKitchenState extends State<BaseScaffoldKitchen> {
         context.go(AppPath.kitchenhome);
         break;
       case 1:
-        context.go(AppPath.notification);
+        context.go(AppPath.kitchenhome);
         break;
       case 2:
         context.go(AppPath.kitchenprofile);

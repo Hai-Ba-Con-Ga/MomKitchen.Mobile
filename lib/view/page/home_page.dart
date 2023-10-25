@@ -16,6 +16,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    loadMealData();
+  }
+
+  Future<void> loadMealData() async {
+    // final userData = await _userApi.getUserInfo();
+    // setState(() {
+    //   fullName = userData!.fullName;
+    //   email = userData.email;
+    //   phone = userData.phone;
+    //   avatarUrl = userData.avatarUrl;
+    //   birthday = userData.birthday;
+    // });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

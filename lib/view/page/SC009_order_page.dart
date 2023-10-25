@@ -39,7 +39,7 @@ class _OrderPageState extends State<OrderPage> {
                         width: 120, // Độ rộng của hình ảnh món ăn
                         height: 120, // Chiều cao của hình ảnh món ăn
                         child: Image.network(
-                          'https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg',
+                          'https://momkitchen.s3.ap-southeast-1.amazonaws.com/0bcdf56c-a405-4e03-b9d9-2cb6982c2462',
                           width: 200, // Độ rộng của hình ảnh
                           height: 200, // Chiều cao của hình ảnh
                           fit: BoxFit.cover,
