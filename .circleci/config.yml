@@ -4,11 +4,10 @@ jobs:
   build:
     working_directory: ~/my_flutter_app
     docker:
-      - image: circleci/android:api-29
       - image: cirrusci/flutter
 
     environment:
-      FLUTTER_VERSION: 2.0.1
+      FLUTTER_VERSION: 3.13.9
 
     steps:
       - checkout
@@ -22,7 +21,7 @@ jobs:
       - run:
           name: Install Flutter
           command: |
-            curl -o flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz
+            curl -o flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/flutter_linux_3.13.9-stable.tar.xz
             tar xf flutter.tar.xz
             export PATH="$HOME/flutter/bin:$PATH"
             flutter precache
