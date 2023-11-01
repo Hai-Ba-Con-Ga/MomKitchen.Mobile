@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Install Flutter
           command: |
-            curl -o flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/flutter_linux_3.13.9-stable.tar.xz
+            curl -o flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.9-stable.tar.xz
             tar xf flutter.tar.xz
             export PATH="$HOME/flutter/bin:$PATH"
             flutter precache
