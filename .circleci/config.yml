@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/my_flutter_app
     docker:
-      - image: cirrusci/flutter
+      - image: circleci/android:api-29
 
     environment:
       FLUTTER_VERSION: 3.13.9
