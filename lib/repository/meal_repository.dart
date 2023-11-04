@@ -1,4 +1,5 @@
 import '../data/meal_api.dart';
+import '../model/meal_detail_model.dart';
 import '../model/meal_model.dart';
 
 class MealRepository {
@@ -8,13 +9,13 @@ class MealRepository {
     return _mealApi.createMeal(meal);
   }
 
-  Future<List<MealGetReponse>> getAllMeales() {
+  Future<List<MealGetAllResponse>> getAllMeales() {
     return _mealApi.getAllMeales();
   }
 
-  // Future<Meal> getMealById(String mealId) {
-  //   return _mealApi.getMealById(mealId);
-  // }
+  Future<MealDetailResponse> getMealById(String mealId) {
+    return _mealApi.getMealById(mealId);
+  }
 
   // Future<void> updateMeal(String mealId, Meal mealRequest) {
   //   return _mealApi.updateMeal(mealId, mealRequest);

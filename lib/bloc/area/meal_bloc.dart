@@ -1,5 +1,6 @@
 import 'package:logger/logger.dart';
 
+import '../../model/meal_detail_model.dart';
 import '../../model/meal_model.dart';
 import '../../repository/meal_repository.dart';
 import '../base_cubit.dart';
@@ -18,10 +19,37 @@ class MealBloc extends BaseCubit {
         ),
       );
       final meal = await _mealRepository.getAllMeales();
-      Logger().i("meal length ${meal.length}");
+      Logger().i('meal length ${meal.length}');
       emit(
-        CommonState<List<MealGetReponse>>(
+        CommonState<List<MealGetAllResponse>>(
           meal,
+          isLoading: false,
+        ),
+      );
+    } catch (e) {
+      emit(
+        CommonState(
+          null,
+          isLoading: false,
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> getMealById(String mealId) async {
+    try {
+      emit(
+        CommonState(
+          null,
+          isLoading: true,
+        ),
+      );
+      final mealDetail = await _mealRepository.getMealById(mealId);
+      Logger().i('GET MEAL BY ID SUCCESS');
+      emit(
+        CommonState<MealDetailResponse>(
+          mealDetail,
           isLoading: false,
         ),
       );

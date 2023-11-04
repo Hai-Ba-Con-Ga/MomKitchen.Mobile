@@ -59,7 +59,7 @@ class ListMeal extends StatelessWidget {
             }
             if (state.errorMessage != null) {
               return Center(child: Text(state.errorMessage!));
-            } else if (state is CommonState<List<MealGetReponse>>) {
+            } else if (state is CommonState<List<MealGetAllResponse>>) {
               return ListView.builder(
                   itemBuilder: (context, index) {
                     return Container(

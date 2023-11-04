@@ -25,8 +25,8 @@ class DefaultFirebaseOptions {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
-      case TargetPlatform.iOS:
-        return ios;
+      // case TargetPlatform.iOS:
+      //   return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -50,20 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAcoXBQQTExmu2OdO-OoAO1e-S6d-JEbrI',
-    appId: '1:589652830174:android:8e006943b513b521b55f4f',
-    messagingSenderId: '589652830174',
-    projectId: 'momkitchen-41f2b',
-    storageBucket: 'momkitchen-41f2b.appspot.com',
+    apiKey: 'AIzaSyCo4d8TgG28PQwJhRPnpMrW8HBgiKujRuQ',
+    appId: '1:218849426684:android:1593b75bc7906a6ced2b79',
+    messagingSenderId: '218849426684',
+    projectId: 'homekitchen-55393',
+    storageBucket: 'homekitchen-55393.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDQeBGTf1p7XSVbLKVgCQuuYUbVURGuf_g',
-    appId: '1:589652830174:ios:c8d93aedc4b218fab55f4f',
-    messagingSenderId: '589652830174',
-    projectId: 'momkitchen-41f2b',
-    storageBucket: 'momkitchen-41f2b.appspot.com',
-    iosClientId: '589652830174-eoile501rlkp4pvpppe992soarq6t221.apps.googleusercontent.com',
-    iosBundleId: 'com.chickies.homekitchenCustomerMobile',
-  );
+  // static const FirebaseOptions ios = FirebaseOptions(
+  //   apiKey: 'AIzaSyDQeBGTf1p7XSVbLKVgCQuuYUbVURGuf_g',
+  //   appId: '1:589652830174:ios:c8d93aedc4b218fab55f4f',
+  //   messagingSenderId: '589652830174',
+  //   projectId: 'momkitchen-41f2b',
+  //   storageBucket: 'momkitchen-41f2b.appspot.com',
+  //   iosClientId:
+  //       '589652830174-eoile501rlkp4pvpppe992soarq6t221.apps.googleusercontent.com',
+  //   iosBundleId: 'com.chickies.homekitchenCustomerMobile',
+  // );
 }

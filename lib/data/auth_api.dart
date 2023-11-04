@@ -11,7 +11,7 @@ class AuthApi {
   final Dio _dio = Dio();
 
   AuthApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/Authentication';
+    _dio.options.baseUrl = '${AppConstants.localhostAdress}/Authentication';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
@@ -29,7 +29,7 @@ class AuthApi {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('userId', user.id);
     await prefs.setString('userInfo', jsonEncode(user));
-    log.i('UserId: ' + user.id);
+    log.i('UserId: ${user.id}');
     log.i('fcmToken $fcmToken');
     return ResponseUser.fromJson(response.data['data']);
   }

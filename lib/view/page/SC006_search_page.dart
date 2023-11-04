@@ -128,11 +128,7 @@ class _SearchPageState extends State<SearchPage> {
                 childAspectRatio: 95 / 100,
                 children: List.generate(10, (index) {
                   return Container(
-                      height: 10,
-                      width: 10,
-                      child: CardDish(
-                        onPressed: () => context.go(AppPath.mealdetail),
-                      ));
+                      height: 10, width: 10, child: const Text('hehe'));
                 }),
               ),
             ),
