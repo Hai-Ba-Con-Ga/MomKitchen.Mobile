@@ -1,0 +1,17 @@
+final myBloc = context.read<MealBloc>();
+    return BlocBuilder(
+        bloc: myBloc,
+        builder: (context, state) {
+          if (state is CommonState) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state.errorMessage != null) {
+              return Center(child: Text(state.errorMessage!));
+            } else if (state is CommonState<List<MealGetAllResponse>>) {
+              return Container();
+            }
+            return Container();
+          }
+          return const Center(child: CircularProgressIndicator());
+        });

@@ -1,19 +1,48 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/utils.dart';
+
 class CardDish extends StatefulWidget {
-  const CardDish({super.key, this.onPressed});
   final Function? onPressed;
+  final String nameMeal;
+  final int priceMeal;
+  final String mealId;
+  final String imgUrl;
+  final String kitchenName;
+
+  const CardDish({
+    super.key,
+    required this.nameMeal,
+    required this.priceMeal,
+    this.onPressed,
+    required this.mealId,
+    required this.imgUrl,
+    required this.kitchenName,
+  });
 
   @override
   State<CardDish> createState() => _CardDishState();
 }
 
 class _CardDishState extends State<CardDish> {
+  String nameMeal = '';
+  int priceMeal = 0;
+  String mealId = '';
+  String imgUrl = '';
+  String kitchenName = '';
+  @override
+  void initState() {
+    super.initState();
+    nameMeal = widget.nameMeal;
+    priceMeal = widget.priceMeal;
+    mealId = widget.mealId;
+    imgUrl = widget.imgUrl;
+    kitchenName = widget.kitchenName;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
-      // color: Colors.blue,
+    return SizedBox(
       width: 200,
       height: 200,
       child: TextButton(
@@ -45,22 +74,26 @@ class _CardDishState extends State<CardDish> {
                     color: Colors.white,
                   ),
                   padding: const EdgeInsets.fromLTRB(10, 40, 10, 0),
-                  child: const Column(
+                  child: Column(
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Cafenio Restaurant',
-                        style: TextStyle(
+                        truncateText(nameMeal, 18),
+                        style: const TextStyle(
                             fontSize: 15.0, fontWeight: FontWeight.bold),
                       ),
-                      Text('Buffalo Burgers',
-                          style: TextStyle(color: Colors.grey)),
+                      Text(kitchenName,
+                          style: const TextStyle(color: Colors.grey)),
                       Row(
                         children: [
-                          Icon(Icons.location_on_outlined,
-                              color: Colors.orange),
-                          Text('1.9km'),
+                          const Text(
+                            'VND ',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(priceMeal.toString()),
                         ],
                       )
                     ],
@@ -77,7 +110,9 @@ class _CardDishState extends State<CardDish> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
                       child: Image.network(
-                        'https://momkitchen.s3.ap-southeast-1.amazonaws.com/0bcdf56c-a405-4e03-b9d9-2cb6982c2462',
+                        getStorageUrl(imgUrl),
+                        fit: BoxFit.cover,
+                        height: 100,
                       ),
                     ),
                   )),

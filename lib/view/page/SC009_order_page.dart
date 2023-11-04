@@ -1,25 +1,38 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../bloc/area/meal_bloc.dart';
+import '../../bloc/base_state.dart';
+import '../../data/meal_api.dart';
 import '../../data/noti_api.dart';
+import '../../data/order_api.dart';
+import '../../model/meal_detail_model.dart';
+import '../../repository/meal_repository.dart';
 import '../../router/router.dart';
+import '../../utils/utils.dart';
 import '../widgets/button_orange.dart';
 
 class OrderPage extends StatefulWidget {
-  const OrderPage({super.key});
+  const OrderPage({super.key, this.idMeal});
+  final String? idMeal;
 
   @override
   State<OrderPage> createState() => _OrderPageState();
 }
 
 class _OrderPageState extends State<OrderPage> {
+  int totalQuantity = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading: BackButton(onPressed: () => context.go(AppPath.mealdetail)),
+        leading: BackButton(onPressed: () => context.pop),
         title: const Text('Bữa ăn'),
       ),
       body: SingleChildScrollView(
@@ -29,48 +42,13 @@ class _OrderPageState extends State<OrderPage> {
           width: double.infinity,
           child: Column(
             children: [
-              Card(
-                // margin: const EdgeInsets.only(left: 8),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 120, // Độ rộng của hình ảnh món ăn
-                        height: 120, // Chiều cao của hình ảnh món ăn
-                        child: Image.network(
-                          'https://momkitchen.s3.ap-southeast-1.amazonaws.com/0bcdf56c-a405-4e03-b9d9-2cb6982c2462',
-                          width: 200, // Độ rộng của hình ảnh
-                          height: 200, // Chiều cao của hình ảnh
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(16.0),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Buổi tối sang chảnh của miền Tây',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Bếp: nhà miền tây',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              '1000\$',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.green),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+              RepositoryProvider(
+                create: (context) => MealRepository(mealApi: MealApi()),
+                child: BlocProvider(
+                  create: (context) =>
+                      MealBloc(RepositoryProvider.of<MealRepository>(context))
+                        ..getMealById(widget.idMeal ?? ''),
+                  child: CardMeal(),
                 ),
               ),
               const Row(
@@ -90,38 +68,6 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 ],
               ),
-              Container(
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  // height: 200,
-                  color: Colors.amber[100],
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 8.0),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Ngày 20 Tháng 11 Năm 2023',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text('Buổi tối : 8 giờ.',
-                                  style: TextStyle(fontSize: 20)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
               Container(
                 margin:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
@@ -183,7 +129,77 @@ class _OrderPageState extends State<OrderPage> {
     );
   }
 
-  onOrder() {
-    NotiApi().pushNoti();
+  onOrder() async {
+    // NotiApi().pushNoti();
+    final prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+    await OrderApi().createOrder(totalQuantity, userId!, widget.idMeal!);
+  }
+}
+
+class CardMeal extends StatelessWidget {
+  const CardMeal({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final myBloc = context.read<MealBloc>();
+    return BlocBuilder(
+        bloc: myBloc,
+        builder: (context, state) {
+          if (state is CommonState) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state.errorMessage != null) {
+              return Center(child: Text(state.errorMessage!));
+            } else if (state is CommonState<MealDetailResponse>) {
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 120, // Độ rộng của hình ảnh món ăn
+                        height: 120, // Chiều cao của hình ảnh món ăn
+                        child: Image.network(
+                          getStorageUrl(state.model.tray.imgUrl),
+                          width: 200, // Độ rộng của hình ảnh
+                          height: 200, // Chiều cao của hình ảnh
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              state.model.name,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'Bếp: ${state.model.kitchen.name}',
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            Text(
+                              '${NumberFormat.decimalPattern().format(state.model.price)} VND',
+                              style: const TextStyle(
+                                  fontSize: 16, color: Colors.green),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return Container();
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
+import '../model/meal_detail_model.dart';
 import '../model/meal_model.dart';
 import '../utils/constants.dart';
 
@@ -22,12 +23,14 @@ class MealApi {
     }
   }
 
-  Future<List<MealGetReponse>> getAllMeales() async {
+  Future<List<MealGetAllResponse>> getAllMeales() async {
     try {
       // add fields to get
-      Response response = await _dio.get('', queryParameters: {'fields': 'UpdatedDate:desc'});
+      Response response =
+          await _dio.get('', queryParameters: {'fields': 'UpdatedDate:desc'});
       List<dynamic> MealData = response.data['data'] as List<dynamic>;
-      List<MealGetReponse> Meales = MealData.map((data) => MealGetReponse.fromJson(data)).toList();
+      List<MealGetAllResponse> Meales =
+          MealData.map((data) => MealGetAllResponse.fromJson(data)).toList();
       return Meales;
     } catch (error) {
       Logger().e("Error fetching Meales: $error");
@@ -48,7 +51,8 @@ class MealApi {
   Future<void> deleteMeal(String MealId) async {
     try {
       Logger().i(MealId);
-      Response response = await _dio.delete('', queryParameters: {'MealId': MealId});
+      Response response =
+          await _dio.delete('', queryParameters: {'MealId': MealId});
       Logger().i(response.data);
     } catch (error) {
       Logger().e("Error deleting Meal: $error");
@@ -56,15 +60,15 @@ class MealApi {
     }
   }
 
-  // Future<Meal> getMealById(String MealId) async {
-  //   try {
-  //     Response response = await _dio.get('', queryParameters: {'MealId': MealId});
-  //     Map<String, dynamic> MealData = response.data as Map<String, dynamic>;
-  //     Meal Meal = Meal.fromJson(MealData);
-  //     return Meal;
-  //   } catch (error) {
-  //     Logger().e("Error fetching Meal by ID: $error");
-  //     throw error;
-  //   }
-  // }
+  Future<MealDetailResponse> getMealById(String MealId) async {
+    try {
+      Response response = await _dio.get('/' + MealId);
+      MealDetailResponse Meal =
+          MealDetailResponse.fromJson(response.data['data']);
+      return Meal;
+    } catch (error) {
+      Logger().e("Error fetching Meal by ID: $error");
+      throw error;
+    }
+  }
 }

@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "589652830174",
-    "project_id": "momkitchen-41f2b",
-    "storage_bucket": "momkitchen-41f2b.appspot.com"
+    "project_number": "218849426684",
+    "project_id": "homekitchen-55393",
+    "storage_bucket": "homekitchen-55393.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:589652830174:android:8e006943b513b521b55f4f",
+        "mobilesdk_app_id": "1:218849426684:android:1593b75bc7906a6ced2b79",
         "android_client_info": {
           "package_name": "com.chickies.homekitchen_customer_mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "589652830174-slkf5mh7q38lve19plnpq52nvf7bt2i8.apps.googleusercontent.com",
+          "client_id": "218849426684-juueluavj60d2s2b1aqq5pnk0od2t338.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.chickies.homekitchen_customer_mobile",
@@ -22,28 +22,95 @@
           }
         },
         {
-          "client_id": "589652830174-9qhor979afjutqadrpniiu7onojki4mo.apps.googleusercontent.com",
+          "client_id": "218849426684-mas83i705i6cup82chi2f6e0196e9ld8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcoXBQQTExmu2OdO-OoAO1e-S6d-JEbrI"
+          "current_key": "AIzaSyCo4d8TgG28PQwJhRPnpMrW8HBgiKujRuQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "589652830174-9qhor979afjutqadrpniiu7onojki4mo.apps.googleusercontent.com",
+              "client_id": "218849426684-mas83i705i6cup82chi2f6e0196e9ld8.apps.googleusercontent.com",
               "client_type": 3
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218849426684:android:5769bc91efb06302ed2b79",
+        "android_client_info": {
+          "package_name": "com.chickies.momkitchen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218849426684-gp1q10gqjf2v35s94lm26d6lh1rq3i4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chickies.momkitchen",
+            "certificate_hash": "60287d1ece8acb4ba021f4ef7f017f1b938bb713"
+          }
+        },
+        {
+          "client_id": "218849426684-mas83i705i6cup82chi2f6e0196e9ld8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo4d8TgG28PQwJhRPnpMrW8HBgiKujRuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
             {
-              "client_id": "589652830174-eoile501rlkp4pvpppe992soarq6t221.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.chickies.homekitchenCustomerMobile"
-              }
+              "client_id": "218849426684-mas83i705i6cup82chi2f6e0196e9ld8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218849426684:android:c867c2eac99147f6ed2b79",
+        "android_client_info": {
+          "package_name": "com.linhtk.studentmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218849426684-43o8om6tmk2hlp6v5bggqddtci6sd9ad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.linhtk.studentmanagement",
+            "certificate_hash": "60287d1ece8acb4ba021f4ef7f017f1b938bb713"
+          }
+        },
+        {
+          "client_id": "218849426684-mas83i705i6cup82chi2f6e0196e9ld8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo4d8TgG28PQwJhRPnpMrW8HBgiKujRuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218849426684-mas83i705i6cup82chi2f6e0196e9ld8.apps.googleusercontent.com",
+              "client_type": 3
             }
           ]
         }

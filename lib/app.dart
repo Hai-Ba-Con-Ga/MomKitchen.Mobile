@@ -16,7 +16,8 @@ class _MomKitchenState extends State<MomKitchen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: AppRouter().Router(widget.firstRoute),
+      // routerConfig: AppRouter().Router(widget.firstRoute),
+      routerConfig: AppRouter.router,
       theme: mainTheme,
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       debugShowCheckedModeBanner: false,

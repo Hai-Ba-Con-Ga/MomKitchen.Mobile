@@ -1,6 +1,9 @@
 import 'dart:convert';
 
-class MealGetReponse {
+import 'kitchen_model.dart';
+import 'tray_model.dart';
+
+class MealGetAllResponse {
   String? id;
   int? no;
   String? name;
@@ -9,42 +12,59 @@ class MealGetReponse {
   DateTime? serviceTo;
   int? serviceQuantity;
   DateTime? closeTime;
+  Kitchen? kitchen;
+  Tray? tray;
 
-  MealGetReponse({
-    this.id,
-    this.no,
-    this.name,
-    this.price,
-    this.serviceFrom,
-    this.serviceTo,
-    this.serviceQuantity,
-    this.closeTime,
+  MealGetAllResponse({
+    required this.id,
+    required this.no,
+    required this.name,
+    required this.price,
+    required this.serviceFrom,
+    required this.serviceTo,
+    required this.serviceQuantity,
+    required this.closeTime,
+    required this.kitchen,
+    required this.tray,
   });
 
-  factory MealGetReponse.fromRawJson(String str) => MealGetReponse.fromJson(json.decode(str));
+  factory MealGetAllResponse.fromRawJson(String str) =>
+      MealGetAllResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory MealGetReponse.fromJson(Map<String, dynamic> json) => MealGetReponse(
-        id: json["id"],
-        no: json["no"],
-        name: json["name"],
-        price: json["price"],
-        serviceFrom: json["serviceFrom"] == null ? null : DateTime.parse(json["serviceFrom"]),
-        serviceTo: json["serviceTo"] == null ? null : DateTime.parse(json["serviceTo"]),
-        serviceQuantity: json["serviceQuantity"],
-        closeTime: json["close_time"] == null ? null : DateTime.parse(json["close_time"]),
+  factory MealGetAllResponse.fromJson(Map<String, dynamic> json) =>
+      MealGetAllResponse(
+        id: json['id'],
+        no: json['no'],
+        name: json['name'],
+        price: json['price'],
+        serviceFrom: json['serviceFrom'] == null
+            ? null
+            : DateTime.parse(json['serviceFrom']),
+        serviceTo: json['serviceTo'] == null
+            ? null
+            : DateTime.parse(json['serviceTo']),
+        serviceQuantity: json['serviceQuantity'],
+        closeTime: json['close_time'] == null
+            ? null
+            : DateTime.parse(json['close_time']),
+        kitchen:
+            json['kitchen'] == null ? null : Kitchen.fromJson(json['kitchen']),
+        tray: json['tray'] == null ? null : Tray.fromJson(json['tray']),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "no": no,
-        "name": name,
-        "price": price,
-        "serviceFrom": serviceFrom?.toIso8601String(),
-        "serviceTo": serviceTo?.toIso8601String(),
-        "serviceQuantity": serviceQuantity,
-        "close_time": closeTime?.toIso8601String(),
+        'id': id,
+        'no': no,
+        'name': name,
+        'price': price,
+        'serviceFrom': serviceFrom?.toIso8601String(),
+        'serviceTo': serviceTo?.toIso8601String(),
+        'serviceQuantity': serviceQuantity,
+        'close_time': closeTime?.toIso8601String(),
+        'kitchen': kitchen?.toJson(),
+        'tray': tray?.toJson(),
       };
 }
 
@@ -69,29 +89,37 @@ class MealCreateRequest {
     this.kitchenId,
   });
 
-  factory MealCreateRequest.fromRawJson(String str) => MealCreateRequest.fromJson(json.decode(str));
+  factory MealCreateRequest.fromRawJson(String str) =>
+      MealCreateRequest.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory MealCreateRequest.fromJson(Map<String, dynamic> json) => MealCreateRequest(
-        name: json["name"],
-        price: json["price"],
-        serviceFrom: json["serviceFrom"] == null ? null : DateTime.parse(json["serviceFrom"]),
-        serviceTo: json["serviceTo"] == null ? null : DateTime.parse(json["serviceTo"]),
-        serviceQuantity: json["serviceQuantity"],
-        closeTime: json["closeTime"] == null ? null : DateTime.parse(json["closeTime"]),
-        trayId: json["trayId"],
-        kitchenId: json["kitchenId"],
+  factory MealCreateRequest.fromJson(Map<String, dynamic> json) =>
+      MealCreateRequest(
+        name: json['name'],
+        price: json['price'],
+        serviceFrom: json['serviceFrom'] == null
+            ? null
+            : DateTime.parse(json['serviceFrom']),
+        serviceTo: json['serviceTo'] == null
+            ? null
+            : DateTime.parse(json['serviceTo']),
+        serviceQuantity: json['serviceQuantity'],
+        closeTime: json['closeTime'] == null
+            ? null
+            : DateTime.parse(json['closeTime']),
+        trayId: json['trayId'],
+        kitchenId: json['kitchenId'],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "price": price,
-        "serviceFrom": serviceFrom?.toIso8601String(),
-        "serviceTo": serviceTo?.toIso8601String(),
-        "serviceQuantity": serviceQuantity,
-        "closeTime": closeTime?.toIso8601String(),
-        "trayId": trayId,
-        "kitchenId": kitchenId,
+        'name': name,
+        'price': price,
+        'serviceFrom': serviceFrom?.toIso8601String(),
+        'serviceTo': serviceTo?.toIso8601String(),
+        'serviceQuantity': serviceQuantity,
+        'closeTime': closeTime?.toIso8601String(),
+        'trayId': trayId,
+        'kitchenId': kitchenId,
       };
 }

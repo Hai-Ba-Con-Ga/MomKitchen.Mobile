@@ -17,7 +17,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(onPressed: () => context.go(AppPath.order)),
+        leading: BackButton(onPressed: () => context.pop(AppPath.order)),
         title: const Text('Payment'),
       ),
       body: SingleChildScrollView(
@@ -64,7 +64,7 @@ class _PaymentPageState extends State<PaymentPage> {
       floatingActionButton: Container(
         padding: const EdgeInsets.only(left: 20),
         child: ButtonOrange(
-          onPressed: () => context.go(AppPath.payment),
+          onPressed: () => context.pop(),
           title: 'XÁC NHẬN',
         ),
       ),

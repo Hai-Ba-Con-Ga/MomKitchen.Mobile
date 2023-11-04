@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../bloc/auth/auth_bloc.dart';
+import '../../data/meal_api.dart';
 import '../../router/router.dart';
-import '../../utils/utils.dart';
 
 class KitchenProfilePage extends StatefulWidget {
   const KitchenProfilePage({super.key});
@@ -43,6 +43,7 @@ class _KitchenProfilePageState extends State<KitchenProfilePage> {
                 context.go(
                   AppPath.login,
                 )
+                // MealApi().getMealById('dcf2589a-cc3a-4f8f-a7f1-4bbb169a57f4')
               },
               child: const Text('Log Out'),
             ),
