@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: InkWell(
-                onTap: () => context.push(AppPath.orderdetail),
+                onTap: () => context.push(AppPath.listOrder),
                 child: Container(
                   height: 40,
                   width: 40,
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
-                    Icons.airplane_ticket_outlined,
+                    Icons.receipt_long_outlined,
                   ),
                 ),
               ),

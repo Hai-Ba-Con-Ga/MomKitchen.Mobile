@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bloc/auth/auth_bloc.dart';
 import '../../data/user_api.dart';
 import '../../router/router.dart';
+import '../../utils/utils.dart';
 import '../widgets/button_back.dart';
 
 class UserPage extends StatefulWidget {
@@ -58,7 +60,7 @@ class _UserPageState extends State<UserPage> {
         leading: ButtonBack(onPressed: () => context.pop),
         leadingWidth: 70,
         toolbarHeight: 100,
-        title: const Text('Profile'),
+        title: const Text('Hồ sơ của bạn'),
         actions: [
           GestureDetector(
             onTap: () => {context.push(AppPath.userEdit)},
@@ -73,38 +75,56 @@ class _UserPageState extends State<UserPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFFF0F5FA),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  userItem(
-                      const Icon(
-                        Icons.account_circle,
-                        size: 30,
-                      ),
-                      'HỌ VÀ TÊN',
-                      fullName),
-                  userItem(
-                      const Icon(
-                        Icons.markunread_outlined,
-                        size: 30,
-                      ),
-                      'EMAIL',
-                      email),
-                  userItem(
-                      const Icon(
-                        Icons.local_phone,
-                        size: 30,
-                      ),
-                      'SỐ ĐIỆN THOẠI',
-                      phone),
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.network(
+                    getStorageUrl(avatarUrl == ''
+                        ? 'https://picsum.photos/250?image=9'
+                        : avatarUrl),
+                    height: 150,
+                    // width: 500,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF0F5FA),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    children: [
+                      userItem(
+                          const Icon(
+                            Icons.account_circle,
+                            size: 30,
+                          ),
+                          'HỌ VÀ TÊN',
+                          fullName),
+                      userItem(
+                          const Icon(
+                            Icons.markunread_outlined,
+                            size: 30,
+                          ),
+                          'EMAIL',
+                          email),
+                      userItem(
+                          const Icon(
+                            Icons.local_phone,
+                            size: 30,
+                          ),
+                          'SỐ ĐIỆN THOẠI',
+                          phone),
 
-                  // Text('Họ Tên: $fullName'),
-                ],
-              ),
+                      // Text('Họ Tên: $fullName'),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           Center(

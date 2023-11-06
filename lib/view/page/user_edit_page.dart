@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../data/auth_api.dart';
 import '../../data/user_api.dart';
@@ -47,6 +49,8 @@ class _UserEditScreenState extends State<UserEditScreen> {
     });
   }
 
+  File? selectedImage;
+
   @override
   Widget build(BuildContext context) {
     _usernameController.text = fullName;
@@ -59,7 +63,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
         leading: ButtonBack(onPressed: () => context.pop),
         leadingWidth: 70,
         toolbarHeight: 100,
-        title: const Text('EditProfile'),
+        title: const Text('Chỉnh sửa hồ sơ'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -74,6 +78,18 @@ class _UserEditScreenState extends State<UserEditScreen> {
                   shape: BoxShape.circle,
                   color: Colors.grey,
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ButtonOrange(
+                title: 'Tải hình ảnh',
+                onPressed: () {
+                  pickImageFromGallery();
+                },
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,5 +202,18 @@ class _UserEditScreenState extends State<UserEditScreen> {
     await _userApi.editUserInfo(_usernameController.text, _emailController.text,
         _phoneController.text, avatarUrl, birthday);
     context.pop();
+  }
+
+  Future<void> pickImageFromGallery() async {
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (returnImage == null) {
+      return;
+    } else {
+      setState(() {
+        selectedImage = File(returnImage.path);
+      });
+    }
   }
 }

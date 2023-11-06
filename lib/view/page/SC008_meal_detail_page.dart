@@ -13,6 +13,8 @@ import '../../router/router.dart';
 import '../../utils/utils.dart';
 import '../widgets/button_orange.dart';
 
+int totalmax = 1;
+
 class MealDetail extends StatefulWidget {
   const MealDetail({super.key, this.idMeal});
   final String? idMeal;
@@ -26,15 +28,15 @@ class _MealDetailState extends State<MealDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: BackButton(
           onPressed: () => context.pop(),
         ),
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
         // backgroundColor: Color(0x44000000),
-        elevation: 0,
+        // elevation: 0,
         title: const Text('Title'),
         actions: [
           IconButton(
@@ -86,15 +88,19 @@ class DetailMeal extends StatelessWidget {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30)),
-                    child: Image.network(
-                      getStorageUrl(state.model.tray.imgUrl),
-                      height: 300,
-                      // width: 500,
-                      fit: BoxFit.cover,
+                  // SizedBox(
+                  //   height: 100,
+                  //   child: Container(),
+                  // ),
+                  Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.network(
+                        getStorageUrl(state.model.tray.imgUrl),
+                        height: 300,
+                        // width: 500,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Container(
@@ -189,7 +195,10 @@ class DetailMeal extends StatelessWidget {
                               Icons.star,
                               size: 30,
                             ),
-                            const Text(' 4.7'),
+                            const Text(
+                              ' 4.7',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 15),
@@ -197,8 +206,10 @@ class DetailMeal extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold)),
                         Text(state.model.tray.description),
-                        const SizedBox(height: 5),
-                        const Text('Phản Hồi'),
+                        const SizedBox(height: 10),
+                        const Text('Phản Hồi',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 100),
                       ],
                     ),

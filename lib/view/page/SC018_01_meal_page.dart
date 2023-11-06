@@ -75,13 +75,25 @@ class ListMeal extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  // Image.network(
-                                  //   getStorageUrl(state.model[index]. ?? "https://picsum.photos/250?image=9"),
-                                  //   width: 100,
-                                  //   height: 100,
-                                  //   fit: BoxFit.cover,
-                                  // ),
-                                  SizedBox(width: 25),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: SizedBox(
+                                      child: Image.network(
+                                        getStorageUrl(state
+                                                .model[index].tray?.imgUrl ??
+                                            "https://picsum.photos/250?image=9"),
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

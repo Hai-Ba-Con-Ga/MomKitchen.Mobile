@@ -51,11 +51,13 @@ class DishUpdateRequest {
     this.description,
   });
 
-  factory DishUpdateRequest.fromRawJson(String str) => DishUpdateRequest.fromJson(json.decode(str));
+  factory DishUpdateRequest.fromRawJson(String str) =>
+      DishUpdateRequest.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory DishUpdateRequest.fromJson(Map<String, dynamic> json) => DishUpdateRequest(
+  factory DishUpdateRequest.fromJson(Map<String, dynamic> json) =>
+      DishUpdateRequest(
         name: json["name"],
         imageUrl: json["imageUrl"],
         description: json["description"],

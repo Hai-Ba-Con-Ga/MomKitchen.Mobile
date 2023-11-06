@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../bloc/area/meal_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../data/meal_api.dart';
-import '../../data/noti_api.dart';
 import '../../data/order_api.dart';
 import '../../model/meal_detail_model.dart';
 import '../../repository/meal_repository.dart';
@@ -26,13 +25,34 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  int totalQuantity = 1;
+  int quantity = 1;
+  int price = 0;
+  int maxQuantity = 1;
+
+  void setMaxQuantity(int newValue) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        maxQuantity = newValue;
+      });
+      // Logger().i(newValue);
+    });
+  }
+
+  void setPrice(int newValue) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        price = newValue;
+      });
+      // Logger().i(newValue);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading: BackButton(onPressed: () => context.pop),
+        leading: BackButton(),
         title: const Text('Bữa ăn'),
       ),
       body: SingleChildScrollView(
@@ -48,23 +68,26 @@ class _OrderPageState extends State<OrderPage> {
                   create: (context) =>
                       MealBloc(RepositoryProvider.of<MealRepository>(context))
                         ..getMealById(widget.idMeal ?? ''),
-                  child: CardMeal(),
+                  child: CardMeal(
+                    setMaxQuantity: setMaxQuantity,
+                    setPrice: setPrice,
+                  ),
                 ),
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.remove),
-                    onPressed: null,
+                    icon: const Icon(Icons.remove),
+                    onPressed: decreaseQuantity,
                   ),
                   Text(
-                    '3',
-                    style: TextStyle(fontSize: 18),
+                    quantity.toString(),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: null,
+                    icon: const Icon(Icons.add),
+                    onPressed: increaseQuantity,
                   ),
                 ],
               ),
@@ -103,14 +126,14 @@ class _OrderPageState extends State<OrderPage> {
         // color: Colors.amber,
         height: 120,
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: <Widget>[
               Row(
                 children: [
                   Text(
-                    'Tổng Số Tiền: 60\$',
-                    style: TextStyle(fontSize: 20),
+                    'Tổng Số Tiền:     ${NumberFormat.decimalPattern().format(quantity * price)} VND',
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ],
               ),
@@ -118,7 +141,12 @@ class _OrderPageState extends State<OrderPage> {
                 width: 350,
                 child: ButtonOrange(
                   title: 'Đặt hàng',
-                  onPressed: onOrder,
+                  onPressed: () => {
+                    onOrder(),
+                    // context.go(
+                    //   AppPath.home,
+                    // )
+                  },
                   icon: null,
                 ),
               ),
@@ -129,16 +157,56 @@ class _OrderPageState extends State<OrderPage> {
     );
   }
 
+  void decreaseQuantity() {
+    if (quantity > 1) {
+      setState(() {
+        quantity--;
+      });
+    }
+  }
+
+  void increaseQuantity() {
+    if (quantity < maxQuantity) {
+      setState(() {
+        quantity++;
+      });
+    }
+  }
+
   onOrder() async {
-    // NotiApi().pushNoti();
     final prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
-    await OrderApi().createOrder(totalQuantity, userId!, widget.idMeal!);
+    await OrderApi().createOrder(quantity, userId!, widget.idMeal!);
   }
 }
 
-class CardMeal extends StatelessWidget {
-  const CardMeal({super.key});
+class CardMeal extends StatefulWidget {
+  final Function(int) setMaxQuantity;
+  final Function(int) setPrice;
+  const CardMeal(
+      {super.key, required this.setMaxQuantity, required this.setPrice});
+
+  @override
+  State<CardMeal> createState() => _CardMealState();
+}
+
+class _CardMealState extends State<CardMeal> {
+  bool isMaxQuantitySet = false;
+  bool isPriceSet = false;
+
+  void setMaxQuantity(int max) {
+    if (!isMaxQuantitySet) {
+      isMaxQuantitySet = true;
+      widget.setMaxQuantity(max);
+    }
+  }
+
+  void setPrice(int price) {
+    if (!isPriceSet) {
+      isPriceSet = true;
+      widget.setPrice(price);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +221,8 @@ class CardMeal extends StatelessWidget {
             if (state.errorMessage != null) {
               return Center(child: Text(state.errorMessage!));
             } else if (state is CommonState<MealDetailResponse>) {
+              setMaxQuantity(state.model.serviceQuantity);
+              setPrice(state.model.price);
               return Card(
                 child: Row(
                   children: <Widget>[
@@ -161,11 +231,14 @@ class CardMeal extends StatelessWidget {
                       child: SizedBox(
                         width: 120, // Độ rộng của hình ảnh món ăn
                         height: 120, // Chiều cao của hình ảnh món ăn
-                        child: Image.network(
-                          getStorageUrl(state.model.tray.imgUrl),
-                          width: 200, // Độ rộng của hình ảnh
-                          height: 200, // Chiều cao của hình ảnh
-                          fit: BoxFit.cover,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            getStorageUrl(state.model.tray.imgUrl),
+                            width: 200, // Độ rộng của hình ảnh
+                            height: 200, // Chiều cao của hình ảnh
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
