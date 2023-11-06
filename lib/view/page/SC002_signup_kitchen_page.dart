@@ -336,7 +336,7 @@ class _SignInPhoneKitchenOwnerPageState
     await prefs.setString('role', 'Kitchen');
 
     String phoneNumber = phoneController.text.trim();
-    AuthBloc().loginWithPhone(
+    await AuthBloc().loginWithPhone(
         context: context,
         phoneNumber:
             "+${selectedCountry.phoneCode}${phoneNumber.substring(1)}");

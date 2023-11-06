@@ -53,7 +53,8 @@ class AuthBloc extends BaseCubit {
         confirmPassword: confirmPassword,
       );
       if (validateMessage.isEmpty) {
-        final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -97,7 +98,8 @@ class AuthBloc extends BaseCubit {
           isLoading: true,
         ),
       );
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -134,9 +136,11 @@ class AuthBloc extends BaseCubit {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-      final AuthCredential authCredential = GoogleAuthProvider.credential(accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      final AuthCredential authCredential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
 
       final credential = await auth.signInWithCredential(authCredential);
 
@@ -173,7 +177,8 @@ class AuthBloc extends BaseCubit {
     }
   }
 
-  Future<void> loginWithPhone({required BuildContext context, required String phoneNumber}) async {
+  Future<void> loginWithPhone(
+      {required BuildContext context, required String phoneNumber}) async {
     try {
       emit(
         CommonState(
@@ -226,17 +231,22 @@ class AuthBloc extends BaseCubit {
     );
     try {
       var responseLogin;
-      PhoneAuthCredential creds = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: userOtp);
+      PhoneAuthCredential creds = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: userOtp);
       var user = (await auth.signInWithCredential(creds)).user;
       if (user != null) {
         String? idToken = await auth.currentUser?.getIdToken();
         final prefs = await SharedPreferences.getInstance();
         String? fcmtoken = prefs.getString('fcmToken');
+        Logger log = Logger();
+        log.i('idToken: $idToken');
+        log.i('fcmToken: $fcmtoken');
 
         final authRepository = AuthRepository(authApi: AuthApi());
         responseLogin = await authRepository.loginUser(idToken!, fcmtoken!);
 
-        await prefs.setString('userData', jsonEncode(responseLogin.user.toJson()));
+        await prefs.setString(
+            'userData', jsonEncode(responseLogin.user.toJson()));
         await prefs.setString('accessToken', responseLogin.token);
         onSuccess(responseLogin.user.roleName, responseLogin.isFirstTime);
       }

@@ -24,14 +24,17 @@ class _NotificationPageState extends State<NotificationPage> {
           leading: ButtonBack(onPressed: () => context.pop()),
           leadingWidth: 70,
           toolbarHeight: 100,
-          title: const Text('Notification'),
+          title: const Text('Thông Báo'),
         ),
         body: Container(
           child: ListView.builder(
               itemBuilder: (context, index) {
                 return BaseListTile(
                   icon: const Icon(Icons.notifications, color: Colors.red),
-                  title: const Text("notification", style: TextStyle(fontSize: 20)),
+                  title: const Text(
+                    'Thông báo',
+                    style: TextStyle(fontSize: 20),
+                  ),
                   description: const Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                     style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),

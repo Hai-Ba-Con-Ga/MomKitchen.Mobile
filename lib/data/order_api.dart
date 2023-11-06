@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/order_model.dart';
 import '../utils/constants.dart';
 
 class OrderApi {
   final Dio _dio = Dio();
   OrderApi() {
-    _dio.options.baseUrl = '${AppConstants.localhostAdress}/order';
+    _dio.options.baseUrl = '${AppConstants.domainAddress}/order';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
@@ -34,6 +35,33 @@ class OrderApi {
     } catch (error) {
       Logger().e('Error creating Meal: $error');
       throw error;
+    }
+  }
+
+  Future<List<Order>> getAllOrderByUserId() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String? userId = prefs.getString('userId');
+
+      Response response = await _dio.get('/$userId');
+      List<dynamic> OrdersData = response.data['data'] as List<dynamic>;
+      List<Order> Orders =
+          OrdersData.map((data) => Order.fromJson(data)).toList();
+      return Orders;
+    } catch (error) {
+      Logger().e('Error fetching Orders: $error');
+      rethrow;
+    }
+  }
+
+  Future<Order> getOrderById(String OrderId) async {
+    try {
+      Response response = await _dio.get('/$OrderId');
+      Order order = Order.fromJson(response.data['data']);
+      return order;
+    } catch (error) {
+      Logger().e('Error fetching Order by ID: $error');
+      rethrow;
     }
   }
 }

@@ -36,6 +36,10 @@ class _KitchenProfilePageState extends State<KitchenProfilePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('sc028'),
+          ),
           Center(
             child: TextButton(
               onPressed: () => {

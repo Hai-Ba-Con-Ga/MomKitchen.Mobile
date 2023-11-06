@@ -20,7 +20,8 @@ class SignInPhonePage extends StatefulWidget {
 }
 
 class _SignInPhonePageState extends State<SignInPhonePage> {
-  final TextEditingController phoneController = TextEditingController(text: '0947339718');
+  final TextEditingController phoneController =
+      TextEditingController(text: '0947339718');
 
   Country selectedCountry = Country(
     phoneCode: '84',
@@ -208,11 +209,13 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(color: Colors.black12),
+                                      borderSide: const BorderSide(
+                                          color: Colors.black12),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(color: Colors.black12),
+                                      borderSide: const BorderSide(
+                                          color: Colors.black12),
                                     ),
                                     // prefixIcon: Container(
                                     //   padding: const EdgeInsets.all(8.0),
@@ -260,7 +263,8 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 10),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -285,7 +289,8 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                               SizedBox(
                                 width: 350,
                                 child: Container(
-                                  margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 5, 20, 5),
                                   child: ButtonOrange(
                                     title: 'Nhận OPT',
                                     onPressed: () => sendPhoneNumber(),
@@ -299,11 +304,17 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  GestureDetector(onTap: () {}, child: Image.asset('assets/images/google.png')),
+                                  GestureDetector(
+                                      onTap: onGoogleClick,
+                                      child: Image.asset(
+                                          'assets/images/google.png')),
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  GestureDetector(onTap: () {}, child: Image.asset('assets/images/fb.png')),
+                                  GestureDetector(
+                                      onTap: () {},
+                                      child:
+                                          Image.asset('assets/images/fb.png')),
                                 ],
                               ),
                               const SizedBox(height: 10),
@@ -311,7 +322,11 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                                 // color: Colors.red,
                                 height: 190,
                                 child: Stack(children: [
-                                  Positioned(top: 0, left: 10, child: Image.asset('assets/images/kitchenowner.png')),
+                                  Positioned(
+                                      top: 0,
+                                      left: 10,
+                                      child: Image.asset(
+                                          'assets/images/kitchenowner.png')),
                                   Positioned(
                                     bottom: 0,
                                     left: 10,
@@ -319,10 +334,14 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                                     child: SizedBox(
                                       width: 350,
                                       child: Container(
-                                        margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                        margin: const EdgeInsets.fromLTRB(
+                                            20, 5, 20, 5),
                                         child: ButtonOrangeBK(
                                           title: 'Đăng ký dưới dạng Nhà bếp',
-                                          onPressed: () => {context.go(AppPath.signUpPhoneKitchen)},
+                                          onPressed: () => {
+                                            context
+                                                .go(AppPath.signUpPhoneKitchen)
+                                          },
                                           icon: null,
                                         ),
                                       ),
@@ -343,6 +362,13 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
 
   void sendPhoneNumber() {
     String phoneNumber = phoneController.text.trim();
-    AuthBloc().loginWithPhone(context: context, phoneNumber: "+${selectedCountry.phoneCode}${phoneNumber.substring(1)}");
+    AuthBloc().loginWithPhone(
+        context: context,
+        phoneNumber:
+            "+${selectedCountry.phoneCode}${phoneNumber.substring(1)}");
+  }
+
+  Future<void> onGoogleClick() async {
+    await _authBloc.loginWithGoogle();
   }
 }

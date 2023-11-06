@@ -21,6 +21,7 @@ import '../view/page/SC004_home_page.dart';
 import '../view/page/SC028_kitchen_profile_page.dart';
 import '../view/page/SC001_login_page.dart';
 // import '../view/page/SC002_signIn_page.dart';
+import '../view/page/SC0_list_order_page.dart';
 import '../view/page/sign_up_page.dart';
 import '../view/page/user_edit_page.dart';
 import '../view/page/user_page.dart';
@@ -44,6 +45,7 @@ class AppPath {
   static const String search = '/search';
   static const String mealdetail = '/mealdetail';
   static const String order = '/order';
+  static const String listOrder = '/listOrder';
   static const String payment = '/payment';
   static const String kitchenhome = '/kitchenhome';
   static const String kitchenmanager = '/kitchenmanager';
@@ -56,7 +58,7 @@ class AppPath {
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: AppPath.login,
+    initialLocation: AppPath.signUpPhone,
     navigatorKey: RouterKeyManager.instance.rootNavigatorKey,
     routes: <RouteBase>[
       GoRoute(
@@ -132,7 +134,7 @@ class AppRouter {
               context,
               state,
             ) =>
-                const KitchenProfilePage(),
+                const UserPage(),
           ),
           GoRoute(
               path: AppPath.kitchenmap,
@@ -141,11 +143,27 @@ class AppRouter {
                 state,
               ) =>
                   const KitchenMapPage()),
+          GoRoute(
+            path: AppPath.userEdit,
+            builder: (
+              context,
+              state,
+            ) =>
+                const UserEditScreen(),
+          ),
+          GoRoute(
+            path: AppPath.listOrder,
+            builder: (
+              context,
+              state,
+            ) =>
+                const ListOrderPage(),
+          ),
         ],
       ),
-      // GoRoute(
-      //     path: AppPath.orderdetail,
-      //     builder: (context, state) => const OrderDetailPage()),
+      GoRoute(
+          path: AppPath.orderdetail,
+          builder: (context, state) => const OrderDetailPage()),
       GoRoute(
           path: '${AppPath.order}/:idMeal',
           builder: (context, state) =>
@@ -194,7 +212,7 @@ class AppRouter {
               builder: (context, state) => const AddMealPage()),
           GoRoute(
               path: AppPath.kitchenprofile,
-              builder: (context, state) => const KitchenProfilePage()),
+              builder: (context, state) => const UserPage()),
         ],
       ),
     ],

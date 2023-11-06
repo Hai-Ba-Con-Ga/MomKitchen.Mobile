@@ -325,9 +325,9 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
         ));
   }
 
-  void sendPhoneNumber() {
+  Future<void> sendPhoneNumber() async {
     String phoneNumber = phoneController.text.trim();
-    AuthBloc().loginWithPhone(
+    await AuthBloc().loginWithPhone(
         context: context,
         phoneNumber: "+${selectedCountry.phoneCode}$phoneNumber");
   }

@@ -32,7 +32,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             // physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               Text(
-                "Your Order",
+                'Đơn Hàng',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: Theme.of(context).textTheme.headline1?.fontSize),
