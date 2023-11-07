@@ -6,7 +6,7 @@ import '../utils/constants.dart';
 class KitchenApi {
   final Dio _dio = Dio();
   KitchenApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/kitchen';
+    _dio.options.baseUrl = '${AppConstants.localhostAdress}/kitchen';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }

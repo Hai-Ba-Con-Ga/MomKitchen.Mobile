@@ -254,7 +254,7 @@ class _OtpScreenState extends State<OtpScreen> {
         onSuccess: (role, isFirstTime) {
           Logger().i('role: $role, isFirstTime: $isFirstTime');
           var wheretogo = role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
-          if (wheretogo == 'Customer') {
+          if (role == 'Customer') {
             context.go(
               wheretogo,
             );

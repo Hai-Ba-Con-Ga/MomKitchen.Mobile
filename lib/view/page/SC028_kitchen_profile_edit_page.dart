@@ -172,7 +172,7 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
                   areaId: areaId,
                   ownerId: userData.id,
                 );
-                await kitchenRepository.EditKitchen(kitchenId!, kitchenRequest);
+                await kitchenRepository.CreateKitchen(kitchenRequest);
                 context.go('${AppPath.kitchenhome}');
               } else {
                 Logger().e("User is null");

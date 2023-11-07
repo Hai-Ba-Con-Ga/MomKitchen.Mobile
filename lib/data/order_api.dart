@@ -84,6 +84,7 @@ class OrderApi {
       Response response = await _dio.get('', queryParameters: {
         'KitchenId': kitchenId,
         'OrderStatus': status,
+        'OrderBy': 'UpdatedDate:desc',
       });
       List<dynamic> OrdersData = response.data['data'] as List<dynamic>;
       Logger().i(response.data['data']);
