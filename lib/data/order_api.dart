@@ -31,7 +31,13 @@ class OrderApi {
           }
         ]
       });
-      Logger().i(response.data);
+      // Logger().i(response.data['data']);
+
+      // Put order's status to PAID
+      Response r = await _dio.put('', data: {
+        'orderStatus': 'PAID',
+        'orderID': response.data['data'],
+      });
     } catch (error) {
       Logger().e('Error creating Meal: $error');
       throw error;
@@ -41,15 +47,15 @@ class OrderApi {
   Future<List<Order>> getAllOrderByUserId() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      String? userId = prefs.getString('userId');
-//1c441d26-6767-461b-ba97-4cd7f01060e5
+      String? customerId = prefs.getString('customerId');
       Response response = await _dio.get('/', queryParameters: {
         'PageNumber': '1',
         'PageSize': '10',
-        'OwnerId': '1c441d26-6767-461b-ba97-4cd7f01060e5',
+        'OwnerId': customerId,
+        'OrderBy': 'UpdatedDate:desc',
       });
       List<dynamic> OrdersData = response.data['data'] as List<dynamic>;
-      Logger().i(response.data['data']);
+      // Logger().i(response.data['data']);
       List<Order> Orders =
           OrdersData.map((data) => Order.fromJson(data)).toList();
       return Orders;

@@ -175,8 +175,26 @@ class _HomePageState extends State<HomePage> {
             const ListTile(
               title: Text('Top Trending'),
             ),
+            RepositoryProvider(
+              create: (context) => MealRepository(mealApi: MealApi()),
+              child: BlocProvider(
+                create: (context) =>
+                    MealBloc(RepositoryProvider.of<MealRepository>(context))
+                      ..getMeal(),
+                child: Meals(),
+              ),
+            ),
             const ListTile(
               title: Text('Favorite kitchen'),
+            ),
+            RepositoryProvider(
+              create: (context) => MealRepository(mealApi: MealApi()),
+              child: BlocProvider(
+                create: (context) =>
+                    MealBloc(RepositoryProvider.of<MealRepository>(context))
+                      ..getMeal(),
+                child: Meals(),
+              ),
             ),
           ],
         ));
