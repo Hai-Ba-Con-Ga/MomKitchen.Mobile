@@ -150,9 +150,9 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Image.asset('assets/images/googlemap_illustrator.png')),
+            // Container(
+            //     padding: EdgeInsets.symmetric(vertical: 10),
+            //     child: Image.asset('assets/images/googlemap_illustrator.png')),
             Container(
               width: 1000,
               height: 100,

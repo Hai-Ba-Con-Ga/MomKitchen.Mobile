@@ -7,7 +7,7 @@ import '../utils/constants.dart';
 class OrderApi {
   final Dio _dio = Dio();
   OrderApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/order';
+    _dio.options.baseUrl = '${AppConstants.localhostAdress}/order';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
@@ -42,9 +42,14 @@ class OrderApi {
     try {
       final prefs = await SharedPreferences.getInstance();
       String? userId = prefs.getString('userId');
-
-      Response response = await _dio.get('/$userId');
+//1c441d26-6767-461b-ba97-4cd7f01060e5
+      Response response = await _dio.get('/', queryParameters: {
+        'PageNumber': '1',
+        'PageSize': '10',
+        'OwnerId': '1c441d26-6767-461b-ba97-4cd7f01060e5',
+      });
       List<dynamic> OrdersData = response.data['data'] as List<dynamic>;
+      Logger().i(response.data['data']);
       List<Order> Orders =
           OrdersData.map((data) => Order.fromJson(data)).toList();
       return Orders;
