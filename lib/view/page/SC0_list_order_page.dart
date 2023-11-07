@@ -20,18 +20,6 @@ class ListOrderPage extends StatefulWidget {
 }
 
 class _ListOrderPageState extends State<ListOrderPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: ButtonBack(onPressed: () => context.pop()),
-        leadingWidth: 70,
-        toolbarHeight: 100,
-        title: const Text('Đơn Hàng của bạn'),
-      ),
-      body: ListCardOrder(),
-    );
-  }
   // @override
   // Widget build(BuildContext context) {
   //   return Scaffold(
@@ -41,19 +29,31 @@ class _ListOrderPageState extends State<ListOrderPage> {
   //       toolbarHeight: 100,
   //       title: const Text('Đơn Hàng của bạn'),
   //     ),
-  //     body: Container(
-  //       child: RepositoryProvider(
-  //         create: (context) => OrderRepository(orderApi: OrderApi()),
-  //         child: BlocProvider(
-  //           create: (context) =>
-  //               OrderBloc(RepositoryProvider.of<OrderRepository>(context))
-  //                 ..getAllOrderByUserId(),
-  //           child: ListCardOrder(),
-  //         ),
-  //       ),
-  //     ),
+  //     body: ListCardOrder(),
   //   );
   // }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: ButtonBack(onPressed: () => context.pop()),
+        leadingWidth: 70,
+        toolbarHeight: 100,
+        title: const Text('Đơn Hàng của bạn'),
+      ),
+      body: Container(
+        child: RepositoryProvider(
+          create: (context) => OrderRepository(orderApi: OrderApi()),
+          child: BlocProvider(
+            create: (context) =>
+                OrderBloc(RepositoryProvider.of<OrderRepository>(context))
+                  ..getAllOrderByUserId(),
+            child: ListCardOrder(),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 // class ListCardOrder extends StatefulWidget {
@@ -101,16 +101,42 @@ class ListCardOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      // height: 200,
-      width: double.infinity,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return CardOrder();
-        },
-      ),
-    );
+    final myBloc = context.read<OrderBloc>();
+    return BlocBuilder(
+        bloc: myBloc,
+        builder: (context, state) {
+          if (state is CommonState) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state.errorMessage != null) {
+              return Center(child: Text(state.errorMessage!));
+            } else if (state is CommonState<List<Order>>) {
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: state.model.length,
+                itemBuilder: (context, index) {
+                  return CardOrder(
+                    order: state.model[index],
+                  );
+                },
+              );
+            }
+            return Container();
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
+
+    // return SizedBox(
+    //   // height: 200,
+    //   width: double.infinity,
+    //   child: ListView.builder(
+    //     scrollDirection: Axis.vertical,
+    //     itemCount: 3,
+    //     itemBuilder: (context, index) {
+    //       return CardOrder();
+    //     },
+    //   ),
+    // );
   }
 }

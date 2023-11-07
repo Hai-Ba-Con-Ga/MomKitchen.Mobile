@@ -164,7 +164,7 @@ class AppRouter {
           ),
         ],
       ),
-      GoRoute(path: AppPath.orderdetail, builder: (context, state) => const OrderDetailPage()),
+      GoRoute(path: '${AppPath.orderdetail}/:idOrder', builder: (context, state) => OrderDetailPage(idOrder: state.pathParameters['idOrder'] ?? '')),
       GoRoute(path: '${AppPath.order}/:idMeal', builder: (context, state) => OrderPage(idMeal: state.pathParameters['idMeal'] ?? '')),
       GoRoute(path: '${AppPath.search}/:searchText', builder: (context, state) => SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
       GoRoute(path: '${AppPath.mealdetail}/:idMeal', builder: (context, state) => MealDetail(idMeal: state.pathParameters['idMeal'] ?? '')),

@@ -246,7 +246,8 @@ class AuthBloc extends BaseCubit {
         final authRepository = AuthRepository(authApi: AuthApi());
         responseLogin = await authRepository.loginUser(idToken!, fcmtoken!);
 
-        await prefs.setString('userData', jsonEncode(responseLogin.user.toJson()));
+        await prefs.setString(
+            'userData', jsonEncode(responseLogin.user.toJson()));
 
         final userApi = UserApi();
         var user = await userApi.getUserInfo();
@@ -256,6 +257,12 @@ class AuthBloc extends BaseCubit {
             user?.kitchenId ?? '',
           );
           Logger().i('kitchenId: ${user?.kitchenId}');
+        } else if (user?.roleName == 'Customer') {
+          await prefs.setString(
+            'customerId',
+            user?.customerId ?? '',
+          );
+          Logger().i('customerId: ${user?.customerId}');
         }
         await prefs.setString('accessToken', responseLogin.token);
         onSuccess(responseLogin.user.roleName, responseLogin.isFirstTime);

@@ -8,8 +8,8 @@ class MealGetAllResponse {
   int? no;
   String? name;
   int? price;
-  DateTime? serviceFrom;
-  DateTime? serviceTo;
+  DateTime serviceFrom;
+  DateTime serviceTo;
   int? serviceQuantity;
   DateTime? closeTime;
   Kitchen? kitchen;
@@ -28,20 +28,25 @@ class MealGetAllResponse {
     required this.tray,
   });
 
-  factory MealGetAllResponse.fromRawJson(String str) => MealGetAllResponse.fromJson(json.decode(str));
+  factory MealGetAllResponse.fromRawJson(String str) =>
+      MealGetAllResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory MealGetAllResponse.fromJson(Map<String, dynamic> json) => MealGetAllResponse(
+  factory MealGetAllResponse.fromJson(Map<String, dynamic> json) =>
+      MealGetAllResponse(
         id: json['id'],
         no: json['no'],
         name: json['name'],
         price: json['price'].toInt(),
-        serviceFrom: json['serviceFrom'] == null ? null : DateTime.parse(json['serviceFrom']),
-        serviceTo: json['serviceTo'] == null ? null : DateTime.parse(json['serviceTo']),
+        serviceFrom: DateTime.parse(json['serviceFrom']),
+        serviceTo: DateTime.parse(json['serviceTo']),
         serviceQuantity: json['serviceQuantity'],
-        closeTime: json['close_time'] == null ? null : DateTime.parse(json['close_time']),
-        kitchen: json['kitchen'] == null ? null : Kitchen.fromJson(json['kitchen']),
+        closeTime: json['close_time'] == null
+            ? null
+            : DateTime.parse(json['close_time']),
+        kitchen:
+            json['kitchen'] == null ? null : Kitchen.fromJson(json['kitchen']),
         tray: json['tray'] == null ? null : Tray.fromJson(json['tray']),
       );
 
@@ -80,17 +85,25 @@ class MealCreateRequest {
     this.kitchenId,
   });
 
-  factory MealCreateRequest.fromRawJson(String str) => MealCreateRequest.fromJson(json.decode(str));
+  factory MealCreateRequest.fromRawJson(String str) =>
+      MealCreateRequest.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory MealCreateRequest.fromJson(Map<String, dynamic> json) => MealCreateRequest(
+  factory MealCreateRequest.fromJson(Map<String, dynamic> json) =>
+      MealCreateRequest(
         name: json['name'],
         price: json['price'].toInt(),
-        serviceFrom: json['serviceFrom'] == null ? null : DateTime.parse(json['serviceFrom']),
-        serviceTo: json['serviceTo'] == null ? null : DateTime.parse(json['serviceTo']),
+        serviceFrom: json['serviceFrom'] == null
+            ? null
+            : DateTime.parse(json['serviceFrom']),
+        serviceTo: json['serviceTo'] == null
+            ? null
+            : DateTime.parse(json['serviceTo']),
         serviceQuantity: json['serviceQuantity'],
-        closeTime: json['closeTime'] == null ? null : DateTime.parse(json['closeTime']),
+        closeTime: json['closeTime'] == null
+            ? null
+            : DateTime.parse(json['closeTime']),
         trayId: json['trayId'],
         kitchenId: json['kitchenId'],
       );
