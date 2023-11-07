@@ -132,7 +132,7 @@ class _UserPageState extends State<UserPage> {
               onPressed: () => {
                 logOut(),
                 context.go(
-                  AppPath.login,
+                  AppPath.signUpPhone,
                 )
               },
               child: const Text('Log Out'),

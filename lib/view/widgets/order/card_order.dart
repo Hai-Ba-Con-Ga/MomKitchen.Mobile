@@ -2,9 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
+import '../../../model/order_model.dart';
 import '../../../router/router.dart';
+import '../../../utils/utils.dart';
 import '../base_ListTile.dart';
 
 // class CardOrder extends StatefulWidget {
@@ -49,8 +52,8 @@ import '../base_ListTile.dart';
 // }
 
 class CardOrder extends StatefulWidget {
-  const CardOrder({super.key});
-
+  const CardOrder({super.key, required this.order});
+  final Order order;
   @override
   State<CardOrder> createState() => _CardOrderState();
 }
@@ -58,18 +61,20 @@ class CardOrder extends StatefulWidget {
 class _CardOrderState extends State<CardOrder> {
   @override
   Widget build(BuildContext context) {
+    var serviceFrom =
+        DateFormat('yyyy-MM-dd – kk:mm').format(widget.order.meal.serviceFrom);
     return BaseListTile(
       onPressed: () {
-        context.push(AppPath.orderdetail);
+        context.push('${AppPath.orderdetail}/${widget.order.id}');
       },
       icon: const Icon(Icons.receipt_long_outlined, color: Colors.red),
-      title: const Text('Bữa tối thứ 6', style: TextStyle(fontSize: 20)),
-      description: const Text(
-        'Bếp của My',
+      title: Text(truncateText(widget.order.meal.name ?? 'Không có tên', 23),
+          style: const TextStyle(fontSize: 20)),
+      description: Text(
+        'Số lượng: ${widget.order.totalQuantity}' ?? 'Không có tên bếp',
         style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),
       ),
-      // time: Text(formattedDate),
-      time: Text('6-11-2023'),
+      time: Text('Bắt đầu từ: $serviceFrom'),
     );
   }
 }
