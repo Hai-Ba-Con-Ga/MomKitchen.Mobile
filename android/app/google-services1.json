@@ -1,7 +1,6 @@
 {
   "project_info": {
     "project_number": "218849426684",
-    "firebase_url": "https://homekitchen-55393-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "homekitchen-55393",
     "storage_bucket": "homekitchen-55393.appspot.com"
   },
@@ -45,18 +44,18 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:218849426684:android:7f64fb2652303b66ed2b79",
+        "mobilesdk_app_id": "1:218849426684:android:5769bc91efb06302ed2b79",
         "android_client_info": {
           "package_name": "com.chickies.momkitchen"
         }
       },
       "oauth_client": [
         {
-          "client_id": "218849426684-tncviqa44s3l2vrtuiu4esdd3v4iqq8s.apps.googleusercontent.com",
+          "client_id": "218849426684-gp1q10gqjf2v35s94lm26d6lh1rq3i4r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.chickies.momkitchen",
-            "certificate_hash": "c13ccc57f06f4542d9f6721f79b6c026145985e3"
+            "certificate_hash": "60287d1ece8acb4ba021f4ef7f017f1b938bb713"
           }
         },
         {

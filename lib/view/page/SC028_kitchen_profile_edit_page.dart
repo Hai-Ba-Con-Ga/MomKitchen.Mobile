@@ -24,9 +24,8 @@ import '../widgets/button_back.dart';
 import '../widgets/button_orange.dart';
 
 class KitchenProfileEditPage extends StatefulWidget {
-  const KitchenProfileEditPage({Key? key, title, isFirstTime}) : super(key: key);
-  final bool? isFirstTime = false;
-  final String? title = 'Tạo Hồ sơ cá nhân';
+  const KitchenProfileEditPage({Key? key}) : super(key: key);
+  final String? title = 'Tạo Căn Bếp cho bạn';
   @override
   _KitchenProfileEditPageState createState() => _KitchenProfileEditPageState();
 }
@@ -57,7 +56,6 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: ButtonBack(onPressed: () => context.pop()),
         leadingWidth: 70,
         toolbarHeight: 80,
         title: Text(widget.title!),
@@ -162,6 +160,7 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
 
               var prefs = await SharedPreferences.getInstance();
               var user = await prefs.getString('userData');
+              var kitchenId = await prefs.getString('kitchenId');
               if (user != null) {
                 User userData = User.fromJson(jsonDecode(user));
                 KitchenRepository kitchenRepository = KitchenRepository(kitchenApi: KitchenApi());
@@ -173,8 +172,8 @@ class _KitchenProfileEditPageState extends State<KitchenProfileEditPage> {
                   areaId: areaId,
                   ownerId: userData.id,
                 );
-                await kitchenRepository.CreateKitchen(kitchenRequest);
-                context.go('${AppPath.kitchenprofile}');
+                await kitchenRepository.EditKitchen(kitchenId!, kitchenRequest);
+                context.go('${AppPath.kitchenhome}');
               } else {
                 Logger().e("User is null");
               }

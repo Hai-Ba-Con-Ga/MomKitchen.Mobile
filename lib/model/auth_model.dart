@@ -26,6 +26,7 @@ class User {
   String phone;
   dynamic birthday;
   String roleName;
+  String? kitchenId;
 
   User({
     required this.id,
@@ -35,6 +36,7 @@ class User {
     required this.phone,
     required this.birthday,
     required this.roleName,
+    this.kitchenId,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class User {
       phone: json['phone'],
       birthday: json['birthday'],
       roleName: json['roleName'],
+      kitchenId: json['kitchenId'],
     );
   }
 
@@ -57,5 +60,6 @@ class User {
         'phone': phone,
         'birthday': birthday,
         'roleName': roleName,
+        'kitchenId': kitchenId,
       };
 }
