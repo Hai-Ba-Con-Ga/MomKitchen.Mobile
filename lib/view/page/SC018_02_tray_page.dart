@@ -107,12 +107,6 @@ class ListTray extends StatelessWidget {
                                   height: 50,
                                   width: 100,
                                   padding: const EdgeInsets.all(10.0),
-                                  child: TextButton(onPressed: () {}, child: const Text('đánh giá', style: TextStyle(color: Colors.white, fontSize: 12))),
-                                ),
-                                Container(
-                                  height: 50,
-                                  width: 100,
-                                  padding: const EdgeInsets.all(10.0),
                                   child: TextButton(
                                       onPressed: () {
                                         showDialog(

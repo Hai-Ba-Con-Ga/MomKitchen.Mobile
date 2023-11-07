@@ -26,11 +26,9 @@ class MealApi {
   Future<List<MealGetAllResponse>> getAllMeales() async {
     try {
       // add fields to get
-      Response response =
-          await _dio.get('', queryParameters: {'fields': 'UpdatedDate:desc'});
+      Response response = await _dio.get('', queryParameters: {'fields': 'UpdatedDate:desc'});
       List<dynamic> MealData = response.data['data'] as List<dynamic>;
-      List<MealGetAllResponse> Meales =
-          MealData.map((data) => MealGetAllResponse.fromJson(data)).toList();
+      List<MealGetAllResponse> Meales = MealData.map((data) => MealGetAllResponse.fromJson(data)).toList();
       return Meales;
     } catch (error) {
       Logger().e("Error fetching Meales: $error");
@@ -51,8 +49,7 @@ class MealApi {
   Future<void> deleteMeal(String MealId) async {
     try {
       Logger().i(MealId);
-      Response response =
-          await _dio.delete('', queryParameters: {'MealId': MealId});
+      Response response = await _dio.delete('/$MealId');
       Logger().i(response.data);
     } catch (error) {
       Logger().e("Error deleting Meal: $error");
@@ -63,8 +60,7 @@ class MealApi {
   Future<MealDetailResponse> getMealById(String MealId) async {
     try {
       Response response = await _dio.get('/' + MealId);
-      MealDetailResponse Meal =
-          MealDetailResponse.fromJson(response.data['data']);
+      MealDetailResponse Meal = MealDetailResponse.fromJson(response.data['data']);
       return Meal;
     } catch (error) {
       Logger().e("Error fetching Meal by ID: $error");
