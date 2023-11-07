@@ -21,4 +21,15 @@ class KitchenApi {
       throw error;
     }
   }
+
+  //edit kitchen
+  Future<void> editKitchen(String kitchenId, KitchenRequest kitchen) async {
+    try {
+      Response response = await _dio.put('/$kitchenId', data: kitchen.toRawJson());
+      Logger().i(response.data);
+    } catch (error) {
+      Logger().e("Error updating Dish: $error");
+      throw error;
+    }
+  }
 }

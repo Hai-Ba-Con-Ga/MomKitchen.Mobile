@@ -7,4 +7,8 @@ class KitchenRepository {
   Future<void> CreateKitchen(KitchenRequest kitchenRequest) {
     return _kitchenApi.createKitchen(kitchenRequest);
   }
+
+  Future<void> EditKitchen(String kitchenId, KitchenRequest kitchenRequest) {
+    return _kitchenApi.editKitchen(kitchenId, kitchenRequest);
+  }
 }

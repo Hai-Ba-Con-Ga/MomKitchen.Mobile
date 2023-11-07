@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/auth_api.dart';
+import '../../data/user_api.dart';
 import '../../repository/auth_repository.dart';
 import '../../utils/utils.dart';
 import '../../view/page/SC002_01_otp_page.dart';
@@ -245,8 +246,17 @@ class AuthBloc extends BaseCubit {
         final authRepository = AuthRepository(authApi: AuthApi());
         responseLogin = await authRepository.loginUser(idToken!, fcmtoken!);
 
-        await prefs.setString(
-            'userData', jsonEncode(responseLogin.user.toJson()));
+        await prefs.setString('userData', jsonEncode(responseLogin.user.toJson()));
+
+        final userApi = UserApi();
+        var user = await userApi.getUserInfo();
+        if (user?.roleName == "Kitchen") {
+          await prefs.setString(
+            'kitchenId',
+            user?.kitchenId ?? '',
+          );
+          Logger().i('kitchenId: ${user?.kitchenId}');
+        }
         await prefs.setString('accessToken', responseLogin.token);
         onSuccess(responseLogin.user.roleName, responseLogin.isFirstTime);
       }

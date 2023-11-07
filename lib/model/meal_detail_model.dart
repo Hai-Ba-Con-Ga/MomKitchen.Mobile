@@ -37,7 +37,7 @@ class MealDetailResponse {
         id: json['id'],
         no: json['no'],
         name: json['name'],
-        price: json['price'],
+        price: json['price'].toInt(),
         serviceFrom: DateTime.parse(json['serviceFrom']),
         serviceTo: DateTime.parse(json['serviceTo']),
         serviceQuantity: json['serviceQuantity'],
@@ -131,10 +131,9 @@ class Tray {
         name: json['name'],
         description: json['description'],
         imgUrl: json['imgUrl'],
-        price: json['price'],
+        price: json['price'].toInt(),
         kitchenId: json['kitchenId'],
-        dishies:
-            List<Dishy>.from(json['dishies'].map((x) => Dishy.fromJson(x))),
+        dishies: List<Dishy>.from(json['dishies'].map((x) => Dishy.fromJson(x))),
         createdDate: DateTime.parse(json['createdDate']),
       );
 

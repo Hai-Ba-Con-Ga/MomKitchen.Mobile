@@ -247,15 +247,13 @@ class _OtpScreenState extends State<OtpScreen> {
     final prefs = await SharedPreferences.getInstance();
     var role = prefs.getString('role');
 
-    prefs.setString('kitchenId', '9766a5c0-3e0f-4cd0-9bf6-57533943af15');
-
     await AuthBloc().verifyOtp(
         context: context,
         verificationId: widget.verificationId,
         userOtp: userOtp,
         onSuccess: (role, isFirstTime) {
-          var wheretogo =
-              role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
+          Logger().i('role: $role, isFirstTime: $isFirstTime');
+          var wheretogo = role == 'Customer' ? AppPath.home : AppPath.kitchenhome;
           if (wheretogo == 'Customer') {
             context.go(
               wheretogo,
@@ -263,7 +261,7 @@ class _OtpScreenState extends State<OtpScreen> {
           } else {
             if (isFirstTime == true) {
               context.go(
-                AppPath.kitchenprofile,
+                AppPath.createKitchen,
               );
             } else {
               context.go(

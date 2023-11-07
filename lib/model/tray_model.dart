@@ -37,15 +37,11 @@ class Tray {
         name: json['name'],
         description: json['description'],
         imgUrl: json['imgUrl'],
-        price: json['price'],
+        price: json['price'].toInt(),
         kitchenId: json['kitchenId'],
         kitchenName: json['kitchenName'],
-        dish: json['dish'] == null
-            ? []
-            : List<Dish>.from(json['dish']!.map((x) => Dish.fromJson(x))),
-        createdDate: json['createdDate'] == null
-            ? null
-            : DateTime.parse(json['createdDate']),
+        dish: json['dish'] == null ? [] : List<Dish>.from(json['dish']!.map((x) => Dish.fromJson(x))),
+        createdDate: json['createdDate'] == null ? null : DateTime.parse(json['createdDate']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,9 +53,7 @@ class Tray {
         'price': price,
         'kitchenId': kitchenId,
         'kitchenName': kitchenName,
-        'dish': dish == null
-            ? []
-            : List<dynamic>.from(dish!.map((x) => x.toJson())),
+        'dish': dish == null ? [] : List<dynamic>.from(dish!.map((x) => x.toJson())),
         'createdDate': createdDate?.toIso8601String(),
       };
 }
@@ -81,21 +75,17 @@ class TrayCreateRequest {
     this.dishIds,
   });
 
-  factory TrayCreateRequest.fromRawJson(String str) =>
-      TrayCreateRequest.fromJson(json.decode(str));
+  factory TrayCreateRequest.fromRawJson(String str) => TrayCreateRequest.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory TrayCreateRequest.fromJson(Map<String, dynamic> json) =>
-      TrayCreateRequest(
+  factory TrayCreateRequest.fromJson(Map<String, dynamic> json) => TrayCreateRequest(
         name: json['name'],
         description: json['description'],
         imgUrl: json['imgUrl'],
-        price: json['price'],
+        price: json['price'].toInt(),
         kitchenId: json['kitchenId'],
-        dishIds: json['dishIds'] == null
-            ? []
-            : List<String>.from(json['dishIds']!.map((x) => x)),
+        dishIds: json['dishIds'] == null ? [] : List<String>.from(json['dishIds']!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -104,7 +94,6 @@ class TrayCreateRequest {
         'imgUrl': imgUrl,
         'price': price,
         'kitchenId': kitchenId,
-        'dishIds':
-            dishIds == null ? [] : List<dynamic>.from(dishIds!.map((x) => x)),
+        'dishIds': dishIds == null ? [] : List<dynamic>.from(dishIds!.map((x) => x)),
       };
 }

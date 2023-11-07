@@ -33,19 +33,13 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         id: json['id'],
         no: json['no'],
-        totalPrice: json['totalPrice'],
+        totalPrice: json['totalPrice'].toInt(),
         totalQuantity: json['totalQuantity'],
         surcharge: json['surcharge'],
         status: json['status'],
-        customer: json['customer'] == null
-            ? null
-            : Customer.fromJson(json['customer']),
-        meal: json['meal'] == null
-            ? null
-            : MealGetAllResponse.fromJson(json['meal']),
-        createdDate: json['createdDate'] == null
-            ? null
-            : DateTime.parse(json['createdDate']),
+        customer: json['customer'] == null ? null : Customer.fromJson(json['customer']),
+        meal: json['meal'] == null ? null : MealGetAllResponse.fromJson(json['meal']),
+        createdDate: json['createdDate'] == null ? null : DateTime.parse(json['createdDate']),
       );
 
   Map<String, dynamic> toJson() => {
