@@ -17,6 +17,10 @@ class OrderRepository {
     return _orderApi.getOrderById(mealId);
   }
 
+  Future<List<Order>> getAllOrderByKitchenId(String status) {
+    return _orderApi.getAllOrderByKitchenId(status);
+  }
+
   // Future<void> updateMeal(String mealId, Meal mealRequest) {
   //   return _mealApi.updateMeal(mealId, mealRequest);
   // }

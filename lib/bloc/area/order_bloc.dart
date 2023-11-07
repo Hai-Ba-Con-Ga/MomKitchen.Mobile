@@ -59,4 +59,30 @@ class OrderBloc extends BaseCubit {
       );
     }
   }
+
+  Future<void> getAllOrderByKitchenId(String status) async {
+    try {
+      emit(
+        CommonState(
+          null,
+          isLoading: true,
+        ),
+      );
+      final orders = await _orderRepository.getAllOrderByKitchenId(status);
+      emit(
+        CommonState<List<Order>>(
+          orders,
+          isLoading: false,
+        ),
+      );
+    } catch (e) {
+      emit(
+        CommonState(
+          null,
+          isLoading: false,
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
 }

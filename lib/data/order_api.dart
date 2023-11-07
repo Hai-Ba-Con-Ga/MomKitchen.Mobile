@@ -69,4 +69,23 @@ class OrderApi {
       rethrow;
     }
   }
+
+  Future<List<Order>> getAllOrderByKitchenId(String status) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String? kitchenId = prefs.getString('kitchenId');
+      Logger().i('kitchenid: $kitchenId, status: $status');
+      Response response = await _dio.get('', queryParameters: {
+        'KitchenId': kitchenId,
+        'OrderStatus': status,
+      });
+      List<dynamic> OrdersData = response.data['data'] as List<dynamic>;
+      Logger().i(response.data['data']);
+      List<Order> Orders = OrdersData.map((data) => Order.fromJson(data)).toList();
+      return Orders;
+    } catch (error) {
+      Logger().e('Error fetching Orders: $error');
+      rethrow;
+    }
+  }
 }

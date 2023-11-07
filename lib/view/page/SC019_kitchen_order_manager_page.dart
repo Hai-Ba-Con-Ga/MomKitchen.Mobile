@@ -7,6 +7,7 @@ import '../widgets/button_back.dart';
 import 'SC018_01_meal_page.dart';
 import 'SC018_02_tray_page.dart';
 import 'SC018_03_dish_page.dart';
+import 'SC020_paid_order_page.dart';
 
 class KitchenOrderManager extends StatefulWidget {
   const KitchenOrderManager({super.key, this.selectedTab});
@@ -49,7 +50,7 @@ class KitchenOrderManagerState extends State<KitchenOrderManager> with SingleTic
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorColor: const Color(0xFFFF7622),
             tabs: <Widget>[
-              const Tab(text: 'Đang đợi'),
+              const Tab(text: 'Đang đợi '),
               const Tab(text: 'Đã Hoàn Thành'),
               const Tab(text: 'Đã Hủy'),
             ],
@@ -57,10 +58,10 @@ class KitchenOrderManagerState extends State<KitchenOrderManager> with SingleTic
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const <Widget>[
-            MealPage(),
-            TrayPage(),
-            DishPage(),
+          children: <Widget>[
+            PaidOrderPage(orderStatus: 'PAID'),
+            PaidOrderPage(orderStatus: 'COMPLETED'),
+            PaidOrderPage(orderStatus: 'CANCELED'),
           ],
         ),
         // floatingActionButton: FloatingActionButton(

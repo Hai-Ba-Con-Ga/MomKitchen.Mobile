@@ -12,6 +12,7 @@ import '../view/page/SC010_payment_page.dart';
 import '../view/page/SC013_order_detail_page.dart';
 import '../view/page/SC015_kitchen_notification_page.dart';
 import '../view/page/SC015_notification_page.dart';
+import '../view/page/SC019_kitchen_order_manager_page.dart';
 import '../view/page/SC028_kitchen_profile_edit_page.dart';
 import '../view/page/SC017_kitchen_home_page.dart';
 import '../view/page/SC018_01_meal_page_add.dart';
@@ -57,6 +58,7 @@ class AppPath {
   static const String kitchenprofileedit = '/kitchenprofileedit';
   static const String createKitchen = '/createKitchen';
   static const String kitchenNotification = '/kitchenNotification';
+  static const String kitchenOrderManager = '/kitchenOrderManager';
 }
 
 class AppRouter {
@@ -184,6 +186,12 @@ class AppRouter {
         routes: [
           GoRoute(path: AppPath.kitchenhome, builder: (context, state) => const KitchenHome()),
           GoRoute(path: AppPath.kitchenNotification, builder: (context, state) => const KitchenNotificationPage()),
+          GoRoute(
+            path: '${AppPath.kitchenOrderManager}/:tab',
+            builder: (context, state) => KitchenOrderManager(
+              selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
+            ),
+          ),
           GoRoute(
             path: '${AppPath.kitchenmanager}/:tab',
             builder: (context, state) => KitchenManager(
