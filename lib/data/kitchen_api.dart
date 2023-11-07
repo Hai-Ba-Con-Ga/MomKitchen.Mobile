@@ -32,4 +32,16 @@ class KitchenApi {
       throw error;
     }
   }
+
+  //get kitchen
+  Future<Kitchen> getKitchen(String kitchenId) async {
+    try {
+      Response response = await _dio.get('/$kitchenId');
+      Logger().i(response.data);
+      return Kitchen.fromJson(response.data['data']);
+    } catch (error) {
+      Logger().e("Error getting Dish: $error");
+      throw error;
+    }
+  }
 }
