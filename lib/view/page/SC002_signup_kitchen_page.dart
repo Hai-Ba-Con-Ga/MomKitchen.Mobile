@@ -136,7 +136,7 @@ class _SignInPhoneKitchenOwnerPageState
                           child: Column(
                             children: <Widget>[
                               Text(
-                                'ĐĂNG KÝ',
+                                'Đăng Nhập',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   // color: Theme.of(context).colorScheme.primary,

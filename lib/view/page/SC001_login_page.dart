@@ -244,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Container(
                               margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                               child: ButtonOrange(
-                                title: 'ĐĂNG NHẬP',
+                                title: 'Đăng Nhập',
                                 onPressed: onSignInClick,
                                 icon: null,
                               ),
@@ -265,9 +265,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 SizedBox(width: 10),
                                 Text(
-                                  'Đăng ký',
-                                  style: TextStyle(
-                                      color: Colors.orange, fontSize: 16),
+                                  'Đăng Nhập',
+                                  style: TextStyle(color: Colors.orange, fontSize: 16),
                                 ),
                               ],
                             ),

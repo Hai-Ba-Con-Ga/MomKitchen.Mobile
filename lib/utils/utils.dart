@@ -23,10 +23,11 @@ Future<String?> authorizationNavigator() async {
   }
 }
 
-Future<void> logout() async {
+Future<void> utilLogout() async {
   var prefs = await SharedPreferences.getInstance();
   await prefs.remove('accessToken');
-  await prefs.clear();
+  await prefs.remove('userData');
+  await prefs.remove('kitchenId');
   Logger().i(prefs.getString('accessToken'));
   //logout firebase
   await FirebaseAuth.instance.signOut();

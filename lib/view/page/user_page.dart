@@ -129,8 +129,8 @@ class _UserPageState extends State<UserPage> {
           ),
           Center(
             child: TextButton(
-              onPressed: () => {
-                logOut(),
+              onPressed: () async => {
+                await logOut(),
                 context.go(
                   AppPath.signUpPhone,
                 )
@@ -193,5 +193,6 @@ class _UserPageState extends State<UserPage> {
 
   Future<void> logOut() async {
     await AuthBloc().signOutWithGoogle();
+    await utilLogout();
   }
 }
