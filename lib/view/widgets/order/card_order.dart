@@ -65,10 +65,12 @@ class _CardOrderState extends State<CardOrder> {
         DateFormat('yyyy-MM-dd – kk:mm').format(widget.order.meal.serviceFrom);
     return BaseListTile(
       onPressed: () {
-        context.push('${AppPath.orderdetail}/${widget.order.id}');
+        context.push(
+          '${AppPath.orderdetail}/${widget.order.id}',
+        );
       },
       icon: const Icon(Icons.receipt_long_outlined, color: Colors.red),
-      title: Text(truncateText(widget.order.meal.name ?? 'Không có tên', 23),
+      title: Text(truncateText(widget.order.meal.name ?? 'Không có tên', 20),
           style: const TextStyle(fontSize: 20)),
       description: Text(
         'Số lượng: ${widget.order.totalQuantity}' ?? 'Không có tên bếp',
