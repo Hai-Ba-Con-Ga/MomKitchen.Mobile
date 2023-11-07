@@ -394,7 +394,10 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
     }
   }
 
-  void sendPhoneNumber() {
+  void sendPhoneNumber() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('role', 'Customer');
+
     String phoneNumber = phoneController.text.trim();
     AuthBloc().loginWithPhone(context: context, phoneNumber: "+${selectedCountry.phoneCode}${phoneNumber.substring(1)}");
   }

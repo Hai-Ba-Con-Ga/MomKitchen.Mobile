@@ -28,6 +28,7 @@ Future<void> utilLogout() async {
   await prefs.remove('accessToken');
   await prefs.remove('userData');
   await prefs.remove('kitchenId');
+  await prefs.remove('role');
   Logger().i(prefs.getString('accessToken'));
   //logout firebase
   await FirebaseAuth.instance.signOut();

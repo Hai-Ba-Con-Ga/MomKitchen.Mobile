@@ -21,7 +21,7 @@ class AuthApi {
     Response response = await _dio.post('/login', data: {
       'idToken': idToken,
       'fcmToken': fcmToken,
-      'roleName': 'Customer'
+      'roleName': roleName ?? 'Customer',
     });
     var log = Logger();
     User user = ResponseUser.fromJson(response.data['data']).user;

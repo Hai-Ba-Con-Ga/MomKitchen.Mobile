@@ -6,7 +6,7 @@ import '../utils/constants.dart';
 class AreaApi {
   final Dio _dio = Dio();
   AreaApi() {
-    _dio.options.baseUrl = '${AppConstants.domainAddress}/Area';
+    _dio.options.baseUrl = '${AppConstants.localhostAdress}/Area';
     _dio.options.contentType = Headers.jsonContentType;
     _dio.options.responseType = ResponseType.json;
   }
