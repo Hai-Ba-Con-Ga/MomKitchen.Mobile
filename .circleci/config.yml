@@ -41,20 +41,20 @@ jobs:
           command: flutter build apk
 
       # Create iOS artifacts (for Mac)
-      - run:
-          name: Build iOS artifacts
-          command: |
-            flutter build ios
-            mkdir -p ios/build/iphoneos/Runner.app/Frameworks
-            flutter build ios --release --no-codesign
+      # - run:
+      #     name: Build iOS artifacts
+      #     command: |
+      #       flutter build ios
+      #       mkdir -p ios/build/iphoneos/Runner.app/Frameworks
+      #       flutter build ios --release --no-codesign
 
       - store_artifacts:
           path: build/app/outputs/apk/release/app-release.apk
           destination: flutter-apps
 
-      - store_artifacts:
-          path: ios/build/iphoneos/Runner.app
-          destination: flutter-apps
+      # - store_artifacts:
+      #     path: ios/build/iphoneos/Runner.app
+      #     destination: flutter-apps
 
 workflows:
   version: 2
