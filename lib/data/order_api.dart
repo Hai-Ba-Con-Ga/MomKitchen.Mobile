@@ -12,6 +12,18 @@ class OrderApi {
     _dio.options.responseType = ResponseType.json;
   }
 
+  Future<void> changeStatusOrder(String orderId, String status) async {
+    try {
+      Response r = await _dio.put('', data: {
+        'orderStatus': status,
+        'orderID': orderId,
+      });
+    } catch (error) {
+      Logger().e('Error changeStatusOrder: $error');
+      throw error;
+    }
+  }
+
   Future<void> createOrder(
       int totalQuantity, String userId, String idMeal) async {
     try {
@@ -88,7 +100,8 @@ class OrderApi {
       });
       List<dynamic> OrdersData = response.data['data'] as List<dynamic>;
       Logger().i(response.data['data']);
-      List<Order> Orders = OrdersData.map((data) => Order.fromJson(data)).toList();
+      List<Order> Orders =
+          OrdersData.map((data) => Order.fromJson(data)).toList();
       return Orders;
     } catch (error) {
       Logger().e('Error fetching Orders: $error');

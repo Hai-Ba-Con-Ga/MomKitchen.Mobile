@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'kitchen_model.dart';
+
 class MealDetailResponse {
   String id;
   int no;
@@ -62,41 +64,41 @@ class MealDetailResponse {
       };
 }
 
-class Kitchen {
-  int no;
-  String id;
-  String name;
-  String address;
-  String status;
+// class Kitchen {
+//   int no;
+//   String id;
+//   String name;
+//   String address;
+//   String status;
 
-  Kitchen({
-    required this.no,
-    required this.id,
-    required this.name,
-    required this.address,
-    required this.status,
-  });
+//   Kitchen({
+//     required this.no,
+//     required this.id,
+//     required this.name,
+//     required this.address,
+//     required this.status,
+//   });
 
-  factory Kitchen.fromRawJson(String str) => Kitchen.fromJson(json.decode(str));
+//   factory Kitchen.fromRawJson(String str) => Kitchen.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+//   String toRawJson() => json.encode(toJson());
 
-  factory Kitchen.fromJson(Map<String, dynamic> json) => Kitchen(
-        no: json['no'],
-        id: json['id'],
-        name: json['name'],
-        address: json['address'],
-        status: json['status'],
-      );
+//   factory Kitchen.fromJson(Map<String, dynamic> json) => Kitchen(
+//         no: json['no'],
+//         id: json['id'],
+//         name: json['name'],
+//         address: json['address'],
+//         status: json['status'],
+//       );
 
-  Map<String, dynamic> toJson() => {
-        'no': no,
-        'id': id,
-        'name': name,
-        'address': address,
-        'status': status,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         'no': no,
+//         'id': id,
+//         'name': name,
+//         'address': address,
+//         'status': status,
+//       };
+// }
 
 class Tray {
   String id;
@@ -133,7 +135,8 @@ class Tray {
         imgUrl: json['imgUrl'],
         price: json['price'].toInt(),
         kitchenId: json['kitchenId'],
-        dishies: List<Dishy>.from(json['dishies'].map((x) => Dishy.fromJson(x))),
+        dishies:
+            List<Dishy>.from(json['dishies'].map((x) => Dishy.fromJson(x))),
         createdDate: DateTime.parse(json['createdDate']),
       );
 

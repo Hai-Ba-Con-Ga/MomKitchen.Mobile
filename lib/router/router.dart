@@ -8,8 +8,10 @@ import '../view/page/SC005_kitchen_map_page.dart';
 import '../view/page/SC006_search_page.dart';
 import '../view/page/SC008_meal_detail_page.dart';
 import '../view/page/SC009_order_page.dart';
+import '../view/page/SC00_kitchen_page.dart';
 import '../view/page/SC010_payment_page.dart';
 import '../view/page/SC013_order_detail_page.dart';
+import '../view/page/SC013_order_detail_page_kitchen.dart';
 import '../view/page/SC015_kitchen_notification_page.dart';
 import '../view/page/SC015_notification_page.dart';
 import '../view/page/SC019_kitchen_order_manager_page.dart';
@@ -44,6 +46,7 @@ class AppPath {
   static const String userEdit = '/userEdit';
   static const String kitchenmap = '/kitchenmap';
   static const String orderdetail = '/orderdetail';
+  static const String orderdetailKitchen = '/orderdetailKitchen';
   static const String search = '/search';
   static const String mealdetail = '/mealdetail';
   static const String order = '/order';
@@ -59,6 +62,7 @@ class AppPath {
   static const String createKitchen = '/createKitchen';
   static const String kitchenNotification = '/kitchenNotification';
   static const String kitchenOrderManager = '/kitchenOrderManager';
+  static const String kitchenPage = '/kitchenPage';
 }
 
 class AppRouter {
@@ -166,13 +170,53 @@ class AppRouter {
           ),
         ],
       ),
-      GoRoute(path: '${AppPath.orderdetail}/:idOrder', builder: (context, state) => OrderDetailPage(idOrder: state.pathParameters['idOrder'] ?? '')),
-      GoRoute(path: '${AppPath.order}/:idMeal', builder: (context, state) => OrderPage(idMeal: state.pathParameters['idMeal'] ?? '')),
-      GoRoute(path: '${AppPath.search}/:searchText', builder: (context, state) => SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
-      GoRoute(path: '${AppPath.mealdetail}/:idMeal', builder: (context, state) => MealDetail(idMeal: state.pathParameters['idMeal'] ?? '')),
-      GoRoute(path: AppPath.order, builder: (context, state) => const OrderPage()),
-      GoRoute(path: AppPath.payment, builder: (context, state) => const PaymentPage()),
-      GoRoute(path: AppPath.createKitchen, builder: (context, state) => const KitchenProfileEditPage()),
+      GoRoute(
+        path:
+            '${AppPath.kitchenPage}/:kitchenId/:kitchenImg/:kitchenName/:kitchenAddress',
+        builder: (context, state) => KitchenPage(
+          kitchenId: state.pathParameters['kitchenId'] ?? '',
+          kitchenImg: state.pathParameters['kitchenImg'] ?? '',
+          kitchenName: state.pathParameters['kitchenName'] ?? '',
+          kitchenAddress: state.pathParameters['kitchenAddress'] ?? '',
+        ),
+      ),
+      // GoRoute(
+      //   path: '${AppPath.orderdetail}/:idOrder/:otherParameter',
+      //   builder: (context, state) {
+      //     final idOrder = state.pathParameters['idOrder'] ?? '';
+      //     final otherParameter = state.pathParameters['otherParameter'] ?? '';
+      //     return OrderDetailPage(
+      //         idOrder: idOrder, otherParameter: otherParameter);
+      //   },
+      // ),
+      GoRoute(
+          path: '${AppPath.orderdetailKitchen}/:idOrder',
+          builder: (context, state) => OrderDetailPageKitchen(
+              idOrder: state.pathParameters['idOrder'] ?? '')),
+      GoRoute(
+          path: '${AppPath.orderdetail}/:idOrder',
+          builder: (context, state) =>
+              OrderDetailPage(idOrder: state.pathParameters['idOrder'] ?? '')),
+      GoRoute(
+          path: '${AppPath.order}/:idMeal',
+          builder: (context, state) =>
+              OrderPage(idMeal: state.pathParameters['idMeal'] ?? '')),
+      GoRoute(
+          path: '${AppPath.search}/:searchText',
+          builder: (context, state) =>
+              SearchPage(searchText: state.pathParameters['searchText'] ?? '')),
+      GoRoute(
+          path: '${AppPath.mealdetail}/:idMeal',
+          builder: (context, state) =>
+              MealDetail(idMeal: state.pathParameters['idMeal'] ?? '')),
+      GoRoute(
+          path: AppPath.order, builder: (context, state) => const OrderPage()),
+      GoRoute(
+          path: AppPath.payment,
+          builder: (context, state) => const PaymentPage()),
+      GoRoute(
+          path: AppPath.createKitchen,
+          builder: (context, state) => const KitchenProfileEditPage()),
       ShellRoute(
         navigatorKey: RouterKeyManager.instance.shellNavigatorKey,
         builder: (
@@ -184,8 +228,12 @@ class AppRouter {
           child: child,
         ),
         routes: [
-          GoRoute(path: AppPath.kitchenhome, builder: (context, state) => const KitchenHome()),
-          GoRoute(path: AppPath.kitchenNotification, builder: (context, state) => const KitchenNotificationPage()),
+          GoRoute(
+              path: AppPath.kitchenhome,
+              builder: (context, state) => const KitchenHome()),
+          GoRoute(
+              path: AppPath.kitchenNotification,
+              builder: (context, state) => const KitchenNotificationPage()),
           GoRoute(
             path: '${AppPath.kitchenOrderManager}/:tab',
             builder: (context, state) => KitchenOrderManager(
@@ -198,10 +246,18 @@ class AppRouter {
               selectedTab: int.parse(state.pathParameters['tab'] ?? '0'),
             ),
           ),
-          GoRoute(path: AppPath.adddish, builder: (context, state) => const AddDishPage()),
-          GoRoute(path: AppPath.addtray, builder: (context, state) => const AddTrayPage()),
-          GoRoute(path: AppPath.addmeal, builder: (context, state) => const AddMealPage()),
-          GoRoute(path: AppPath.kitchenprofile, builder: (context, state) => const UserPage()),
+          GoRoute(
+              path: AppPath.adddish,
+              builder: (context, state) => const AddDishPage()),
+          GoRoute(
+              path: AppPath.addtray,
+              builder: (context, state) => const AddTrayPage()),
+          GoRoute(
+              path: AppPath.addmeal,
+              builder: (context, state) => const AddMealPage()),
+          GoRoute(
+              path: AppPath.kitchenprofile,
+              builder: (context, state) => const UserPage()),
         ],
       ),
     ],

@@ -20,20 +20,27 @@ class CardOrderKitchen extends StatefulWidget {
 class _CardOrderKitchenState extends State<CardOrderKitchen> {
   @override
   Widget build(BuildContext context) {
-    var serviceFrom = DateFormat('yyyy-MM-dd – kk:mm').format(widget.order.meal.serviceFrom);
+    var serviceFrom =
+        DateFormat('yyyy-MM-dd – kk:mm').format(widget.order.meal.serviceFrom);
     return BaseListTile(
       onPressed: () {
-        context.push('${AppPath.orderdetail}/${widget.order.id}');
+        context.push('${AppPath.orderdetailKitchen}/${widget.order.id}');
       },
       icon: const Icon(Icons.receipt_long_outlined, color: Colors.red),
-      title: Text(truncateText(widget.order.meal.name ?? 'Không có tên', 23) + '\n' + truncateText(widget.order.customer.user?.fullName ?? '', 23), style: const TextStyle(fontSize: 20)),
+      title: Text(
+          truncateText(widget.order.meal.name ?? 'Không có tên', 23) +
+              '\n' +
+              truncateText(widget.order.customer.user?.fullName ?? '', 23),
+          style: const TextStyle(fontSize: 20)),
       description: Text(
         'Số lượng: ${widget.order.totalQuantity}' ?? 'Không có tên bếp',
         style: TextStyle(color: Color.fromRGBO(50, 52, 62, 1)),
       ),
       time: Text('Bắt đầu từ: $serviceFrom'),
       trailing: Container(
-        color: widget.order.status == 'PAID' ? Colors.yellow : (widget.order.status == 'COMPLETED' ? Colors.green : Colors.red),
+        color: widget.order.status == 'PAID'
+            ? Colors.yellow
+            : (widget.order.status == 'COMPLETED' ? Colors.green : Colors.red),
         child: Text('${widget.order.status}'),
       ),
     );

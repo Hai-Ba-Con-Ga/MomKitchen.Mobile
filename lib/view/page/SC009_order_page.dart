@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../bloc/area/meal_bloc.dart';
 import '../../bloc/base_state.dart';
 import '../../data/meal_api.dart';
+import '../../data/noti_api.dart';
 import '../../data/order_api.dart';
 import '../../model/meal_detail_model.dart';
 import '../../repository/meal_repository.dart';
@@ -174,6 +175,7 @@ class _OrderPageState extends State<OrderPage> {
   }
 
   onOrder() async {
+    // NotiApi().pushNoti();
     final prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
     await OrderApi().createOrder(quantity, userId!, widget.idMeal!);
