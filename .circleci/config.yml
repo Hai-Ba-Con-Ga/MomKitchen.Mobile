@@ -4,11 +4,10 @@ jobs:
   build:
     working_directory: ~/my_flutter_app
     docker:
-      - image: circleci/android:api-29
-      - image: circleci/xcode:11.7.0
+      - image: ghcr.io/cirruslabs/flutter:3.13.9
 
     environment:
-      FLUTTER_VERSION: 2.0.1
+      FLUTTER_VERSION: 3.13.9
 
     steps:
       - checkout
@@ -22,7 +21,7 @@ jobs:
       - run:
           name: Install Flutter
           command: |
-            curl -o flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz
+            curl -o flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.9-stable.tar.xz
             tar xf flutter.tar.xz
             export PATH="$HOME/flutter/bin:$PATH"
             flutter precache
@@ -52,16 +51,12 @@ jobs:
           path: build/app/outputs/apk/release/app-release.apk
           destination: flutter-apps
 
-      # - store_artifacts:
-      #     path: ios/build/iphoneos/Runner.app
-      #     destination: flutter-apps
+      - store_artifacts:
+          path: ios/build/iphoneos/Runner.app
+          destination: flutter-apps
 
 workflows:
   version: 2
   build:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: /main/
-
+      - build
