@@ -60,7 +60,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading: ButtonBack(onPressed: () => context.pop),
+        leading: ButtonBack(),
         leadingWidth: 70,
         toolbarHeight: 100,
         title: const Text('Chỉnh sửa hồ sơ'),

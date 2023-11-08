@@ -12,24 +12,26 @@ import '../../repository/order_repository.dart';
 import '../../router/router.dart';
 import '../../utils/utils.dart';
 import '../widgets/button_back.dart';
+import '../widgets/button_orange.dart';
 
-class OrderDetailPage extends StatefulWidget {
-  const OrderDetailPage({super.key, this.idOrder});
+class OrderDetailPageKitchen extends StatefulWidget {
+  const OrderDetailPageKitchen({super.key, this.idOrder});
   final String? idOrder;
 
   @override
-  State<OrderDetailPage> createState() => _OrderDetailPageState();
+  State<OrderDetailPageKitchen> createState() => _OrderDetailPageKitchenState();
 }
 
-class _OrderDetailPageState extends State<OrderDetailPage> {
+class _OrderDetailPageKitchenState extends State<OrderDetailPageKitchen> {
   final ScrollController _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
+    String orderID;
     return Scaffold(
       appBar: AppBar(
         leading: ButtonBack(),
         title: const Text(
-          'Chi tiết đơn hàng',
+          'Chi tiết đơn hàng của Bếp',
           style: TextStyle(color: Colors.white),
         ),
         leadingWidth: 70,
@@ -83,6 +85,22 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   ),
                 ),
               ),
+              ButtonOrange(
+                title: 'Huỷ',
+                onPressed: () => {
+                  OrderApi()
+                      .changeStatusOrder(widget.idOrder ?? '', 'CANCELED'),
+                  context.push('${AppPath.kitchenOrderManager}/2')
+                },
+              ),
+              ButtonOrange(
+                title: 'Hoàn Thành',
+                onPressed: () => {
+                  OrderApi()
+                      .changeStatusOrder(widget.idOrder ?? '', 'COMPLETED'),
+                  context.push('${AppPath.kitchenOrderManager}/1')
+                },
+              )
             ]),
       ),
     );
